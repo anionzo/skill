@@ -15,9 +15,15 @@ set -euo pipefail
 SCRIPT_PATH=$(readlink -f "$0" 2>/dev/null || realpath "$0" 2>/dev/null || echo "$0")
 ROOT=$(CDPATH= cd -- "$(dirname "$SCRIPT_PATH")/.." && pwd)
 
-# Determine project root: explicit arg > INIT_CWD (set by npm) > current dir
+# Determine project root:
+#   1. explicit arg
+#   2. npm_config_local_prefix during lifecycle scripts (correct for npm install --prefix)
+#   3. INIT_CWD (npm invocation cwd)
+#   4. current dir
 if [ -n "${1:-}" ]; then
   PROJECT="$1"
+elif [ "${npm_lifecycle_event:-}" = "postinstall" ] && [ -n "${npm_config_local_prefix:-}" ]; then
+  PROJECT="$npm_config_local_prefix"
 elif [ -n "${INIT_CWD:-}" ]; then
   PROJECT="$INIT_CWD"
 else
