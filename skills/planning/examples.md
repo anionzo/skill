@@ -56,16 +56,69 @@ Expected result:
 - define scope and rollback or migration risks
 - specify verification before implementation starts
 
-## Example 3
+### Completed output — Example 2
 
-User request:
+```
+Goal: Add soft delete support for customers — records should be marked as deleted rather than removed from the database.
 
-```text
-Fix this timeout issue, but think through the approach first.
+Scope:
+- In scope: Customer model (add deletedAt column), all queries that read/update customers, admin UI to show/hide deleted records
+- Out of scope: Hard delete migration for existing data, cascade soft delete for related orders/transactions
+
+Current Pattern:
+- src/models/Customer.ts — Prisma model, no soft delete support
+- src/services/CustomerService.ts — CRUD operations using direct Prisma calls
+- src/routes/customers.ts — REST endpoints, no filtering for deleted records
+- Admin UI at /admin/customers — lists all customers with no deleted/active distinction
+
+Proposed Approach:
+- Add deletedAt DateTime? column to Customer model via Prisma migration
+- Update all CustomerService queries to filter `where: { deletedAt: null }` by default
+- Add restoreCustomer() method to CustomerService
+- Add a "Show deleted" toggle to the admin UI
+
+Steps:
+1. Prisma migration: add deletedAt column, backfill existing records as null
+2. Update CustomerService list/get/update to exclude soft-deleted records
+3. Add deleteCustomer() (sets deletedAt) and restoreCustomer() methods
+4. Update admin UI with deleted/active toggle
+5. Add integration tests for soft delete and restore flows
+
+Risks:
+- Related tables (orders, transactions) still reference soft-deleted customers — need to decide if they should be hidden too
+- Any external integrations that sync customer data may not handle soft-deleted records
+
+Verification: Run customer-related test suite (18 tests); manually verify admin UI shows/hides deleted records; confirm API returns 404 for deleted customer details endpoint.
+
+Handoff: feature-delivery
 ```
 
-Expected result:
+### Completed output — Example 3
 
-- summarize the bug after triage context is available
-- produce a minimal plan for the fix and validation
-- hand off to implementation only after the fix path is concrete
+```
+Goal: Fix the API timeout issue that occurs under load (>100 concurrent requests).
+
+Summary after triage context:
+- Timeouts occur on GET /api/reports endpoint when >100 concurrent requests hit
+- Root cause identified: each request triggers a full table scan on the reports table (no index on the date range filter)
+- The reports table has 2M+ rows and the query filters by createdAt range without an index
+
+Proposed Approach:
+- Add a composite index on (createdAt, status) to speed up the date range filter
+- Add query result caching (5-minute TTL) for identical report requests
+- Set a query timeout of 10s to fail fast instead of hanging
+
+Steps:
+1. Add Prisma migration for the composite index
+2. Add Redis caching layer for report queries (cache key: hash of query params)
+3. Set query timeout in the database connection string
+4. Load test with k6 to confirm timeout is resolved at 200 concurrent requests
+
+Risks:
+- The index will take ~30s to build on production (2M rows) — should use CONCURRENTLY
+- Redis caching adds a new dependency — need to confirm Redis is available in production
+
+Verification: Run k6 load test at 200 concurrent requests — p99 latency should be <2s (currently >30s timeout).
+
+Handoff: feature-delivery
+```

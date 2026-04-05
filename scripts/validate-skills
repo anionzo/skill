@@ -4,6 +4,7 @@ set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 FAIL=0
+WARN=0
 
 require_file() {
   if [ ! -f "$1" ]; then
@@ -33,6 +34,32 @@ require_key() {
   fi
 }
 
+warn_key() {
+  file=$1
+  key=$2
+
+  if [ ! -f "$file" ]; then
+    return
+  fi
+
+  if ! grep -Eq "^${key}:[[:space:]]*" "$file"; then
+    printf 'WARN: Missing key %s in %s\n' "$key" "$file" >&2
+    WARN=1
+  fi
+}
+
+warn_empty_dir() {
+  dir=$1
+  label=$2
+
+  if [ -d "$dir" ]; then
+    if [ -z "$(ls -A "$dir" 2>/dev/null)" ]; then
+      printf 'WARN: %s is empty\n' "$label" >&2
+      WARN=1
+    fi
+  fi
+}
+
 require_dir "$ROOT/docs"
 require_dir "$ROOT/skills"
 require_dir "$ROOT/knowledge"
@@ -56,7 +83,17 @@ for skill_dir in "$ROOT"/skills/*; do
   require_key "$skill_dir/meta.yaml" "version"
   require_key "$skill_dir/meta.yaml" "category"
   require_key "$skill_dir/meta.yaml" "summary"
+
+  warn_key "$skill_dir/meta.yaml" "summary_vi"
+  warn_key "$skill_dir/meta.yaml" "triggers"
+  warn_key "$skill_dir/meta.yaml" "related_skills"
+
+  warn_empty_dir "$skill_dir/references" "$skill_dir/references"
 done
+
+if [ "$WARN" -ne 0 ]; then
+  printf '\nWarnings found.\n' >&2
+fi
 
 if [ "$FAIL" -ne 0 ]; then
   printf 'Skill library validation failed.\n' >&2

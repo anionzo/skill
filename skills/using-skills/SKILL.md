@@ -20,6 +20,8 @@ Load this skill when:
 
 ## Direct Skill Trigger
 
+> `an:` stands for "activate now" — a shorthand to immediately load a specific skill.
+
 If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage`), skip classification and load that skill immediately.
 
 **Rules:**

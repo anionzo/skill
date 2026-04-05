@@ -1,1 +1,8 @@
 generated/
+node_modules/
+.DS_Store
+*.log
+*.tmp
+.env
+coverage/
+dist/

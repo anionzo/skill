@@ -52,3 +52,26 @@ Expected result:
 
 - focus on bugs, risks, and rollout issues
 - avoid spending most of the review on style comments
+
+### Completed output
+
+```
+Findings:
+
+1. [major] src/api/users.ts:34 — The pagination offset is parsed with parseInt() but has no validation for negative values.
+   A client sending `?offset=-1` would cause an out-of-bounds database query. Should clamp to 0 or reject.
+
+2. [minor] src/utils/format.ts:12 — The date formatter uses the local timezone instead of UTC.
+   This could cause inconsistent dates for users in different timezones. Existing API docs specify UTC.
+
+3. [info] Package.json adds 3 new dependencies. Two are well-known (lodash, date-fns), but `tiny-logger` has only 12 GitHub stars and no published security audit.
+   Worth verifying before merging.
+
+Open Questions:
+- Was the offset validation intentionally deferred? If so, it should be tracked as a follow-up ticket.
+- Is the timezone change intentional or an oversight?
+
+Residual Risk: Finding 1 could cause runtime errors under adversarial input. Should be fixed before merge.
+
+Handoff: feature-delivery (fix offset validation before merging)
+```

@@ -187,6 +187,8 @@ bash scripts/validate-skills
 
 Chào mừng đóng góp! Xem **[CONTRIBUTING.md](../CONTRIBUTING.md)** để biết:
 
+🇻🇳 [Hướng dẫn đóng góp tiếng Việt](../i18n/CONTRIBUTING.vi.md)
+
 - ➕ Cách thêm skill mới
 - ✏️ Cách sửa skill có sẵn
 - 📚 Cách đóng góp knowledge

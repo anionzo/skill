@@ -46,3 +46,23 @@ Expected result:
 - determine where the timeout occurs
 - distinguish between slow setup, deadlock, or missing response
 - propose the smallest confirming step
+
+### Completed output
+
+```
+Symptom: Integration test `test/integration/payment.test.ts` times out after 30s on the "processes valid refund" case.
+
+Reproduction: Confirmed locally — `npm test -- payment` hangs at step 3/5 of the refund flow test.
+
+Root-Cause Hypothesis:
+- Most likely: The mock payment gateway is not responding to the refund callback, causing the test to wait indefinitely
+- Evidence: The test uses a mock server on port 9999; logs show the request is sent but no response is received
+- Alternative: A database connection pool exhaustion from a previous test not cleaning up properly
+- Uncertainty: need to check if the mock server is started before the refund call
+
+Confirming Step: Add a 5s timeout to the mock refund endpoint and log whether it receives the request. If the mock receives it but doesn't respond, the mock handler is missing the refund route.
+
+Confidence: medium
+
+Handoff: planning (once root cause is confirmed, the fix is likely a one-line mock handler addition)
+```

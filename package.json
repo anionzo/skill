@@ -1,8 +1,7 @@
 {
   "name": "@anionzo/skill",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
-  "main": "index.js",
   "scripts": {
     "validate": "bash scripts/validate-skills",
     "sync": "bash scripts/sync-platform-files",

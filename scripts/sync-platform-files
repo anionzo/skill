@@ -35,6 +35,8 @@ write_file() {
     printf -- '- `knowledge/global/engineering-principles.md`\n'
     printf -- '- `knowledge/global/review-heuristics.md`\n'
     printf -- '- `knowledge/global/debugging-patterns.md`\n'
+    printf -- '- `knowledge/global/evidence-before-claims.md`\n'
+    printf -- '- `knowledge/global/skill-triggering-rules.md`\n'
     printf -- '- `docs/skill-spec.md`\n\n'
 
     printf '## Working Rules\n\n'
