@@ -1,0 +1,47 @@
+{
+  "name": "@anionzo/skill",
+  "version": "1.0.0",
+  "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
+  "main": "index.js",
+  "scripts": {
+    "validate": "bash scripts/validate-skills",
+    "sync": "bash scripts/sync-platform-files",
+    "postinstall": "echo \"\\n🧠 @anionzo/skill installed successfully!\\n\\n📁 Skills:     node_modules/@anionzo/skill/skills/\\n📚 Knowledge:  node_modules/@anionzo/skill/knowledge/\\n📄 Docs:       node_modules/@anionzo/skill/docs/\\n🌐 i18n:       node_modules/@anionzo/skill/i18n/\\n\\n🔌 To use: copy generated/ output to your project\\n   bash node_modules/@anionzo/skill/scripts/sync-platform-files\\n\""
+  },
+  "files": [
+    "skills/",
+    "knowledge/",
+    "docs/",
+    "i18n/",
+    "adapters/",
+    "templates/",
+    "scripts/",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anionzo/skill.git"
+  },
+  "keywords": [
+    "ai",
+    "skills",
+    "agent",
+    "claude",
+    "opencode",
+    "gemini",
+    "copilot",
+    "coding-agent",
+    "workflow"
+  ],
+  "author": "Mai Trung Tiến",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anionzo/skill/issues"
+  },
+  "homepage": "https://github.com/anionzo/skill#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

@@ -9,6 +9,7 @@
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square&logo=github)](CONTRIBUTING.md)
+[![npm](https://img.shields.io/badge/npm-%40anionzo%2Fskill-crimson?style=flat-square&logo=npm)](https://github.com/anionzo/skill/pkgs/npm/skill)
 
 ---
 
@@ -120,6 +121,27 @@ bash scripts/validate-skills
 # 5. Generate platform files
 bash scripts/sync-platform-files
 ```
+
+### 📦 Install via npm
+
+> Available on [GitHub Packages](https://github.com/anionzo/skill/pkgs/npm/skill)
+
+```bash
+# 1. Install the package
+npm install @anionzo/skill
+
+# 2. Copy skills/knowledge to your project
+cp -r node_modules/@anionzo/skill/skills/ ./
+cp -r node_modules/@anionzo/skill/knowledge/ ./
+
+# 3. Generate platform files
+bash node_modules/@anionzo/skill/scripts/sync-platform-files
+
+# 4. Copy the output to your agent
+cp generated/CLAUDE.md ./   # or OPENCODE.md, GEMINI.md, etc.
+```
+
+> 💡 Or clone the repo directly if you prefer editing skills in place.
 
 ### 🔌 Agent Integration
 

@@ -256,6 +256,31 @@ bash scripts/sync-platform-files
 
 ---
 
+### 📦 Phát Hành Phiên Bản Mới
+
+Package được publish lên [GitHub Packages](https://github.com/anionzo/skill/pkgs/npm/skill) qua GitHub Actions workflow.
+
+#### Cách publish phiên bản mới:
+
+```bash
+# 1. Tăng version trong package.json
+npm version patch   # 1.0.0 → 1.0.1
+# hoặc
+npm version minor   # 1.0.0 → 1.1.0
+# hoặc
+npm version major   # 1.0.0 → 2.0.0
+
+# 2. Push version tag
+git push origin main --tags
+
+# 3. Tạo GitHub Release (kích hoạt workflow publish)
+gh release create v1.0.1 --generate-notes
+```
+
+> 💡 Workflow (`.github/workflows/publish.yml`) chạy validation, sinh platform file, và publish lên GitHub Packages tự động.
+
+---
+
 ### 🚫 Những Điều Không Nên Làm
 
 | | Anti-Pattern |
