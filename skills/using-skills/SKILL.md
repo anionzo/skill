@@ -18,9 +18,33 @@ Load this skill when:
 - the user request mixes multiple intents
 - you are unsure whether the task is implementation, debugging, review, or docs
 
+## Direct Skill Trigger
+
+If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage`), skip classification and load that skill immediately.
+
+**Rules:**
+
+- `an:` prefix means the user already knows what they want — do not second-guess
+- if the named skill does not exist, say so and list available skills
+- still apply the planning and verification rules if relevant
+- after the triggered skill completes, return to normal workflow
+
+**Available skills:**
+
+- `an:brainstorming` — refine vague ideas before planning
+- `an:repo-onboarding` — understand an unfamiliar codebase
+- `an:planning` — create an execution-ready plan
+- `an:feature-delivery` — implement a feature
+- `an:bug-triage` — investigate errors or regressions
+- `an:refactor-safe` — restructure code without behavior change
+- `an:verification-before-completion` — verify before claiming done
+- `an:code-review` — review a diff or PR
+- `an:docs-writer` — update documentation
+
 ## Workflow
 
-1. Classify the request into one of these modes:
+1. Check for direct trigger: if the user typed `an:<skill-name>`, load that skill and skip to step 5.
+2. Classify the request into one of these modes:
    - idea refinement or specification
    - repo understanding
    - bug or regression investigation
@@ -28,14 +52,14 @@ Load this skill when:
    - code review
    - documentation work
    - answer-only guidance
-2. Decide whether the task first needs brainstorming or can go straight to planning.
-3. Pick one primary skill.
-4. Pull in one or two knowledge files only if they materially help.
+3. Decide whether the task first needs brainstorming or can go straight to planning.
+4. Pick one primary skill.
 5. State the chosen skill and the immediate next step.
 6. Ask a short blocking question only if the task cannot proceed safely without it.
 
 ## Routing Guide
 
+- `an:<skill-name>` (direct trigger) -> load the named skill immediately
 - vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
 - unfamiliar repo or missing context -> `repo-onboarding`
 - docs work in an unfamiliar repo -> `repo-onboarding` first, then `docs-writer`
