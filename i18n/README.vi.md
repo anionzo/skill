@@ -23,6 +23,8 @@
 
 Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy **workflow-first** từ `hoangnb24/skills`, hành vi **plan-first** từ các coding agent hiện đại như OpenCode, và tư duy **multi-platform** từ `knowns-dev/knowns` — rồi biến chúng thành thư viện cá nhân thực dụng.
 
+Thư viện hiện tại được cô đọng có chủ đích: giữ **13 skill sắc nét hơn** thay vì tách mỗi workflow gần nhau thành một tên riêng. Các luồng bị chồng lắp như onboarding repo, handoff giữa session, và go mode end-to-end đã được nhập vào các skill lõi mạnh hơn (`research`, `extract`, và `planning`) để giảm nhiễu khi route.
+
 ### 🏗️ Mục Tiêu Thiết Kế
 
 | | Mục tiêu |
@@ -47,6 +49,8 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
 ```
 
 ### 🎯 Danh Mục Skill
+
+Catalog này được giữ gọn có chủ đích: mỗi skill nên sở hữu một nhiệm vụ thật sự khác biệt, còn các workflow gần nhau sẽ được gộp lại trừ khi mức rủi ro hoặc cách làm việc khác nhau rõ rệt.
 
 | | Skill | Mục đích |
 |---|---|---|

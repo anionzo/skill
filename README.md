@@ -23,6 +23,8 @@
 
 This repo is intentionally lighter than a full workflow product. It borrows the **workflow-first** mindset from `hoangnb24/skills`, the **plan-first** behavior from modern coding agents like OpenCode, and the **multi-platform** approach from `knowns-dev/knowns` — then turns them into a practical personal library.
 
+The current library is intentionally consolidated: it keeps **13 higher-signal skills** instead of splitting every adjacent workflow into separate names. Overlapping flows such as repo onboarding, session handoff, and end-to-end go mode are folded into stronger core skills (`research`, `extract`, and `planning`) to reduce routing noise.
+
 ### 🏗️ Design Goals
 
 | | Goal |
@@ -47,6 +49,8 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
 ```
 
 ### 🎯 Skill Catalog
+
+This catalog is intentionally compact: each skill should own a clearly distinct job, and nearby workflows are merged unless the risk profile or working mode is meaningfully different.
 
 | | Skill | Purpose |
 |---|---|---|
