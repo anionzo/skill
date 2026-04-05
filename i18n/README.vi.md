@@ -4,7 +4,7 @@
 
 **Thư viện skill đa agent, vendor-neutral cho kỹ thuật phần mềm hỗ trợ AI**
 
-[![Skills](https://img.shields.io/badge/skills-10-blue?style=flat-square&logo=bookstack)](../skills/)
+[![Skills](https://img.shields.io/badge/skills-15-blue?style=flat-square&logo=bookstack)](../skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](../knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](../adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](../LICENSE)
@@ -51,15 +51,20 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
 | | Skill | Mục đích |
 |---|---|---|
 | 🧭 | `using-skills` | Phân loại request và chọn đúng skill |
-| 💡 | `brainstorming` | Làm rõ ý tưởng mơ hồ trước khi lập plan |
+| 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec nếu cần |
 | 🗺️ | `repo-onboarding` | Hiểu codebase lạ trước khi hành động |
-| 📐 | `planning` | Biến request thành plan thực thi trước khi code |
+| 🔎 | `research` | Tìm hiểu code và pattern có sẵn trước khi implement |
+| 📐 | `planning` | Plan thực thi với bước nhỏ gọn, không placeholder |
 | 🚀 | `feature-delivery` | Triển khai feature với thay đổi tối thiểu, phù hợp repo |
-| 🐛 | `bug-triage` | Điều tra lỗi, regression, failure chưa rõ nguyên nhân |
+| 🧪 | `test-driven-development` | Kỷ luật test-first với chu trình red-green-refactor |
+| 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc |
 | ♻️ | `refactor-safe` | Tái cấu trúc code mà không thay đổi hành vi |
-| ✅ | `verification-before-completion` | Yêu cầu bằng chứng trước khi tuyên bố xong |
-| 🔍 | `code-review` | Review diff ưu tiên bug, regression, test gap |
-| 📝 | `docs-writer` | Cập nhật docs từ hành vi thực tế đã xác minh |
+| ✅ | `verification-before-completion` | Luật sắt: không tuyên bố xong mà không có bằng chứng mới |
+| 🔍 | `code-review` | Cho và nhận code review với phân loại mức độ |
+| 📝 | `commit` | Tạo commit conventional với review thay đổi staged |
+| 📖 | `docs-writer` | Cập nhật docs từ hành vi thực tế đã xác minh |
+| 🧬 | `extract` | Trích xuất pattern, quyết định, bài học từ công việc |
+| ⚡ | `go-pipeline` | Thực thi pipeline spec-to-commit trong một lượt |
 
 ### 🔄 Workflow Mặc Định
 
@@ -77,10 +82,13 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
               ┌────────────┼────────────┐
               ▼            ▼            ▼
      ┌────────────┐ ┌───────────┐ ┌──────────────┐
-     │  feature-  │ │ bug-triage│ │ refactor-safe│
+     │  feature-  │ │   debug   │ │ refactor-safe│
      │  delivery  │ │           │ │              │
      └─────┬──────┘ └─────┬─────┘ └──────┬───────┘
            │              │              │
+           │       ┌──────┴──────┐       │
+           │       │     TDD     │       │
+           │       └──────┬──────┘       │
            ▼              ▼              ▼
      ┌─────────────────────────────────────────┐
      │      verification-before-completion     │
@@ -88,7 +96,11 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
                           ▼
                    ┌─────────────┐
                    │ code-review │
-                   └─────────────┘
+                   └──────┬──────┘
+                          ▼
+                    ┌──────────┐
+                    │  commit  │
+                    └──────────┘
 ```
 
 ### 📖 Nghiên Cứu Tham Khảo

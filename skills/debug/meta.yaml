@@ -1,29 +1,38 @@
 name: debug
-version: 0.1.0
+version: 0.2.0
 category: troubleshooting
-summary: Systematically debug errors through triage, reproduction, root cause analysis, and verified fix.
-summary_vi: "G\u1EE1 l\u1ED7i c\xF3 h\u1EC7 th\u1ED1ng qua ph\xE2n lo\u1EA1i, t\xE1i t\u1EA1o, ph\xE2n t\xEDch nguy\xEAn nh\xE2n g\u1ED1c, v\xE0 x\xE1c minh b\u1EA3n s\u1EEDa."
+summary: 4-phase systematic debugging with root cause investigation, multi-component diagnostics, and 3+ fix escalation.
+summary_vi: "Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc, chẩn đoán đa thành phần, và leo thang khi 3+ lần sửa thất bại."
 triggers:
   - debug this error
   - fix this failure
   - why is this failing
   - diagnose this issue
+  - investigate this error
+  - debug this regression
+  - failing test or production issue
 inputs:
   - error message or stack trace
   - failing command
+  - bug report or reproduction steps
   - optional task context
 outputs:
   - classification
-  - root cause
+  - root cause with file:line
   - verified fix
+  - fix attempt count
   - learning captured
 constraints:
+  - no fixes without root cause investigation first
   - must reproduce before diagnosing
   - must verify fix before declaring success
+  - escalate at 3+ failed fix attempts
 related_skills:
   - using-skills
+  - planning
   - feature-delivery
   - extract
   - code-review
   - commit
   - verification-before-completion
+  - test-driven-development

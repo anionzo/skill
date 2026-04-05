@@ -22,7 +22,7 @@ Load this skill when:
 
 > `an:` stands for "activate now" — a shorthand to immediately load a specific skill.
 
-If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage`), skip classification and load that skill immediately.
+If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), skip classification and load that skill immediately.
 
 **Rules:**
 
@@ -33,17 +33,16 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage
 
 **Available skills:**
 
-- `an:brainstorming` — refine vague ideas before planning
+- `an:brainstorming` — explore ideas, lock decisions, optionally write a spec
 - `an:repo-onboarding` — understand an unfamiliar codebase
 - `an:research` — explore existing code and patterns before implementing
-- `an:spec` — create a feature specification through Socratic exploration
-- `an:planning` — create an execution-ready plan
+- `an:planning` — create an execution-ready plan with bite-sized steps
 - `an:feature-delivery` — implement a feature
-- `an:bug-triage` — investigate errors or regressions
-- `an:debug` — structured debugging: triage, reproduce, root cause, fix, learn
+- `an:test-driven-development` — implement with TDD (red-green-refactor)
+- `an:debug` — systematic 4-phase debugging: investigate, analyze, fix, learn
 - `an:refactor-safe` — restructure code without behavior change
 - `an:verification-before-completion` — verify before claiming done
-- `an:code-review` — review a diff or PR
+- `an:code-review` — review a diff/PR, or evaluate received feedback
 - `an:commit` — create a conventional commit with verification
 - `an:docs-writer` — update documentation
 - `an:extract` — extract patterns, decisions, and learnings from completed work
@@ -53,11 +52,12 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage
 
 1. Check for direct trigger: if the user typed `an:<skill-name>`, load that skill and skip to step 5.
 2. Classify the request into one of these modes:
-   - idea refinement or specification
+   - idea refinement, specification, or requirements definition
    - repo understanding
    - bug or regression investigation
    - planning and implementation
-   - code review
+   - test-driven implementation
+   - code review (giving or receiving)
    - documentation work
    - answer-only guidance
 3. Decide whether the task first needs brainstorming or can go straight to planning.
@@ -71,12 +71,14 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage
 - vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
 - unfamiliar repo or missing context -> `repo-onboarding`
 - need to understand existing code before implementing -> `research`
-- complex feature needing requirements definition -> `spec`, then `planning`
+- complex feature needing requirements definition -> `brainstorming` (includes spec writing)
 - docs work in an unfamiliar repo -> `repo-onboarding` first, then `docs-writer`
-- bug report, error trace, failing test, regression -> `bug-triage`, then `debug` if deeper diagnosis needed
+- bug report, error trace, failing test, regression -> `debug`
 - implement or change behavior -> `planning`, then `feature-delivery`
+- implement with TDD approach -> `planning`, then `test-driven-development`
 - refactor, restructure, extract, or migrate without behavior change -> `planning`, then `refactor-safe`
 - review diff, PR, or changed files -> `code-review`
+- respond to review feedback -> `code-review` (receiving mode)
 - ready to commit -> `commit`
 - update README, runbook, onboarding docs, API notes in a known repo -> `docs-writer`
 - extract learnings from completed work -> `extract`
@@ -95,7 +97,7 @@ You may skip a separate planning step only when the change is clearly local, low
 
 ## Verification Rule
 
-Use `verification-before-completion` before any strong claim that work is done, fixed, passing, or ready.
+Use `verification-before-completion` before any strong claim that work is done, fixed, passing, or ready. No completion claims without fresh evidence.
 
 ## Output Format
 
@@ -117,6 +119,7 @@ Present results using the Shared Output Contract:
 - loading many skills at once without a clear reason
 - asking broad planning questions before checking if the task is already clear
 - forcing a feature workflow onto a review or docs task
+- skipping TDD when the user requested it
 
 ## Done Criteria
 

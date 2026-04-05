@@ -16,7 +16,7 @@ Load this skill when:
 
 ## When NOT To Use
 
-- Spec is still a draft — redirect to `spec` first.
+- Spec is still a draft — redirect to `brainstorming` first.
 - User wants to review each task individually — use `planning` + `feature-delivery` per task.
 - Spec has unresolved open questions — resolve them first.
 - The scope is too large for one context window — use `planning` + `feature-delivery` incrementally.
@@ -33,7 +33,7 @@ Before starting, verify the spec is ready:
 - [ ] Requirements are specific enough to implement
 
 If any check fails, STOP and redirect:
-> "Spec not ready. [specific issue]. Run `spec` first."
+> "Spec not ready. [specific issue]. Run `brainstorming` first."
 
 ### Phase 2: Generate Tasks
 

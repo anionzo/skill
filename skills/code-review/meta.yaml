@@ -1,30 +1,34 @@
 name: code-review
-version: 0.2.0
+version: 0.3.0
 category: review
-summary: Multi-perspective code review with P1/P2/P3 severity triage that gates commits on blocking findings.
-summary_vi: "Review code \u0111a chi\u1EC1u v\u1EDBi ph\xE2n lo\u1EA1i m\u1EE9c \u0111\u1ED9 P1/P2/P3, ch\u1EB7n commit khi c\xF3 l\u1ED7i blocking."
+summary: Multi-perspective code review with P1/P2/P3 severity triage, plus technical evaluation protocol for receiving feedback.
+summary_vi: "Review code đa chiều với P1/P2/P3, cộng protocol đánh giá kỹ thuật khi nhận feedback."
 triggers:
   - review this PR
   - review these changes
   - look for risks before merge
   - check this code
+  - fix review comments
+  - respond to review feedback
 inputs:
   - diff or changed files
+  - review feedback to evaluate
   - relevant tests or docs when needed
   - optional task or spec reference
 outputs:
   - severity-ranked findings (P1/P2/P3)
   - review verdict (PASS/BLOCKED)
-  - open questions
-  - residual risk notes
+  - technical evaluation of received feedback
+  - items implemented or pushed back
 constraints:
-  - findings first
   - P1 blocks commit (hard gate)
-  - avoid style-only comments unless they hide a real risk
+  - no performative agreement when receiving feedback
+  - verify suggestions against codebase before implementing
+  - push back with technical reasoning when warranted
 related_skills:
   - using-skills
-  - bug-triage
   - debug
   - verification-before-completion
   - commit
   - planning
+  - test-driven-development

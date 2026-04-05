@@ -1,8 +1,8 @@
 name: verification-before-completion
-version: 0.2.0
+version: 0.3.0
 category: quality
-summary: Require fresh evidence before claiming work is done, with verification levels and spec AC coverage checking.
-summary_vi: "Y\xEAu c\u1EA7u b\u1EB1ng ch\u1EE9ng m\u1EDBi tr\u01B0\u1EDBc khi tuy\xEAn b\u1ED1 ho\xE0n th\xE0nh, v\u1EDBi ki\u1EC3m tra m\u1EE9c x\xE1c minh v\xE0 AC coverage theo spec."
+summary: Iron law enforcement of fresh evidence before completion claims, with forbidden words, anti-rationalization, and AC coverage.
+summary_vi: "Thực thi nghiêm ngặt bằng chứng mới trước khi tuyên bố hoàn thành, với từ cấm, chống rationalization, và AC coverage."
 triggers:
   - verify this works
   - check before marking done
@@ -19,6 +19,8 @@ outputs:
   - AC coverage report (if spec-linked)
   - remaining uncertainty
 constraints:
+  - no completion claims without fresh verification evidence
+  - forbidden words without evidence block completion
   - must run fresh verification, not use stale output
   - stubs (L1 only) block completion
 related_skills:
@@ -28,3 +30,4 @@ related_skills:
   - feature-delivery
   - debug
   - planning
+  - test-driven-development

@@ -65,7 +65,7 @@ Present findings using the Shared Output Contract:
    - patterns that new code should follow
 3. **Next Action** — recommend a follow-up only when findings clearly lead somewhere:
    - research for an active task → `planning`
-   - research revealed a gap → `spec` or `brainstorming`
+   - research revealed a gap → `brainstorming`
    - no clear handoff → stop after findings
 
 ## Research Rules

@@ -4,7 +4,7 @@
 
 **A vendor-neutral, multi-agent skill library for AI-powered software engineering**
 
-[![Skills](https://img.shields.io/badge/skills-10-blue?style=flat-square&logo=bookstack)](skills/)
+[![Skills](https://img.shields.io/badge/skills-15-blue?style=flat-square&logo=bookstack)](skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
@@ -51,15 +51,20 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
 | | Skill | Purpose |
 |---|---|---|
 | 🧭 | `using-skills` | Route a request to the right skill and working mode |
-| 💡 | `brainstorming` | Refine rough ideas into a concrete direction before planning |
+| 💡 | `brainstorming` | Explore ideas, lock decisions, optionally write a spec |
 | 🗺️ | `repo-onboarding` | Understand an unfamiliar codebase before acting |
-| 📐 | `planning` | Turn a request into an execution-ready plan |
+| 🔎 | `research` | Explore existing code and patterns before implementing |
+| 📐 | `planning` | Execution-ready plans with bite-sized steps and no placeholders |
 | 🚀 | `feature-delivery` | Implement a feature with minimal, repo-aligned change |
-| 🐛 | `bug-triage` | Investigate errors, regressions, and unclear failures |
+| 🧪 | `test-driven-development` | Enforce test-first discipline with red-green-refactor |
+| 🐛 | `debug` | 4-phase systematic debugging with root cause investigation |
 | ♻️ | `refactor-safe` | Restructure code without changing behavior |
-| ✅ | `verification-before-completion` | Require fresh evidence before claiming done |
-| 🔍 | `code-review` | Review diffs — bugs, regressions, test gaps first |
-| 📝 | `docs-writer` | Update docs from verified source behavior |
+| ✅ | `verification-before-completion` | Iron law: no completion claims without fresh evidence |
+| 🔍 | `code-review` | Give and receive code reviews with severity triage |
+| 📝 | `commit` | Create conventional commits with staged change review |
+| 📖 | `docs-writer` | Update docs from verified source behavior |
+| 🧬 | `extract` | Extract patterns, decisions, and learnings from work |
+| ⚡ | `go-pipeline` | Execute a full spec-to-commit pipeline in one run |
 
 ### 🔄 Default Workflow
 
@@ -77,10 +82,13 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
               ┌────────────┼────────────┐
               ▼            ▼            ▼
      ┌────────────┐ ┌───────────┐ ┌──────────────┐
-     │  feature-  │ │ bug-triage│ │ refactor-safe│
+     │  feature-  │ │   debug   │ │ refactor-safe│
      │  delivery  │ │           │ │              │
      └─────┬──────┘ └─────┬─────┘ └──────┬───────┘
            │              │              │
+           │       ┌──────┴──────┐       │
+           │       │     TDD     │       │
+           │       └──────┬──────┘       │
            ▼              ▼              ▼
      ┌─────────────────────────────────────────┐
      │      verification-before-completion     │
@@ -88,7 +96,11 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
                           ▼
                    ┌─────────────┐
                    │ code-review │
-                   └─────────────┘
+                   └──────┬──────┘
+                          ▼
+                    ┌──────────┐
+                    │  commit  │
+                    └──────────┘
 ```
 
 ### 📖 Research Highlights

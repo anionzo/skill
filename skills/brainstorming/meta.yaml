@@ -1,23 +1,31 @@
 name: brainstorming
-version: 0.1.0
+version: 0.2.0
 category: discovery
-summary: Turn a rough idea or underspecified request into a concrete, reviewable direction before planning begins.
-summary_vi: Biến ý tưởng thô hoặc request chưa rõ thành hướng đi cụ thể, có thể review, trước khi bắt đầu lập plan.
+summary: Turn a rough idea into a concrete direction with locked decisions, optionally formalized into a spec with acceptance criteria.
+summary_vi: "Biến ý tưởng thô thành hướng đi cụ thể với quyết định đã khóa, có thể formalize thành spec với acceptance criteria."
 triggers:
   - help me think this through
   - explore the approach first
   - the request is vague or underspecified
+  - spec this feature
+  - define requirements
+  - what should we build
+  - create a specification
 inputs:
-  - rough idea
+  - rough idea or feature description
   - user goals and constraints
 outputs:
-  - clarified goal
-  - key decisions
-  - open questions
-  - handoff into planning
+  - clarified goal and direction
+  - locked decisions (D1, D2...)
+  - scope boundary
+  - optional spec with requirements and ACs
+  - approval status
 constraints:
-  - avoid jumping into code or low-level implementation too early
-  - keep the discussion concrete and decision-oriented
+  - ask one question at a time during exploration
+  - do not skip the review step
+  - keep focused on WHAT not HOW
 related_skills:
   - using-skills
   - planning
+  - go-pipeline
+  - feature-delivery

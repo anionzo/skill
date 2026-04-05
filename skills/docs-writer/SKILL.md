@@ -79,7 +79,7 @@ Present results using the Shared Output Contract:
    - whether section edit or full rewrite
    - assumptions or follow-ups
 3. **Next Action** — only when a natural follow-up exists:
-   - if doc reveals code issues → `bug-triage` or `debug`
+   - if doc reveals code issues → `debug`
    - if doc is part of feature work → `verification-before-completion`
 
 ## Documentation Rules

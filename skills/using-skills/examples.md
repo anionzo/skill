@@ -26,9 +26,9 @@ This login flow started failing after yesterday's deploy.
 Expected routing:
 
 - task type: bug investigation
-- chosen skill: `bug-triage`
-- planning required: maybe, after triage if the fix is not obviously local
-- next step: restate the symptom and try to reproduce it
+- chosen skill: `debug`
+- planning required: maybe, after diagnosis if the fix is not obviously local
+- next step: classify the issue and try to reproduce it
 
 ## Example 3
 
