@@ -125,19 +125,16 @@ bash scripts/sync-platform-files
 > Có sẵn trên [npm](https://www.npmjs.com/package/@anionzo/skill) — không cần xác thực
 
 ```bash
-# 1. Cài đặt package
 npm install @anionzo/skill
-
-# 2. Copy skills/knowledge vào project
-cp -r node_modules/@anionzo/skill/skills/ ./
-cp -r node_modules/@anionzo/skill/knowledge/ ./
-
-# 3. Sinh platform file
-bash node_modules/@anionzo/skill/scripts/sync-platform-files
-
-# 4. Copy output sang agent
-cp generated/CLAUDE.md ./   # hoặc OPENCODE.md, GEMINI.md, v.v.
 ```
+
+Xong! Skill tự động được cài vào:
+
+- `.opencode/skills/` — cho OpenCode
+- `.claude/skills/` — cho Claude Code
+- `.agents/skills/` — cho các agent khác
+
+Mở agent và dùng `/skill` để xem danh sách skill.
 
 > 💡 Hoặc clone repo trực tiếp nếu muốn chỉnh sửa skill tại chỗ.
 

@@ -1,0 +1,76 @@
+#!/usr/bin/env sh
+
+# Install skills into .opencode/skills/ with proper YAML frontmatter
+#
+# Auto-runs on npm install (postinstall hook).
+# Also supports: .claude/skills/ and .agents/skills/
+#
+# Manual usage:
+#   bash scripts/install-opencode-skills [project-dir]
+
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+
+# Determine project root: explicit arg > INIT_CWD (set by npm) > current dir
+if [ -n "${1:-}" ]; then
+  PROJECT="$1"
+elif [ -n "${INIT_CWD:-}" ]; then
+  PROJECT="$INIT_CWD"
+else
+  PROJECT="$(pwd)"
+fi
+
+# Don't install into ourselves
+case "$PROJECT" in
+  */node_modules/*) exit 0 ;;
+esac
+
+install_skills() {
+  target_dir="$1"
+  format_name="$2"
+
+  mkdir -p "$target_dir"
+  count=0
+
+  for skill_dir in "$ROOT"/skills/*/; do
+    [ -d "$skill_dir" ] || continue
+
+    skill_name=$(basename "$skill_dir")
+    skill_md="$skill_dir/SKILL.md"
+    meta_yaml="$skill_dir/meta.yaml"
+
+    [ -f "$skill_md" ] || continue
+    [ -f "$meta_yaml" ] || continue
+
+    summary=$(sed -n 's/^summary:[[:space:]]*//p' "$meta_yaml" | sed -n '1p')
+
+    mkdir -p "$target_dir/$skill_name"
+
+    {
+      printf '%s\n' '---'
+      printf 'name: %s\n' "$skill_name"
+      printf 'description: "%s"\n' "$summary"
+      printf 'license: MIT\n'
+      printf '%s\n' '---'
+      cat "$skill_md"
+    } > "$target_dir/$skill_name/SKILL.md"
+
+    count=$((count + 1))
+  done
+
+  printf '  %s: %d skills -> %s\n' "$format_name" "$count" "$target_dir"
+}
+
+printf '\n@anionzo/skill: installing skills...\n'
+
+# OpenCode: .opencode/skills/
+install_skills "$PROJECT/.opencode/skills" "OpenCode"
+
+# Claude Code: .claude/skills/
+install_skills "$PROJECT/.claude/skills" "Claude"
+
+# Generic agents: .agents/skills/
+install_skills "$PROJECT/.agents/skills" "Agents"
+
+printf '\nDone! Skills are ready. Use /skill in OpenCode or Claude Code.\n\n'

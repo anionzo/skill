@@ -127,19 +127,16 @@ bash scripts/sync-platform-files
 > Available on [npm](https://www.npmjs.com/package/@anionzo/skill) — no authentication required
 
 ```bash
-# 1. Install the package
 npm install @anionzo/skill
-
-# 2. Copy skills/knowledge to your project
-cp -r node_modules/@anionzo/skill/skills/ ./
-cp -r node_modules/@anionzo/skill/knowledge/ ./
-
-# 3. Generate platform files
-bash node_modules/@anionzo/skill/scripts/sync-platform-files
-
-# 4. Copy the output to your agent
-cp generated/CLAUDE.md ./   # or OPENCODE.md, GEMINI.md, etc.
 ```
+
+That's it! Skills are automatically installed into:
+
+- `.opencode/skills/` — for OpenCode
+- `.claude/skills/` — for Claude Code
+- `.agents/skills/` — for other agents
+
+Open your agent and use `/skill` to see available skills.
 
 > 💡 Or clone the repo directly if you prefer editing skills in place.
 

@@ -1,11 +1,12 @@
 {
   "name": "@anionzo/skill",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
   "scripts": {
     "validate": "bash scripts/validate-skills",
     "sync": "bash scripts/sync-platform-files",
-    "postinstall": "echo \"\\n🧠 @anionzo/skill installed successfully!\\n\\n📁 Skills:     node_modules/@anionzo/skill/skills/\\n📚 Knowledge:  node_modules/@anionzo/skill/knowledge/\\n📄 Docs:       node_modules/@anionzo/skill/docs/\\n🌐 i18n:       node_modules/@anionzo/skill/i18n/\\n\\n🔌 To use: copy generated/ output to your project\\n   bash node_modules/@anionzo/skill/scripts/sync-platform-files\\n\""
+    "install-opencode": "bash scripts/install-opencode-skills",
+    "postinstall": "bash scripts/install-opencode-skills"
   },
   "files": [
     "skills/",
