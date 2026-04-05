@@ -10,7 +10,8 @@
 
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+SCRIPT_PATH=$(readlink -f "$0" 2>/dev/null || realpath "$0" 2>/dev/null || echo "$0")
+ROOT=$(CDPATH= cd -- "$(dirname "$SCRIPT_PATH")/.." && pwd)
 
 # Determine project root: explicit arg > INIT_CWD (set by npm) > current dir
 if [ -n "${1:-}" ]; then

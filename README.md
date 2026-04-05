@@ -127,10 +127,17 @@ bash scripts/sync-platform-files
 > Available on [npm](https://www.npmjs.com/package/@anionzo/skill) — no authentication required
 
 ```bash
+# Recommended: one command, no package.json created
+npx @anionzo/skill
+```
+
+Or add as a project dependency (creates package.json):
+
+```bash
 npm install @anionzo/skill
 ```
 
-That's it! Skills are automatically installed into:
+Skills are automatically installed into:
 
 - `.opencode/skills/` — for OpenCode
 - `.claude/skills/` — for Claude Code

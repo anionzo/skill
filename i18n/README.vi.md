@@ -125,10 +125,17 @@ bash scripts/sync-platform-files
 > Có sẵn trên [npm](https://www.npmjs.com/package/@anionzo/skill) — không cần xác thực
 
 ```bash
+# Khuyên dùng: một lệnh, không tạo package.json
+npx @anionzo/skill
+```
+
+Hoặc thêm như dependency của project (tạo package.json):
+
+```bash
 npm install @anionzo/skill
 ```
 
-Xong! Skill tự động được cài vào:
+Skill tự động được cài vào:
 
 - `.opencode/skills/` — cho OpenCode
 - `.claude/skills/` — cho Claude Code
