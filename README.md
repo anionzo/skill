@@ -8,6 +8,7 @@
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
+[![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square&logo=github)](CONTRIBUTING.md)
 [![Bilingual](https://img.shields.io/badge/docs-EN_%7C_VI-orange?style=flat-square&logo=translate)](#)
 
 ---
@@ -166,6 +167,15 @@ bash scripts/validate-skills
 4. 🎯 The skill files you use weekly
 5. 🔌 Adapter output for your two most-used agents
 
+### 🤝 Contributing
+
+We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
+
+- ➕ How to add a new skill
+- ✏️ How to edit existing skills
+- 📚 How to contribute knowledge
+- 🔄 Pull request process and conventions
+
 ### 📌 Notes
 
 - `generated/` is gitignored — regenerate anytime
@@ -319,6 +329,15 @@ bash scripts/validate-skills
 3. 🥉 `knowledge/global/debugging-patterns.md`
 4. 🎯 Các skill bạn dùng hàng tuần
 5. 🔌 Adapter output cho hai agent bạn dùng nhiều nhất
+
+### 🤝 Đóng Góp
+
+Chào mừng đóng góp! Xem **[CONTRIBUTING.md](CONTRIBUTING.md)** để biết:
+
+- ➕ Cách thêm skill mới
+- ✏️ Cách sửa skill có sẵn
+- 📚 Cách đóng góp knowledge
+- 🔄 Quy trình pull request và quy ước
 
 ### 📌 Ghi Chú
 
