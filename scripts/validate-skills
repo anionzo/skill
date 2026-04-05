@@ -1,0 +1,66 @@
+#!/usr/bin/env sh
+
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+FAIL=0
+
+require_file() {
+  if [ ! -f "$1" ]; then
+    printf 'Missing file: %s\n' "$1" >&2
+    FAIL=1
+  fi
+}
+
+require_dir() {
+  if [ ! -d "$1" ]; then
+    printf 'Missing directory: %s\n' "$1" >&2
+    FAIL=1
+  fi
+}
+
+require_key() {
+  file=$1
+  key=$2
+
+  if [ ! -f "$file" ]; then
+    return
+  fi
+
+  if ! grep -Eq "^${key}:[[:space:]]*" "$file"; then
+    printf 'Missing key %s in %s\n' "$key" "$file" >&2
+    FAIL=1
+  fi
+}
+
+require_dir "$ROOT/docs"
+require_dir "$ROOT/skills"
+require_dir "$ROOT/knowledge"
+require_dir "$ROOT/templates"
+require_dir "$ROOT/adapters"
+require_dir "$ROOT/scripts"
+
+for layer in global project working; do
+  require_dir "$ROOT/knowledge/$layer"
+done
+
+for skill_dir in "$ROOT"/skills/*; do
+  [ -d "$skill_dir" ] || continue
+
+  require_file "$skill_dir/meta.yaml"
+  require_file "$skill_dir/SKILL.md"
+  require_file "$skill_dir/examples.md"
+  require_dir "$skill_dir/references"
+
+  require_key "$skill_dir/meta.yaml" "name"
+  require_key "$skill_dir/meta.yaml" "version"
+  require_key "$skill_dir/meta.yaml" "category"
+  require_key "$skill_dir/meta.yaml" "summary"
+done
+
+if [ "$FAIL" -ne 0 ]; then
+  printf 'Skill library validation failed.\n' >&2
+  exit 1
+fi
+
+printf 'Skill library validation passed.\n'

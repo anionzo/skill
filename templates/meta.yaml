@@ -1,0 +1,14 @@
+name: skill-name
+version: 0.1.0
+category: category
+summary: One sentence describing the skill and its value.
+triggers:
+  - trigger phrase
+inputs:
+  - input type
+outputs:
+  - output type
+constraints:
+  - important constraint
+related_skills:
+  - another-skill
