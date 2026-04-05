@@ -1,0 +1,28 @@
+name: refactor-safe
+version: 0.1.0
+category: implementation
+summary: Restructure code safely by preserving behavior, maintaining regression coverage, and bounding scope before touching any file.
+summary_vi: Tái cấu trúc code an toàn bằng cách giữ nguyên hành vi, duy trì regression coverage, và giới hạn phạm vi trước khi chạm file nào.
+triggers:
+  - refactor this module
+  - extract this into a shared utility
+  - clean up this file without changing behavior
+  - migrate from X to Y
+inputs:
+  - code to refactor
+  - existing test coverage
+  - stated goal and scope boundary
+outputs:
+  - scope boundary
+  - behavior contract
+  - refactor steps
+  - regression verification
+constraints:
+  - behavior must not change unless explicitly agreed
+  - scope must be fixed before starting
+  - regression coverage must be checked before and after
+related_skills:
+  - using-skills
+  - planning
+  - verification-before-completion
+  - code-review

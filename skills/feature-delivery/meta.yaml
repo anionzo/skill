@@ -1,0 +1,26 @@
+name: feature-delivery
+version: 0.1.0
+category: implementation
+summary: Deliver a small or medium feature by following existing patterns and making the smallest correct change.
+summary_vi: Triển khai feature nhỏ hoặc vừa bằng cách theo pattern có sẵn và thực hiện thay đổi đúng nhỏ nhất.
+triggers:
+  - implement this feature
+  - add this behavior
+  - wire this new capability in
+inputs:
+  - user request
+  - relevant repo context
+  - existing patterns in the codebase
+outputs:
+  - chosen approach
+  - files changed
+  - verification performed
+constraints:
+  - inspect existing patterns before inventing new structure
+  - ask only one blocking question when necessary
+related_skills:
+  - using-skills
+  - planning
+  - repo-onboarding
+  - verification-before-completion
+  - code-review
