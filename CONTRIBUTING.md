@@ -79,7 +79,7 @@ cp -r templates/ skills/<your-skill-name>/
 |---|---|---|
 | `name` | ✅ | Skill identifier (kebab-case) |
 | `version` | ✅ | Semantic version (`1.0.0`) |
-| `category` | ✅ | One of: `routing`, `discovery`, `planning`, `implementation`, `debugging`, `review`, `documentation`, `verification` |
+| `category` | ✅ | One of: `routing`, `discovery`, `planning`, `implementation`, `troubleshooting`, `review`, `documentation`, `quality`, `knowledge`, `workflow` |
 | `summary` | ✅ | One-line English description |
 | `summary_vi` | 🟡 | One-line Vietnamese description |
 | `triggers` | 🟡 | When to activate this skill |
@@ -161,6 +161,7 @@ Knowledge files live in `knowledge/global/`. They contain principles, heuristics
 | 🔍 `review-heuristics.md` | Code review rules |
 | 🐛 `debugging-patterns.md` | Systematic debugging approaches |
 | 🧠 `skill-triggering-rules.md` | When to load which skill |
+| 📋 `evidence-before-claims.md` | Evidence requirements before completion claims |
 
 When adding or editing knowledge:
 

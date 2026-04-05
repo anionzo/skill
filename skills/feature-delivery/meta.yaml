@@ -20,7 +20,12 @@ constraints:
   - ask only one blocking question when necessary
 related_skills:
   - using-skills
+  - brainstorming
   - planning
   - repo-onboarding
+  - debug
   - verification-before-completion
   - code-review
+  - docs-writer
+  - go-pipeline
+  - test-driven-development

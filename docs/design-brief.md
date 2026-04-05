@@ -73,19 +73,25 @@ A personal operating library with three layers:
 5. ⚙️ The first version uses simple shell scripts instead of introducing a build system
 6. ✅ Planning and verification are explicit phases for code-changing work
 
-### 🎯 Initial Scope
+### 🎯 Current Scope
 
-The first version focuses on the work patterns most likely to pay off immediately:
+The library has expanded beyond the original v1 scope. The current skill set covers 15 repeatable work patterns:
 
-- 🧭 Routing requests
-- 💡 Refining rough requests into a workable direction
-- 🗺️ Onboarding into repos
-- 🐛 Triaging bugs
-- 📐 Planning implementation work before code edits
-- 🚀 Delivering features
-- ✅ Verifying outcomes before claiming completion
-- 🔍 Reviewing code
-- 📝 Updating docs
+- 🧭 Routing requests with `using-skills`
+- 💡 Refining ideas and writing specs with `brainstorming`
+- 🗺️ Onboarding into unfamiliar repos with `repo-onboarding`
+- 🔎 Researching existing code and patterns with `research`
+- 📐 Planning implementation work before code edits with `planning`
+- 🚀 Delivering features with `feature-delivery`
+- 🧪 Implementing with test-first discipline through `test-driven-development`
+- 🐛 Systematically debugging failures with `debug`
+- ♻️ Refactoring safely with `refactor-safe`
+- ✅ Verifying outcomes before claiming completion with `verification-before-completion`
+- 🔍 Giving and receiving code reviews with `code-review`
+- 📝 Creating intentional commits with `commit`
+- 📖 Updating docs with `docs-writer`
+- 🧬 Extracting reusable learnings with `extract`
+- ⚡ Running an approved spec-to-commit flow with `go-pipeline`
 
 ### 🔮 Next Steps
 

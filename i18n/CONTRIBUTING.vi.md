@@ -79,7 +79,7 @@ cp -r templates/ skills/<ten-skill>/
 |---|---|---|
 | `name` | ✅ | Định danh skill (kebab-case) |
 | `version` | ✅ | Phiên bản semantic (`1.0.0`) |
-| `category` | ✅ | Một trong: `routing`, `discovery`, `planning`, `implementation`, `debugging`, `review`, `documentation`, `verification` |
+| `category` | ✅ | Một trong: `routing`, `discovery`, `planning`, `implementation`, `troubleshooting`, `review`, `documentation`, `quality`, `knowledge`, `workflow` |
 | `summary` | ✅ | Mô tả một dòng bằng tiếng Anh |
 | `summary_vi` | 🟡 | Mô tả một dòng bằng tiếng Việt |
 | `triggers` | 🟡 | Khi nào kích hoạt skill |
@@ -161,6 +161,7 @@ File knowledge nằm trong `knowledge/global/`. Chúng chứa nguyên tắc, heu
 | 🔍 `review-heuristics.md` | Quy tắc code review |
 | 🐛 `debugging-patterns.md` | Phương pháp debug có hệ thống |
 | 🧠 `skill-triggering-rules.md` | Khi nào load skill nào |
+| 📋 `evidence-before-claims.md` | Yêu cầu bằng chứng trước tuyên bố hoàn thành |
 
 Khi thêm hoặc sửa knowledge:
 

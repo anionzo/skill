@@ -28,6 +28,8 @@ constraints:
 related_skills:
   - using-skills
   - debug
+  - feature-delivery
+  - refactor-safe
   - verification-before-completion
   - commit
   - planning

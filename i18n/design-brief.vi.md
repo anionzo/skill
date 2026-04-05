@@ -73,19 +73,25 @@ Thư viện vận hành cá nhân với ba lớp:
 5. ⚙️ Phiên bản đầu dùng shell script đơn giản thay vì build system
 6. ✅ Planning và verification là các pha rõ ràng cho công việc thay đổi code
 
-### 🎯 Phạm Vi Ban Đầu
+### 🎯 Phạm Vi Hiện Tại
 
-Phiên bản đầu tập trung vào các pattern có giá trị ngay:
+Thư viện đã mở rộng vượt quá phạm vi v1 ban đầu. Bộ skill hiện tại bao phủ 15 pattern công việc lặp lại:
 
-- 🧭 Phân loại request
-- 💡 Làm rõ request mơ hồ thành hướng đi cụ thể
-- 🗺️ Onboard vào repo
-- 🐛 Triage bug
-- 📐 Lập plan trước khi code
-- 🚀 Triển khai feature
-- ✅ Xác minh kết quả trước khi tuyên bố hoàn thành
-- 🔍 Review code
-- 📝 Cập nhật docs
+- 🧭 Phân loại request với `using-skills`
+- 💡 Làm rõ ý tưởng và viết spec với `brainstorming`
+- 🗺️ Onboard vào repo lạ với `repo-onboarding`
+- 🔎 Nghiên cứu code và pattern có sẵn với `research`
+- 📐 Lập plan trước khi code với `planning`
+- 🚀 Triển khai feature với `feature-delivery`
+- 🧪 Implement theo test-first với `test-driven-development`
+- 🐛 Gỡ lỗi có hệ thống với `debug`
+- ♻️ Refactor an toàn với `refactor-safe`
+- ✅ Xác minh kết quả trước khi tuyên bố hoàn thành với `verification-before-completion`
+- 🔍 Cho và nhận code review với `code-review`
+- 📝 Tạo commit có chủ đích với `commit`
+- 📖 Cập nhật tài liệu với `docs-writer`
+- 🧬 Trích xuất bài học tái sử dụng với `extract`
+- ⚡ Chạy luồng spec-to-commit đã được duyệt với `go-pipeline`
 
 ### 🔮 Bước Tiếp Theo
 
