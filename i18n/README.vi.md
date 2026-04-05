@@ -121,22 +121,62 @@ Catalog này được giữ gọn có chủ đích: mỗi skill nên sở hữu 
 
 ### 🚀 Bắt Đầu Nhanh
 
-```bash
-# 1. Hiểu hình dạng repo
-cat docs/design-brief.md
+#### Dùng thư viện
 
-# 2. Tùy chỉnh knowledge theo phong cách của bạn
+Nếu bạn chỉ muốn dùng skill library trong agent của mình:
+
+```bash
+# 1. Cài thư viện vào project hoặc workspace hiện tại
+npx @anionzo/skill
+
+# 2. Mở agent trong repo đích
+# Sau đó bắt đầu bằng router skill
+an:using-skills
+
+# 3. Hỏi tự nhiên, ví dụ:
+# "Help me understand this repo"
+# "Plan this feature first"
+# "Review these changes"
+```
+
+Router sẽ chọn đúng skill chính và bước tiếp theo.
+
+Hành vi của installer:
+
+- `npx @anionzo/skill` sẽ mở terminal picker tương tác
+- dùng **phím mũi tên** để di chuyển
+- nhấn **space** để chọn một hoặc nhiều platform
+- nhấn **enter** để cài các platform đã chọn
+- bạn cũng có thể chọn cập nhật `.gitignore` cho các file agent vừa cài
+- `npm install @anionzo/skill` vẫn chạy theo postinstall silent mode và tự cài các thư mục skill mặc định
+
+#### Sửa hoặc mở rộng thư viện
+
+Nếu bạn muốn tùy biến chính repo này:
+
+```bash
+# 1. Đọc tài liệu thiết kế và quy tắc viết
+less docs/design-brief.md
+less docs/authoring-guide.md
+
+# 2. Chỉnh knowledge global nếu muốn đổi default behavior
 vim knowledge/global/engineering-principles.md
 
-# 3. Bắt đầu — router sẽ chọn đúng skill
-cat skills/using-skills/SKILL.md
+# 3. Sửa skill, docs, hoặc adapters
+vim skills/using-skills/SKILL.md
 
-# 4. Validate các skill
+# 4. Validate cấu trúc thư viện
 bash scripts/validate-skills
 
-# 5. Sinh platform file
+# 5. Sinh lại platform file sau khi đổi skill/knowledge
 bash scripts/sync-platform-files
 ```
+
+Ghi chú:
+
+- `bash scripts/validate-skills` kiểm tra file bắt buộc, key metadata, và tính nhất quán cơ bản của thư viện.
+- `bash scripts/sync-platform-files` sinh lại các file trong `generated/` cho từng agent đích.
+- Chỉ cần chạy sync khi skill, knowledge, adapter, hoặc summary thay đổi.
 
 ### 📦 Cài Đặt Qua npm
 

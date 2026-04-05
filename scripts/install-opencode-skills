@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Install AI skills into agent-specific directories
 #
@@ -10,7 +10,7 @@
 #   npm install @anionzo/skill      # auto (postinstall)
 #   bash scripts/install-opencode-skills [project-dir]
 
-set -eu
+set -euo pipefail
 
 SCRIPT_PATH=$(readlink -f "$0" 2>/dev/null || realpath "$0" 2>/dev/null || echo "$0")
 ROOT=$(CDPATH= cd -- "$(dirname "$SCRIPT_PATH")/.." && pwd)
@@ -135,8 +135,180 @@ copilot||.github/copilot-instructions.md|GitHub Copilot Instructions|GitHub Copi
 # --- Interactive mode detection ---
 
 is_interactive() {
-  # postinstall (npm) sets INIT_CWD — skip interactive
-  [ -z "${INIT_CWD:-}" ] && [ -t 0 ]
+  [ "${npm_lifecycle_event:-}" != "postinstall" ] && [ -t 0 ] && [ -t 1 ]
+}
+
+# --- Interactive picker ---
+
+MENU_LABELS=(
+  "OpenCode        (.opencode/skills/ + OPENCODE.md)"
+  "Claude Code     (.claude/skills/   + CLAUDE.md)"
+  "Agents (generic)(.agents/skills/   + AGENTS.md)"
+  "Gemini CLI      (GEMINI.md)"
+  "GitHub Copilot  (.github/copilot-instructions.md)"
+  "Update .gitignore with selected platform files"
+)
+
+read_key() {
+  local key rest final
+
+  IFS= read -rsn1 key || return 1
+
+  if [ "$key" = $'\x1b' ]; then
+    IFS= read -rsn1 -t 0.1 rest || true
+    if [ "$rest" = "[" ]; then
+      IFS= read -rsn1 -t 0.1 final || true
+      printf '\033[%s' "$final"
+    else
+      printf '\033%s' "$rest"
+    fi
+    return 0
+  fi
+
+  printf '%s' "$key"
+}
+
+render_menu() {
+  local cursor="$1"
+  shift
+  local -a state=("$@")
+  local i mark prefix
+
+  printf '\033[H\033[2J'
+  printf '\n'
+  printf '  @anionzo/skill -- AI Skill Library\n'
+  printf '  ==================================\n\n'
+  printf '  Use arrow keys to move, space to toggle, enter to install.\n'
+  printf '  Press a to toggle all platforms, q to cancel.\n\n'
+
+  for i in "${!MENU_LABELS[@]}"; do
+    [ "$i" -eq 5 ] && printf '\n'
+
+    if [ "${state[$i]}" -eq 1 ]; then
+      mark='[x]'
+    else
+      mark='[ ]'
+    fi
+
+    if [ "$i" -eq "$cursor" ]; then
+      prefix='>'
+    else
+      prefix=' '
+    fi
+
+    printf '  %s %s %s\n' "$prefix" "$mark" "${MENU_LABELS[$i]}"
+  done
+
+  printf '\n'
+}
+
+toggle_all_platforms() {
+  local -n state_ref=$1
+  local sum=0
+  local i next=1
+
+  for i in 0 1 2 3 4; do
+    sum=$((sum + state_ref[$i]))
+  done
+
+  [ "$sum" -eq 5 ] && next=0
+
+  for i in 0 1 2 3 4; do
+    state_ref[$i]=$next
+  done
+}
+
+interactive_select() {
+  local cursor=0
+  local key
+  local -a selected=(0 0 0 0 0 0)
+
+  while true; do
+    render_menu "$cursor" "${selected[@]}"
+    key=$(read_key) || exit 0
+
+    case "$key" in
+      $'\033[A')
+        if [ "$cursor" -eq 0 ]; then
+          cursor=$((${#MENU_LABELS[@]} - 1))
+        else
+          cursor=$((cursor - 1))
+        fi
+        ;;
+      $'\033[B')
+        if [ "$cursor" -eq $((${#MENU_LABELS[@]} - 1)) ]; then
+          cursor=0
+        else
+          cursor=$((cursor + 1))
+        fi
+        ;;
+      "")
+        break
+        ;;
+      " ")
+        if [ "${selected[$cursor]}" -eq 1 ]; then
+          selected[$cursor]=0
+        else
+          selected[$cursor]=1
+        fi
+        ;;
+      [aA])
+        toggle_all_platforms selected
+        ;;
+      [qQ])
+        printf '\n  Cancelled.\n\n'
+        exit 0
+        ;;
+    esac
+  done
+
+  printf '%s\n' "${selected[@]}"
+}
+
+update_gitignore() {
+  local gitignore="$PROJECT/.gitignore"
+  local -a entries=()
+  local -a missing=()
+  local header_needed=0
+  local entry
+
+  [ "${do_opencode:-0}" -eq 1 ] && entries+=(".opencode/" "OPENCODE.md")
+  [ "${do_claude:-0}" -eq 1 ] && entries+=(".claude/" "CLAUDE.md")
+  [ "${do_agents:-0}" -eq 1 ] && entries+=(".agents/" "AGENTS.md")
+  [ "${do_gemini:-0}" -eq 1 ] && entries+=("GEMINI.md")
+  [ "${do_copilot:-0}" -eq 1 ] && entries+=(".github/copilot-instructions.md")
+
+  if [ "${#entries[@]}" -eq 0 ]; then
+    printf '  .gitignore: skipped (no platform files selected)\n'
+    return
+  fi
+
+  touch "$gitignore"
+
+  if ! grep -Fqx '# @anionzo/skill' "$gitignore" 2>/dev/null; then
+    header_needed=1
+  fi
+
+  for entry in "${entries[@]}"; do
+    if ! grep -Fqx "$entry" "$gitignore" 2>/dev/null; then
+      missing+=("$entry")
+    fi
+  done
+
+  if [ "${#missing[@]}" -eq 0 ]; then
+    printf '  .gitignore: already up to date -> %s\n' "$gitignore"
+    return
+  fi
+
+  if [ "$header_needed" -eq 1 ]; then
+    printf '\n# @anionzo/skill\n' >> "$gitignore"
+  fi
+
+  for entry in "${missing[@]}"; do
+    printf '%s\n' "$entry" >> "$gitignore"
+  done
+
+  printf '  .gitignore: added %d entries -> %s\n' "${#missing[@]}" "$gitignore"
 }
 
 # --- Main ---
@@ -146,36 +318,16 @@ printf '  @anionzo/skill — AI Skill Library\n'
 printf '  ==================================\n\n'
 
 if is_interactive; then
-  # --- Interactive: let user pick platforms ---
+  # --- Interactive: let user pick platforms with arrows + space ---
 
-  printf '  Which platforms do you want to install?\n\n'
-  printf '  [1] OpenCode        (.opencode/skills/ + OPENCODE.md)\n'
-  printf '  [2] Claude Code     (.claude/skills/   + CLAUDE.md)\n'
-  printf '  [3] Agents (generic)(.agents/skills/   + AGENTS.md)\n'
-  printf '  [4] Gemini CLI      (GEMINI.md)\n'
-  printf '  [5] GitHub Copilot  (.github/copilot-instructions.md)\n'
-  printf '  [a] All of the above\n\n'
+  mapfile -t selected < <(interactive_select)
 
-  printf '  Enter choices (e.g. 1 2 3, or a for all): '
-  read -r choices
-
-  # Normalize
-  case "$choices" in
-    *[aA]*) choices="1 2 3 4 5" ;;
-  esac
-
-  # Parse choices into flags
-  do_opencode=0; do_claude=0; do_agents=0; do_gemini=0; do_copilot=0
-
-  for c in $choices; do
-    case "$c" in
-      1) do_opencode=1 ;;
-      2) do_claude=1 ;;
-      3) do_agents=1 ;;
-      4) do_gemini=1 ;;
-      5) do_copilot=1 ;;
-    esac
-  done
+  do_opencode=${selected[0]}
+  do_claude=${selected[1]}
+  do_agents=${selected[2]}
+  do_gemini=${selected[3]}
+  do_copilot=${selected[4]}
+  do_gitignore=${selected[5]}
 
   # Check if anything was selected
   total=$((do_opencode + do_claude + do_agents + do_gemini + do_copilot))
@@ -211,6 +363,10 @@ if is_interactive; then
     mkdir -p "$PROJECT/.github"
     write_agent_file "GitHub Copilot Instructions" "$PROJECT/.github/copilot-instructions.md" "$catalog"
     printf '  -> .github/copilot-instructions.md\n'
+  fi
+
+  if [ "$do_gitignore" -eq 1 ]; then
+    update_gitignore
   fi
 
 else

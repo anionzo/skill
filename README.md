@@ -123,22 +123,62 @@ This scaffold distills patterns from strong public repos:
 
 ### 🚀 Quick Start
 
-```bash
-# 1. Understand the repo shape
-cat docs/design-brief.md
+#### Use the library
 
-# 2. Customize knowledge to your preferences
+If you just want to use the skill library in your agent:
+
+```bash
+# 1. Install the library into your current project or workspace
+npx @anionzo/skill
+
+# 2. Open your agent in the target repo
+# Then start with the router skill
+an:using-skills
+
+# 3. Ask naturally, for example:
+# "Help me understand this repo"
+# "Plan this feature first"
+# "Review these changes"
+```
+
+The router will pick the right primary skill and next step.
+
+Installer behavior:
+
+- `npx @anionzo/skill` opens an interactive terminal picker
+- use **arrow keys** to move
+- press **space** to select one or more platforms
+- press **enter** to install the selected platforms
+- you can also choose whether to update `.gitignore` with the installed agent files
+- `npm install @anionzo/skill` still runs in silent postinstall mode and installs the default skill directories automatically
+
+#### Edit or extend the library
+
+If you want to customize this repository itself:
+
+```bash
+# 1. Read the design and authoring docs
+less docs/design-brief.md
+less docs/authoring-guide.md
+
+# 2. Adjust global knowledge if you want different defaults
 vim knowledge/global/engineering-principles.md
 
-# 3. Start working — the router picks the right skill
-cat skills/using-skills/SKILL.md
+# 3. Edit skills, docs, or adapters
+vim skills/using-skills/SKILL.md
 
-# 4. Validate your skills
+# 4. Validate the library structure
 bash scripts/validate-skills
 
-# 5. Generate platform files
+# 5. Regenerate platform files after skill/knowledge changes
 bash scripts/sync-platform-files
 ```
+
+Notes:
+
+- `bash scripts/validate-skills` checks required files, metadata keys, and basic library consistency.
+- `bash scripts/sync-platform-files` regenerates the files in `generated/` for each target agent.
+- You only need to run sync when skills, knowledge, adapters, or summaries change.
 
 ### 📦 Install via npm
 
