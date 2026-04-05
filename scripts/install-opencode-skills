@@ -268,7 +268,12 @@ interactive_select() {
     esac
   done
 
-  printf '%s\n' "${selected[@]}"
+  SELECTED_OPENCODE=${selected[0]}
+  SELECTED_CLAUDE=${selected[1]}
+  SELECTED_AGENTS=${selected[2]}
+  SELECTED_GEMINI=${selected[3]}
+  SELECTED_COPILOT=${selected[4]}
+  SELECTED_GITIGNORE=${selected[5]}
 }
 
 update_gitignore() {
@@ -326,14 +331,14 @@ printf '  ==================================\n\n'
 if is_interactive; then
   # --- Interactive: let user pick platforms with arrows + space ---
 
-  mapfile -t selected < <(interactive_select)
+  interactive_select
 
-  do_opencode=${selected[0]}
-  do_claude=${selected[1]}
-  do_agents=${selected[2]}
-  do_gemini=${selected[3]}
-  do_copilot=${selected[4]}
-  do_gitignore=${selected[5]}
+  do_opencode=${SELECTED_OPENCODE:-0}
+  do_claude=${SELECTED_CLAUDE:-0}
+  do_agents=${SELECTED_AGENTS:-0}
+  do_gemini=${SELECTED_GEMINI:-0}
+  do_copilot=${SELECTED_COPILOT:-0}
+  do_gitignore=${SELECTED_GITIGNORE:-0}
 
   # Check if anything was selected
   total=$((do_opencode + do_claude + do_agents + do_gemini + do_copilot))
