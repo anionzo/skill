@@ -1,0 +1,24 @@
+name: code-review
+version: 0.1.0
+category: review
+summary: Review changes for bugs, regressions, and missing tests before style or polish comments.
+summary_vi: Review thay đổi tìm bug, regression, và test thiếu trước khi comment về style hoặc polish.
+triggers:
+  - review this PR
+  - review these changes
+  - look for risks before merge
+inputs:
+  - diff or changed files
+  - relevant tests or docs when needed
+outputs:
+  - severity-ranked findings
+  - open questions
+  - residual risk notes
+constraints:
+  - findings first
+  - avoid style-only comments unless they hide a real risk
+related_skills:
+  - using-skills
+  - bug-triage
+  - verification-before-completion
+  - planning

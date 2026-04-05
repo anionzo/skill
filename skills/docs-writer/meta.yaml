@@ -1,0 +1,22 @@
+name: docs-writer
+version: 0.1.0
+category: documentation
+summary: Update documentation from verified source behavior so the docs stay useful and current.
+summary_vi: Cập nhật tài liệu từ hành vi nguồn đã xác minh để docs luôn hữu ích và cập nhật.
+triggers:
+  - update the README
+  - write onboarding docs
+  - refresh runbook or API notes
+inputs:
+  - current code or behavior
+  - existing documentation
+outputs:
+  - updated docs
+  - assumptions and verification notes
+constraints:
+  - prefer source-verified statements
+  - keep links repository-relative when possible
+related_skills:
+  - using-skills
+  - repo-onboarding
+  - code-review

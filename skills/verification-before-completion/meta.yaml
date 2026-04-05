@@ -1,0 +1,26 @@
+name: verification-before-completion
+version: 0.1.0
+category: verification
+summary: Require fresh evidence before claiming work is done, fixed, passing, or ready.
+summary_vi: Yêu cầu bằng chứng mới trước khi tuyên bố công việc đã xong, đã sửa, đã pass, hoặc sẵn sàng.
+triggers:
+  - before saying a fix works
+  - before marking work complete
+  - before commit, PR, or handoff
+inputs:
+  - work completed so far
+  - relevant verification commands or checks
+outputs:
+  - verified claim
+  - blocked verification note
+  - remaining uncertainty
+constraints:
+  - no success claims without fresh evidence
+  - if verification is blocked, say so plainly
+related_skills:
+  - using-skills
+  - feature-delivery
+  - bug-triage
+  - refactor-safe
+  - planning
+  - code-review
