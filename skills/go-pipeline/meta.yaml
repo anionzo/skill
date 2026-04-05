@@ -1,0 +1,27 @@
+name: go-pipeline
+version: 0.1.0
+category: workflow
+summary: Execute a full spec-to-commit pipeline in one continuous run with minimal review gates.
+summary_vi: "Th\u1EF1c thi to\xE0n b\u1ED9 pipeline t\u1EEB spec \u0111\u1EBFn commit trong m\u1ED9t l\u01B0\u1EE3t li\xEAn t\u1EE5c v\u1EDBi \xEDt gate review."
+triggers:
+  - go mode
+  - run all
+  - execute everything
+  - just build it
+inputs:
+  - approved spec document
+outputs:
+  - implemented tasks
+  - verification results
+  - conventional commit
+constraints:
+  - spec must be approved before starting
+  - commit requires user approval
+  - checkpoint on context budget
+related_skills:
+  - using-skills
+  - spec
+  - planning
+  - feature-delivery
+  - verification-before-completion
+  - commit

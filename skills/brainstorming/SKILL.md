@@ -26,12 +26,15 @@ Skip this skill and go directly to `planning` when the request is already specif
 
 ## Output Format
 
-- clarified goal
-- constraints and assumptions
-- viable options considered
-- recommended direction
-- unresolved questions
-- next skill to invoke
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the clarified goal and recommended direction
+2. **Key Details:**
+   - constraints and assumptions
+   - viable options considered with tradeoffs
+   - recommended direction and why
+   - unresolved questions
+3. **Next Action** — hand off to `planning` when concrete enough, or state what decision is still needed
 
 ## Red Flags
 

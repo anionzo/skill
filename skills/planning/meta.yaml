@@ -1,8 +1,8 @@
 name: planning
-version: 0.1.0
+version: 0.2.0
 category: planning
-summary: Turn a request into an execution-ready plan with scope, approach, risks, and verification before code changes begin.
-summary_vi: Biến request thành plan sẵn sàng thực thi với phạm vi, cách tiếp cận, rủi ro, và xác minh trước khi bắt đầu code.
+summary: Turn a request into an execution-ready plan with scope, approach, risks, pre-execution validation, and verification before code changes begin.
+summary_vi: "Bi\u1EBFn request th\xE0nh plan s\u1EB5n s\xE0ng th\u1EF1c thi v\u1EDBi ph\u1EA1m vi, c\xE1ch ti\u1EBFp c\u1EADn, r\u1EE7i ro, ki\u1EC3m tra tr\u01B0\u1EDBc th\u1EF1c thi, v\xE0 x\xE1c minh tr\u01B0\u1EDBc khi b\u1EAFt \u0111\u1EA7u code."
 triggers:
   - make a plan
   - think through the implementation first
@@ -15,14 +15,18 @@ outputs:
   - scope
   - approach
   - file plan
+  - pre-execution check results
   - verification plan
 constraints:
   - keep the plan concrete and bounded
   - separate planning from implementation
+  - run pre-execution check before presenting
 related_skills:
   - using-skills
   - brainstorming
   - repo-onboarding
+  - research
+  - spec
   - feature-delivery
   - bug-triage
   - refactor-safe

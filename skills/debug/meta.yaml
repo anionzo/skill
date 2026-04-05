@@ -1,0 +1,29 @@
+name: debug
+version: 0.1.0
+category: troubleshooting
+summary: Systematically debug errors through triage, reproduction, root cause analysis, and verified fix.
+summary_vi: "G\u1EE1 l\u1ED7i c\xF3 h\u1EC7 th\u1ED1ng qua ph\xE2n lo\u1EA1i, t\xE1i t\u1EA1o, ph\xE2n t\xEDch nguy\xEAn nh\xE2n g\u1ED1c, v\xE0 x\xE1c minh b\u1EA3n s\u1EEDa."
+triggers:
+  - debug this error
+  - fix this failure
+  - why is this failing
+  - diagnose this issue
+inputs:
+  - error message or stack trace
+  - failing command
+  - optional task context
+outputs:
+  - classification
+  - root cause
+  - verified fix
+  - learning captured
+constraints:
+  - must reproduce before diagnosing
+  - must verify fix before declaring success
+related_skills:
+  - using-skills
+  - feature-delivery
+  - extract
+  - code-review
+  - commit
+  - verification-before-completion

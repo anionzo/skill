@@ -1,8 +1,8 @@
 name: using-skills
-version: 0.1.0
+version: 0.2.0
 category: routing
 summary: Route a user request to the right primary skill and working mode before deeper work begins.
-summary_vi: Phân loại request và chọn đúng skill chính trước khi bắt đầu công việc sâu hơn.
+summary_vi: "Ph\xE2n lo\u1EA1i request v\xE0 ch\u1ECDn \u0111\xFAng skill ch\xEDnh tr\u01B0\u1EDBc khi b\u1EAFt \u0111\u1EA7u c\xF4ng vi\u1EC7c s\xE2u h\u01A1n."
 triggers:
   - start a new session
   - decide which skill to load
@@ -20,10 +20,16 @@ constraints:
 related_skills:
   - brainstorming
   - repo-onboarding
+  - research
+  - spec
   - planning
   - bug-triage
+  - debug
   - feature-delivery
   - refactor-safe
   - code-review
+  - commit
   - verification-before-completion
   - docs-writer
+  - extract
+  - go-pipeline

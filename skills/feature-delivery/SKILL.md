@@ -19,11 +19,16 @@ Load this skill when the user wants code changed to add or update behavior.
 
 ## Output Format
 
-- goal and scope
-- chosen approach
-- files changed
-- verification performed
-- follow-up or risk note
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the feature implemented and its status
+2. **Key Details:**
+   - goal and scope
+   - chosen approach
+   - files changed
+   - verification performed
+   - follow-up or risk note
+3. **Next Action** — `verification-before-completion` to confirm, then `code-review` or `commit`
 
 ## Red Flags
 

@@ -1,26 +1,30 @@
 name: verification-before-completion
-version: 0.1.0
-category: verification
-summary: Require fresh evidence before claiming work is done, fixed, passing, or ready.
-summary_vi: Yêu cầu bằng chứng mới trước khi tuyên bố công việc đã xong, đã sửa, đã pass, hoặc sẵn sàng.
+version: 0.2.0
+category: quality
+summary: Require fresh evidence before claiming work is done, with verification levels and spec AC coverage checking.
+summary_vi: "Y\xEAu c\u1EA7u b\u1EB1ng ch\u1EE9ng m\u1EDBi tr\u01B0\u1EDBc khi tuy\xEAn b\u1ED1 ho\xE0n th\xE0nh, v\u1EDBi ki\u1EC3m tra m\u1EE9c x\xE1c minh v\xE0 AC coverage theo spec."
 triggers:
+  - verify this works
+  - check before marking done
+  - confirm the fix
   - before saying a fix works
-  - before marking work complete
   - before commit, PR, or handoff
 inputs:
-  - work completed so far
-  - relevant verification commands or checks
+  - claim being made
+  - verification command or check
+  - optional spec reference for AC coverage
 outputs:
-  - verified claim
-  - blocked verification note
+  - verification status (verified/failed/blocked)
+  - verification levels per deliverable (L1/L2/L3)
+  - AC coverage report (if spec-linked)
   - remaining uncertainty
 constraints:
-  - no success claims without fresh evidence
-  - if verification is blocked, say so plainly
+  - must run fresh verification, not use stale output
+  - stubs (L1 only) block completion
 related_skills:
   - using-skills
-  - feature-delivery
-  - bug-triage
-  - refactor-safe
-  - planning
   - code-review
+  - commit
+  - feature-delivery
+  - debug
+  - planning

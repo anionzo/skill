@@ -35,13 +35,19 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage
 
 - `an:brainstorming` — refine vague ideas before planning
 - `an:repo-onboarding` — understand an unfamiliar codebase
+- `an:research` — explore existing code and patterns before implementing
+- `an:spec` — create a feature specification through Socratic exploration
 - `an:planning` — create an execution-ready plan
 - `an:feature-delivery` — implement a feature
 - `an:bug-triage` — investigate errors or regressions
+- `an:debug` — structured debugging: triage, reproduce, root cause, fix, learn
 - `an:refactor-safe` — restructure code without behavior change
 - `an:verification-before-completion` — verify before claiming done
 - `an:code-review` — review a diff or PR
+- `an:commit` — create a conventional commit with verification
 - `an:docs-writer` — update documentation
+- `an:extract` — extract patterns, decisions, and learnings from completed work
+- `an:go-pipeline` — execute a full spec-to-commit pipeline in one run
 
 ## Workflow
 
@@ -64,12 +70,17 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:bug-triage
 - `an:<skill-name>` (direct trigger) -> load the named skill immediately
 - vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
 - unfamiliar repo or missing context -> `repo-onboarding`
+- need to understand existing code before implementing -> `research`
+- complex feature needing requirements definition -> `spec`, then `planning`
 - docs work in an unfamiliar repo -> `repo-onboarding` first, then `docs-writer`
-- bug report, error trace, failing test, regression -> `bug-triage`, then `planning` if the fix is not already obvious and bounded
+- bug report, error trace, failing test, regression -> `bug-triage`, then `debug` if deeper diagnosis needed
 - implement or change behavior -> `planning`, then `feature-delivery`
 - refactor, restructure, extract, or migrate without behavior change -> `planning`, then `refactor-safe`
 - review diff, PR, or changed files -> `code-review`
+- ready to commit -> `commit`
 - update README, runbook, onboarding docs, API notes in a known repo -> `docs-writer`
+- extract learnings from completed work -> `extract`
+- execute an approved spec end-to-end -> `go-pipeline`
 
 ## Planning Rule
 
@@ -88,11 +99,15 @@ Use `verification-before-completion` before any strong claim that work is done, 
 
 ## Output Format
 
-- task type
-- chosen primary skill
-- planning required
-- key assumption or missing decision, if any
-- immediate next step
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the task classified and primary skill chosen
+2. **Key Details:**
+   - task type
+   - chosen primary skill
+   - whether planning is required
+   - key assumption or missing decision, if any
+3. **Next Action** — the immediate first step with the chosen skill
 
 ## Red Flags
 

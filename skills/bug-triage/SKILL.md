@@ -26,12 +26,19 @@ Load this skill when:
 
 ## Output Format
 
-- symptom summary
-- reproduction status
-- suspected root cause
-- impacted area
-- proposed next change
-- confidence level
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the symptom investigated and the triage conclusion
+2. **Key Details:**
+   - symptom summary
+   - reproduction status
+   - suspected root cause
+   - impacted area
+   - confidence level
+3. **Next Action** — the minimal next change or experiment:
+   - if fix is trivial → apply fix, then `verification-before-completion`
+   - if fix is non-trivial → `planning` before `feature-delivery`
+   - if root cause unclear → `debug` for structured diagnosis
 
 ## Red Flags
 

@@ -1,0 +1,26 @@
+name: research
+version: 0.1.0
+category: discovery
+summary: Understand existing code, patterns, and decisions before writing new code to avoid reinventing what exists.
+summary_vi: "T\xECm hi\u1EC3u code, pattern, v\xE0 quy\u1EBFt \u0111\u1ECBnh hi\u1EC7n c\xF3 tr\u01B0\u1EDBc khi vi\u1EBFt code m\u1EDBi \u0111\u1EC3 tr\xE1nh l\xE0m l\u1EA1i nh\u1EEFng g\xEC \u0111\xE3 c\xF3."
+triggers:
+  - research this codebase
+  - what do we already have for X
+  - look into how this works
+  - explore before implementing
+inputs:
+  - topic or feature to research
+  - optional file paths or package names
+outputs:
+  - existing implementations found
+  - patterns and conventions discovered
+  - gaps identified
+  - actionable recommendations
+constraints:
+  - search before assuming nothing exists
+  - read actual code not just filenames
+related_skills:
+  - using-skills
+  - planning
+  - spec
+  - repo-onboarding

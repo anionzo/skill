@@ -17,7 +17,14 @@ State the job this skill performs.
 
 ## Output Format
 
-- Main sections the response or result should contain
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — what was accomplished or blocked
+2. **Key Details:**
+   - the most important supporting context
+   - concrete references (files, commands, evidence)
+   - assumptions or gaps
+3. **Next Action** — recommend a follow-up only when a natural handoff exists
 
 ## Red Flags
 

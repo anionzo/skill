@@ -1,0 +1,27 @@
+name: extract
+version: 0.1.0
+category: knowledge
+summary: Extract reusable patterns, decisions, and failure learnings from completed work to compound knowledge.
+summary_vi: "Tr\xEDch xu\u1EA5t pattern, quy\u1EBFt \u0111\u1ECBnh, v\xE0 b\xE0i h\u1ECDc t\u1EEB c\xF4ng vi\u1EC7c ho\xE0n th\xE0nh \u0111\u1EC3 t\xEDch l\u0169y ki\u1EBFn th\u1EE9c."
+triggers:
+  - extract learnings from this task
+  - document what we learned
+  - capture this pattern
+  - what did we learn
+inputs:
+  - completed task or feature
+  - code changes or debugging session
+outputs:
+  - patterns documented
+  - decisions recorded
+  - failures captured
+  - critical learnings promoted
+constraints:
+  - search existing docs before creating new ones
+  - do not fabricate findings
+  - three-category analysis required
+related_skills:
+  - using-skills
+  - commit
+  - debug
+  - research

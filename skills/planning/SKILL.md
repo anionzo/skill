@@ -27,18 +27,63 @@ Load this skill when:
 5. Break the work into ordered steps.
 6. Call out risks, assumptions, and missing decisions.
 7. Define how the work will be verified.
-8. End with the next implementation skill to invoke.
+8. Run the pre-execution plan check.
+9. Present for approval.
+10. End with the next implementation skill to invoke.
+
+## Pre-Execution Plan Check
+
+Before presenting the plan for approval, verify plan quality across four dimensions:
+
+### AC Coverage
+- Every requirement from the task should map to at least one plan step.
+- Every plan step should contribute to at least one acceptance criterion.
+- Flag any AC that no plan step addresses.
+
+### Scope Sizing
+- Each plan step should be completable in a single implementation session.
+- If a step requires reading more than 10 files or touching more than 5 files, recommend splitting.
+- If total plan exceeds approximately 8 steps, consider splitting into subtasks.
+
+### Dependency Check
+- Plan steps should be in logical order (foundational first, dependent last).
+- Flag circular dependencies between steps.
+- Flag steps that assume undocumented context.
+
+### Risk Assessment
+- Steps involving new external dependencies — flag as higher risk.
+- Steps touching core/shared modules — flag blast radius.
+- Steps with no test coverage in the plan — flag.
+
+**Report issues inline with the plan:**
+
+```
+Plan:
+1. Add auth middleware
+2. Create refresh endpoint
+3. Update existing routes
+⚠ Plan check: AC-3 (rate limiting) not covered by any step
+⚠ Plan check: Step 3 touches 7 files — consider splitting
+```
+
+Fix issues before presenting for approval. If unfixable, surface them explicitly so the user can decide.
 
 ## Output Format
 
-- goal
-- scope
-- existing patterns or files to follow
-- proposed approach
-- ordered implementation steps
-- risks and assumptions
-- verification plan
-- next skill to invoke
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the plan and whether approval is pending
+2. **Key Details:**
+   - scope (in/out)
+   - existing patterns or files to follow
+   - proposed approach
+   - ordered implementation steps
+   - pre-execution check results (AC coverage, scope sizing, dependency, risk)
+   - risks and assumptions
+   - verification plan
+3. **Next Action** — after approval:
+   - `feature-delivery` for implementation
+   - `spec` if requirements need more definition first
 
 ## Planning Rules
 
@@ -55,7 +100,25 @@ Load this skill when:
 - turning the plan into a full design doc for a small change
 - leaving verification unspecified
 - mixing code edits into the planning phase
+- skipping the pre-execution check
+- presenting a plan where ACs are not covered by any step
+
+## Checklist
+
+- [ ] Goal restated in user-visible terms
+- [ ] Scope boundary defined (in/out)
+- [ ] Existing patterns inspected
+- [ ] Approach chosen (smallest viable)
+- [ ] Steps ordered with dependencies
+- [ ] Pre-execution check passed:
+  - [ ] AC coverage verified
+  - [ ] Scope sizing reasonable
+  - [ ] Dependencies ordered correctly
+  - [ ] Risks flagged
+- [ ] Verification plan defined
+- [ ] Plan presented for approval
+- [ ] Next skill identified
 
 ## Done Criteria
 
-This skill is complete when the implementation path, risks, and verification steps are clear enough to hand off to `feature-delivery`, `refactor-safe`, or to a bounded bug fix.
+This skill is complete when the implementation path, risks, and verification steps are clear enough to hand off to `feature-delivery`, `refactor-safe`, or to a bounded bug fix. The pre-execution check must have been run with all findings addressed or explicitly surfaced.

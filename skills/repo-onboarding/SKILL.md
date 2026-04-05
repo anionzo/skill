@@ -30,13 +30,17 @@ Load this skill when:
 
 ## Output Format
 
-- project purpose
-- architecture summary
-- major components and responsibilities
-- important commands or workflows
-- notable conventions or constraints
-- open questions
-- recommended next reads
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the repo understood and key findings
+2. **Key Details:**
+   - project purpose
+   - architecture summary
+   - major components and responsibilities
+   - important commands or workflows
+   - notable conventions or constraints
+   - open questions
+3. **Next Action** — `planning` (to plan a change), `research` (to go deeper on a topic), or `docs-writer` (to update documentation)
 
 ## Red Flags
 

@@ -1,24 +1,30 @@
 name: code-review
-version: 0.1.0
+version: 0.2.0
 category: review
-summary: Review changes for bugs, regressions, and missing tests before style or polish comments.
-summary_vi: Review thay đổi tìm bug, regression, và test thiếu trước khi comment về style hoặc polish.
+summary: Multi-perspective code review with P1/P2/P3 severity triage that gates commits on blocking findings.
+summary_vi: "Review code \u0111a chi\u1EC1u v\u1EDBi ph\xE2n lo\u1EA1i m\u1EE9c \u0111\u1ED9 P1/P2/P3, ch\u1EB7n commit khi c\xF3 l\u1ED7i blocking."
 triggers:
   - review this PR
   - review these changes
   - look for risks before merge
+  - check this code
 inputs:
   - diff or changed files
   - relevant tests or docs when needed
+  - optional task or spec reference
 outputs:
-  - severity-ranked findings
+  - severity-ranked findings (P1/P2/P3)
+  - review verdict (PASS/BLOCKED)
   - open questions
   - residual risk notes
 constraints:
   - findings first
+  - P1 blocks commit (hard gate)
   - avoid style-only comments unless they hide a real risk
 related_skills:
   - using-skills
   - bug-triage
+  - debug
   - verification-before-completion
+  - commit
   - planning

@@ -32,13 +32,16 @@ Do not use this skill when the intent is also to change behavior. Separate the r
 
 ## Output Format
 
-- goal and scope boundary
-- behavior contract
-- coverage check before
-- steps taken
-- coverage result after
-- behavioral drift check
-- handoff or follow-up
+Present results using the Shared Output Contract:
+
+1. **Goal/Result** — the refactor performed and whether behavior is preserved
+2. **Key Details:**
+   - goal and scope boundary
+   - behavior contract
+   - coverage check before and after
+   - steps taken
+   - behavioral drift check result
+3. **Next Action** — `verification-before-completion` to confirm, then `commit`
 
 ## Red Flags
 

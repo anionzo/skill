@@ -1,22 +1,26 @@
 name: docs-writer
-version: 0.1.0
+version: 0.2.0
 category: documentation
-summary: Update documentation from verified source behavior so the docs stay useful and current.
-summary_vi: Cập nhật tài liệu từ hành vi nguồn đã xác minh để docs luôn hữu ích và cập nhật.
+summary: Write and update documentation aligned with actual code, with section editing and mermaid diagram support.
+summary_vi: "Vi\u1EBFt v\xE0 c\u1EADp nh\u1EADt t\xE0i li\u1EC7u theo code th\u1EF1c t\u1EBF, h\u1ED7 tr\u1EE3 ch\u1EC9nh s\u1EEDa t\u1EEBng ph\u1EA7n v\xE0 s\u01A1 \u0111\u1ED3 mermaid."
 triggers:
+  - write documentation
   - update the README
-  - write onboarding docs
-  - refresh runbook or API notes
+  - document this feature
+  - create a runbook
 inputs:
-  - current code or behavior
-  - existing documentation
+  - target document
+  - audience
+  - source of truth (code, commands, config)
 outputs:
-  - updated docs
-  - assumptions and verification notes
+  - created or updated document
+  - verification source noted
+  - assumptions or follow-ups
 constraints:
-  - prefer source-verified statements
-  - keep links repository-relative when possible
+  - verify against actual source before writing
+  - prefer section edits over full rewrites
 related_skills:
   - using-skills
   - repo-onboarding
-  - code-review
+  - feature-delivery
+  - verification-before-completion
