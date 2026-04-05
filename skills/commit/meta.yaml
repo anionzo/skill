@@ -1,21 +1,25 @@
 name: commit
-version: 0.1.0
+version: 0.2.0
 category: workflow
-summary: Create clean conventional commits with staged change review and user approval before committing.
-summary_vi: "T\u1EA1o commit theo chu\u1EA9n conventional v\u1EDBi review thay \u0111\u1ED5i staged v\xE0 x\xE1c nh\u1EADn t\u1EEB user tr\u01B0\u1EDBc khi commit."
+summary: Learn repo commit style from history, propose a matching message, and commit ONLY after explicit user approval.
+summary_vi: "Học style commit từ history, đề xuất message phù hợp, và commit CHỈ KHI user xác nhận rõ ràng."
 triggers:
   - commit these changes
   - save my work
   - ready to commit
 inputs:
   - staged git changes
+  - repo commit history (read automatically)
   - optional task or issue reference
 outputs:
-  - conventional commit message
+  - observed commit style
+  - proposed commit message matching repo convention
   - user approval gate
   - committed changes
 constraints:
-  - never auto-commit without approval
+  - NEVER auto-commit without explicit user approval
+  - read commit history before proposing a message
+  - match the repo's existing commit convention
   - one concern per commit
 related_skills:
   - using-skills
