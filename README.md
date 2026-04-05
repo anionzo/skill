@@ -132,8 +132,8 @@ If you just want to use the skill library in your agent:
 npx @anionzo/skill
 
 # 2. Open your agent in the target repo
-# Then start with the router skill
-an:using-skills
+# Then ask the router to pick the right starting skill
+# "Use the using-skills router for this task"
 
 # 3. Ask naturally, for example:
 # "Help me understand this repo"
@@ -189,7 +189,12 @@ Notes:
 ```bash
 # Recommended: one command, no package.json created
 npx @anionzo/skill
+
+# Quieter first-run startup if npm shows progress noise before the menu
+npx -y --loglevel=error @anionzo/skill
 ```
+
+If npm prints progress output before the interactive menu appears, that output is coming from `npx` while it downloads the package, before the installer script starts. For the quietest startup, prefer `npx -y --loglevel=error @anionzo/skill`.
 
 Or add as a project dependency (creates package.json):
 

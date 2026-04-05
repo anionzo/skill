@@ -130,8 +130,8 @@ Nếu bạn chỉ muốn dùng skill library trong agent của mình:
 npx @anionzo/skill
 
 # 2. Mở agent trong repo đích
-# Sau đó bắt đầu bằng router skill
-an:using-skills
+# Sau đó bảo agent dùng router skill để chọn hướng bắt đầu
+# "Use the using-skills router for this task"
 
 # 3. Hỏi tự nhiên, ví dụ:
 # "Help me understand this repo"
@@ -187,7 +187,12 @@ Ghi chú:
 ```bash
 # Khuyên dùng: một lệnh, không tạo package.json
 npx @anionzo/skill
+
+# Khởi động yên hơn nếu npm hiện progress trước khi menu mở ra
+npx -y --loglevel=error @anionzo/skill
 ```
+
+Nếu npm in progress output trước khi menu tương tác xuất hiện, phần đó đến từ `npx` trong lúc tải package, tức là xảy ra trước khi script installer bắt đầu chạy. Muốn startup yên nhất, nên dùng `npx -y --loglevel=error @anionzo/skill`.
 
 Hoặc thêm như dependency của project (tạo package.json):
 

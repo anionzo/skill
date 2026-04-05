@@ -18,37 +18,41 @@ Load this skill when:
 - the user request mixes multiple intents
 - you are unsure whether the task is implementation, debugging, review, or docs
 
-## Direct Skill Trigger
+## Explicit Skill Requests
 
-> `an:` stands for "activate now" — a shorthand to immediately load a specific skill.
+If the user explicitly asks for a specific skill by name, load that skill immediately instead of re-classifying the task.
 
-If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), skip classification and load that skill immediately.
+Examples:
+
+- "Use `planning` for this task"
+- "Load `debug` and investigate this error"
+- "Do a `code-review` on these changes"
 
 **Rules:**
 
-- `an:` prefix means the user already knows what they want — do not second-guess
+- when the user names a skill directly, treat that as an intentional routing choice
 - if the named skill does not exist, say so and list available skills
-- still apply the planning and verification rules if relevant
-- after the triggered skill completes, return to normal workflow
+- still apply planning and verification rules if relevant
+- after the requested skill completes, return to normal workflow
 
 **Available skills:**
 
-- `an:brainstorming` — explore ideas, lock decisions, optionally write a spec
-- `an:research` — explore existing code and patterns before implementing
-- `an:planning` — create an execution-ready plan with bite-sized steps
-- `an:feature-delivery` — implement a feature
-- `an:test-driven-development` — implement with TDD (red-green-refactor)
-- `an:debug` — systematic 4-phase debugging: investigate, analyze, fix, learn
-- `an:refactor-safe` — restructure code without behavior change
-- `an:verification-before-completion` — verify before claiming done
-- `an:code-review` — review a diff/PR, or evaluate received feedback
-- `an:commit` — create a conventional commit with verification
-- `an:docs-writer` — update documentation
-- `an:extract` — extract patterns, decisions, and learnings from completed work
+- `brainstorming` — explore ideas, lock decisions, optionally write a spec
+- `research` — explore existing code and patterns before implementing
+- `planning` — create an execution-ready plan with bite-sized steps
+- `feature-delivery` — implement a feature
+- `test-driven-development` — implement with TDD (red-green-refactor)
+- `debug` — systematic 4-phase debugging: investigate, analyze, fix, learn
+- `refactor-safe` — restructure code without behavior change
+- `verification-before-completion` — verify before claiming done
+- `code-review` — review a diff/PR, or evaluate received feedback
+- `commit` — create a conventional commit with verification
+- `docs-writer` — update documentation
+- `extract` — extract patterns, decisions, and learnings from completed work
 
 ## Workflow
 
-1. Check for direct trigger: if the user typed `an:<skill-name>`, load that skill and skip to step 5.
+1. Check for an explicit skill request: if the user named a skill directly, load that skill and skip to step 5.
 2. Classify the request into one of these modes:
    - idea refinement, specification, or requirements definition
    - repo understanding
@@ -65,7 +69,7 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), s
 
 ## Routing Guide
 
-- `an:<skill-name>` (direct trigger) -> load the named skill immediately
+- explicit request for a named skill -> load that skill immediately
 - vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
 - unfamiliar repo or missing context -> `research`
 - need to understand existing code before implementing -> `research`
