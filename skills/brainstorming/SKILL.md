@@ -175,9 +175,9 @@ Present results using the Shared Output Contract:
    - acceptance criteria (if spec written)
    - open questions
 3. **Next Action** — after approval:
-   - to review each step: `planning` (with spec reference)
-   - to execute everything at once: `go-pipeline` (with spec reference)
-   - if requirements still unclear: state what decision is still needed
+    - to review each step: `planning` (with spec reference)
+    - to execute everything at once: `planning` in go mode (with spec reference)
+    - if requirements still unclear: state what decision is still needed
 
 ## Red Flags
 

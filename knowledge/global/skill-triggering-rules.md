@@ -14,7 +14,7 @@ These notes keep the library behavior consistent across agents and sessions.
 - Use `test-driven-development` when implementing with TDD discipline (red-green-refactor).
 - Use `verification-before-completion` before any strong success claim.
 - Use `code-review` for review requests and post-implementation risk checks.
-- Use `repo-onboarding` when entering an unfamiliar codebase before productive work can begin.
+- Use `research` when entering an unfamiliar codebase before productive work can begin.
 - Use `docs-writer` for documentation tasks in a repo whose structure is already understood.
 - Use `refactor-safe` for restructuring, extracting, or migrating code without intended behavior change.
 

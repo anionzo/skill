@@ -75,13 +75,12 @@ A personal operating library with three layers:
 
 ### 🎯 Current Scope
 
-The library has expanded beyond the original v1 scope. The current skill set covers 15 repeatable work patterns:
+The library has expanded beyond the original v1 scope. The current skill set covers 13 repeatable work patterns:
 
 - 🧭 Routing requests with `using-skills`
 - 💡 Refining ideas and writing specs with `brainstorming`
-- 🗺️ Onboarding into unfamiliar repos with `repo-onboarding`
 - 🔎 Researching existing code and patterns with `research`
-- 📐 Planning implementation work before code edits with `planning`
+- 📐 Planning implementation work before code edits, or running approved work in go mode, with `planning`
 - 🚀 Delivering features with `feature-delivery`
 - 🧪 Implementing with test-first discipline through `test-driven-development`
 - 🐛 Systematically debugging failures with `debug`
@@ -90,8 +89,7 @@ The library has expanded beyond the original v1 scope. The current skill set cov
 - 🔍 Giving and receiving code reviews with `code-review`
 - 📝 Creating intentional commits with `commit`
 - 📖 Updating docs with `docs-writer`
-- 🧬 Extracting reusable learnings with `extract`
-- ⚡ Running an approved spec-to-commit flow with `go-pipeline`
+- 🧬 Extracting reusable learnings or handing work off between sessions with `extract`
 
 ### 🔮 Next Steps
 

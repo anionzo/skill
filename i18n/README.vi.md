@@ -4,7 +4,7 @@
 
 **Thư viện skill đa agent, vendor-neutral cho kỹ thuật phần mềm hỗ trợ AI**
 
-[![Skills](https://img.shields.io/badge/skills-15-blue?style=flat-square&logo=bookstack)](../skills/)
+[![Skills](https://img.shields.io/badge/skills-13-blue?style=flat-square&logo=bookstack)](../skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](../knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](../adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](../LICENSE)
@@ -52,9 +52,8 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
 |---|---|---|
 | 🧭 | `using-skills` | Phân loại request và chọn đúng skill |
 | 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec nếu cần |
-| 🗺️ | `repo-onboarding` | Hiểu codebase lạ trước khi hành động |
 | 🔎 | `research` | Tìm hiểu code và pattern có sẵn trước khi implement |
-| 📐 | `planning` | Plan thực thi với bước nhỏ gọn, không placeholder |
+| 📐 | `planning` | Plan thực thi, kèm go mode cho công việc đã rõ và đã duyệt |
 | 🚀 | `feature-delivery` | Triển khai feature với thay đổi tối thiểu, phù hợp repo |
 | 🧪 | `test-driven-development` | Kỷ luật test-first với chu trình red-green-refactor |
 | 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc |
@@ -63,20 +62,19 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
 | 🔍 | `code-review` | Cho và nhận code review với phân loại mức độ |
 | 📝 | `commit` | Tạo commit conventional với review thay đổi staged |
 | 📖 | `docs-writer` | Cập nhật docs từ hành vi thực tế đã xác minh |
-| 🧬 | `extract` | Trích xuất pattern, quyết định, bài học từ công việc |
-| ⚡ | `go-pipeline` | Thực thi pipeline spec-to-commit trong một lượt |
+| 🧬 | `extract` | Trích xuất bài học bền vững hoặc cô đọng công việc đang dở thành handoff |
 
 ### 🔄 Workflow Mặc Định
 
 ```
 ┌─────────────┐     ┌───────────────┐     ┌─────────────────┐
-│ using-skills │────▶│ brainstorming │────▶│ repo-onboarding │
-│  (router)    │     │ (nếu mơ hồ)  │     │ (nếu repo lạ)   │
-└──────┬───────┘     └───────┬───────┘     └────────┬────────┘
-       │                     │                      │
-       │                     ▼                      │
-       │              ┌──────────┐                  │
-       └─────────────▶│ planning │◀─────────────────┘
+│ using-skills │────▶│ brainstorming │────▶│  research  │
+│  (router)    │     │ (nếu mơ hồ)  │     │ (nếu cần)   │
+└──────┬───────┘     └───────┬───────┘     └──────┬──────┘
+       │                     │                     │
+       │                     ▼                     │
+       │              ┌──────────┐                 │
+       └─────────────▶│ planning │◀────────────────┘
                       └────┬─────┘
                            │
               ┌────────────┼────────────┐
@@ -100,6 +98,10 @@ Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy
                           ▼
                     ┌──────────┐
                     │  commit  │
+                    └────┬─────┘
+                         ▼
+                    ┌──────────┐
+                    │ extract  │
                     └──────────┘
 ```
 

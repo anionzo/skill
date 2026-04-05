@@ -28,7 +28,7 @@ Present results using the Shared Output Contract:
    - files changed
    - verification performed
    - follow-up or risk note
-3. **Next Action** — `verification-before-completion` to confirm, then `code-review` or `commit`
+3. **Next Action** — `verification-before-completion` to confirm, then `code-review` or `commit`; if pausing mid-task, use `extract` in handoff mode
 
 ## Red Flags
 
@@ -42,3 +42,5 @@ Present results using the Shared Output Contract:
 This skill is complete when the feature works as intended, the change is verified with the most relevant check available, and the outcome is summarized clearly.
 
 Before declaring done, run `verification-before-completion` to confirm the claim is backed by fresh evidence.
+
+If the task must pause before completion, use `extract` in handoff mode so the next session can resume without repeating the implementation analysis.

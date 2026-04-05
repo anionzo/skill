@@ -1,5 +1,5 @@
 name: using-skills
-version: 0.3.0
+version: 0.4.0
 category: routing
 summary: Route a user request to the right primary skill and working mode before deeper work begins.
 summary_vi: "Phân loại request và chọn đúng skill chính trước khi bắt đầu công việc sâu hơn."
@@ -19,7 +19,6 @@ constraints:
   - prefer one primary skill at a time
 related_skills:
   - brainstorming
-  - repo-onboarding
   - research
   - planning
   - test-driven-development
@@ -31,4 +30,3 @@ related_skills:
   - verification-before-completion
   - docs-writer
   - extract
-  - go-pipeline

@@ -43,6 +43,7 @@ Use for session-scoped or temporary notes:
 - 🧪 Active hypotheses
 - ⏳ Temporary decisions
 - 📌 Follow-ups to promote later
+- 🪄 Session handoff summaries for unfinished work
 
 > ⚡ This layer changes **often** and can be cleaned up aggressively.
 

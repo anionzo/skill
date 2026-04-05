@@ -4,7 +4,7 @@
 
 **A vendor-neutral, multi-agent skill library for AI-powered software engineering**
 
-[![Skills](https://img.shields.io/badge/skills-15-blue?style=flat-square&logo=bookstack)](skills/)
+[![Skills](https://img.shields.io/badge/skills-13-blue?style=flat-square&logo=bookstack)](skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
@@ -52,9 +52,8 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
 |---|---|---|
 | 🧭 | `using-skills` | Route a request to the right skill and working mode |
 | 💡 | `brainstorming` | Explore ideas, lock decisions, optionally write a spec |
-| 🗺️ | `repo-onboarding` | Understand an unfamiliar codebase before acting |
 | 🔎 | `research` | Explore existing code and patterns before implementing |
-| 📐 | `planning` | Execution-ready plans with bite-sized steps and no placeholders |
+| 📐 | `planning` | Execution-ready plans, plus optional go-mode execution for approved work |
 | 🚀 | `feature-delivery` | Implement a feature with minimal, repo-aligned change |
 | 🧪 | `test-driven-development` | Enforce test-first discipline with red-green-refactor |
 | 🐛 | `debug` | 4-phase systematic debugging with root cause investigation |
@@ -63,20 +62,19 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
 | 🔍 | `code-review` | Give and receive code reviews with severity triage |
 | 📝 | `commit` | Create conventional commits with staged change review |
 | 📖 | `docs-writer` | Update docs from verified source behavior |
-| 🧬 | `extract` | Extract patterns, decisions, and learnings from work |
-| ⚡ | `go-pipeline` | Execute a full spec-to-commit pipeline in one run |
+| 🧬 | `extract` | Extract durable learnings or compress active work into a handoff |
 
 ### 🔄 Default Workflow
 
 ```
 ┌─────────────┐     ┌───────────────┐     ┌─────────────────┐
-│ using-skills │────▶│ brainstorming │────▶│ repo-onboarding │
-│   (router)   │     │  (if vague)   │     │  (if new repo)  │
-└──────┬───────┘     └───────┬───────┘     └────────┬────────┘
-       │                     │                      │
-       │                     ▼                      │
-       │              ┌──────────┐                  │
-       └─────────────▶│ planning │◀─────────────────┘
+│ using-skills │────▶│ brainstorming │────▶│  research  │
+│   (router)   │     │  (if vague)   │     │ (if needed) │
+└──────┬───────┘     └───────┬───────┘     └──────┬──────┘
+       │                     │                     │
+       │                     ▼                     │
+       │              ┌──────────┐                 │
+       └─────────────▶│ planning │◀────────────────┘
                       └────┬─────┘
                            │
               ┌────────────┼────────────┐
@@ -100,6 +98,10 @@ This repo is intentionally lighter than a full workflow product. It borrows the 
                           ▼
                     ┌──────────┐
                     │  commit  │
+                    └────┬─────┘
+                         ▼
+                    ┌──────────┐
+                    │ extract  │
                     └──────────┘
 ```
 

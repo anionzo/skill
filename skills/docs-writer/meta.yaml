@@ -21,6 +21,7 @@ constraints:
   - prefer section edits over full rewrites
 related_skills:
   - using-skills
-  - repo-onboarding
+  - research
   - feature-delivery
+  - extract
   - verification-before-completion

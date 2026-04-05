@@ -41,7 +41,7 @@ Help me understand this repo before we add a new API endpoint.
 Expected routing:
 
 - task type: repo understanding
-- chosen skill: `repo-onboarding`
+- chosen skill: `research`
 - planning required: not yet
 - next step: read repo docs and inspect core entrypoints
 
@@ -60,7 +60,22 @@ Expected routing:
 - planning required: yes
 - next step: refine the exact SSO scope and constraints before writing the implementation plan
 
-## Example 5 — Sample completed output
+## Example 5
+
+User request:
+
+```text
+What did we do so far? Prepare the next session to continue this task.
+```
+
+Expected routing:
+
+- task type: extraction / handoff
+- chosen skill: `extract`
+- planning required: no
+- next step: summarize the active task, completed work, locked decisions, risks, and next action
+
+## Example 6 — Sample completed output
 
 User request:
 

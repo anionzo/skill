@@ -2,19 +2,23 @@
 
 ## Purpose
 
-Understand existing code, patterns, and decisions before writing new code.
+Understand existing code, patterns, decisions, and repository structure before writing new code.
 
 This skill exists to prevent implementing from scratch what already exists, and to surface constraints that would otherwise be discovered mid-implementation.
+
+It also covers repo onboarding: mapping a repository quickly enough to act safely when the task starts from little context.
 
 ## When To Use
 
 Load this skill when:
 
 - exploring a codebase before starting a task
+- entering a repo for the first time
 - looking for existing patterns, utilities, or conventions to follow
 - trying to understand how a feature or subsystem works
 - the implementation approach depends on what already exists
 - the user says "research this", "look into", or "what do we have for X"
+- the user asks "explain this repo" or "understand this codebase before we change it"
 
 Skip this skill when you already have clear context and the task is straightforward.
 
@@ -31,7 +35,32 @@ Skip this skill when you already have clear context and the task is straightforw
    - whether it is reusable, needs adaptation, or is irrelevant
    - any conventions or constraints it reveals
 4. Identify gaps — what does NOT exist that the task needs.
-5. Summarize findings with concrete recommendations.
+5. If this is repo onboarding, also identify:
+   - project purpose
+   - major components and responsibilities
+   - runtime model and key integrations
+   - important development commands
+   - notable conventions and open questions
+6. Summarize findings with concrete recommendations.
+
+## Repo Onboarding Mode
+
+When the user is entering an unfamiliar repo, use research in repo-map mode:
+
+1. Read the top-level operating docs first, especially `AGENTS.md` and `README.md` when present.
+2. Inspect the most informative files next:
+   - package manifests or build files
+   - app entrypoints and framework bootstraps
+   - core config files
+   - representative tests
+3. Summarize:
+   - project purpose
+   - architecture summary
+   - major components
+   - important commands
+   - notable conventions or constraints
+   - open questions
+4. Recommend the next files or directories to inspect for the user's likely goal.
 
 ## Search Techniques
 
@@ -66,6 +95,7 @@ Present findings using the Shared Output Contract:
 3. **Next Action** — recommend a follow-up only when findings clearly lead somewhere:
    - research for an active task → `planning`
    - research revealed a gap → `brainstorming`
+   - research produced enough repo context → `planning`, `docs-writer`, or direct execution
    - no clear handoff → stop after findings
 
 ## Research Rules
@@ -97,4 +127,4 @@ Present findings using the Shared Output Contract:
 
 ## Done Criteria
 
-This skill is complete when the findings are concrete enough to inform the next step — whether that is planning, implementation, or a decision that more information is needed. Every finding should include a file path or explicit "not found" statement.
+This skill is complete when the findings are concrete enough to inform the next step — whether that is planning, implementation, docs work, or a decision that more information is needed. Every finding should include a file path or explicit "not found" statement.

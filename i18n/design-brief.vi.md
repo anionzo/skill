@@ -75,13 +75,12 @@ Thư viện vận hành cá nhân với ba lớp:
 
 ### 🎯 Phạm Vi Hiện Tại
 
-Thư viện đã mở rộng vượt quá phạm vi v1 ban đầu. Bộ skill hiện tại bao phủ 15 pattern công việc lặp lại:
+Thư viện đã mở rộng vượt quá phạm vi v1 ban đầu. Bộ skill hiện tại bao phủ 13 pattern công việc lặp lại:
 
 - 🧭 Phân loại request với `using-skills`
 - 💡 Làm rõ ý tưởng và viết spec với `brainstorming`
-- 🗺️ Onboard vào repo lạ với `repo-onboarding`
 - 🔎 Nghiên cứu code và pattern có sẵn với `research`
-- 📐 Lập plan trước khi code với `planning`
+- 📐 Lập plan trước khi code, hoặc chạy theo go mode khi công việc đã rõ, với `planning`
 - 🚀 Triển khai feature với `feature-delivery`
 - 🧪 Implement theo test-first với `test-driven-development`
 - 🐛 Gỡ lỗi có hệ thống với `debug`
@@ -90,8 +89,7 @@ Thư viện đã mở rộng vượt quá phạm vi v1 ban đầu. Bộ skill hi
 - 🔍 Cho và nhận code review với `code-review`
 - 📝 Tạo commit có chủ đích với `commit`
 - 📖 Cập nhật tài liệu với `docs-writer`
-- 🧬 Trích xuất bài học tái sử dụng với `extract`
-- ⚡ Chạy luồng spec-to-commit đã được duyệt với `go-pipeline`
+- 🧬 Trích xuất bài học tái sử dụng hoặc handoff công việc giữa các session với `extract`
 
 ### 🔮 Bước Tiếp Theo
 

@@ -6,6 +6,8 @@ Produce an execution-ready plan before code changes begin. Each step must be con
 
 This skill exists to make planning explicit, especially for multi-file or non-trivial work.
 
+It also covers go mode when the user wants an approved spec or clear task executed end-to-end with minimal review gates.
+
 ## When To Use
 
 Load this skill when:
@@ -15,6 +17,7 @@ Load this skill when:
 - the change touches APIs, data flow, persistence, or architecture boundaries
 - the user explicitly asks for a plan
 - implementation risk is high enough that code should not start immediately
+- the user says "run all", "go mode", "execute everything", or wants one continuous plan-to-commit flow
 
 ## Workflow
 
@@ -29,6 +32,20 @@ Load this skill when:
 9. Run the self-review.
 10. Present for approval.
 11. End with the next implementation skill to invoke.
+
+## Go Mode
+
+When the user wants an approved spec or clear task executed with minimal review gates, planning enters go mode:
+
+1. Validate that requirements are clear enough to implement.
+2. Break the work into ordered implementation tasks.
+3. Map each task to acceptance criteria or explicit outcomes.
+4. Plan and execute each task in dependency order.
+5. Verify after each task.
+6. Run full verification at the end.
+7. Prepare a single commit proposal and ask the user before committing.
+
+If the scope is too large for one context window, checkpoint progress and resume later rather than continuing blindly.
 
 ## Bite-Sized Task Granularity
 
@@ -122,6 +139,7 @@ Present results using the Shared Output Contract:
    - `feature-delivery` for implementation
    - `test-driven-development` if TDD approach preferred
    - `brainstorming` if requirements need more definition first
+   - if the user wants one continuous execution run: continue in go mode under `planning`
 
 ## Planning Rules
 
@@ -169,4 +187,4 @@ Present results using the Shared Output Contract:
 
 ## Done Criteria
 
-This skill is complete when the implementation path, risks, and verification steps are clear enough to hand off to `feature-delivery`, `refactor-safe`, or `test-driven-development`. The pre-execution check and self-review must have been run with all findings addressed or explicitly surfaced.
+This skill is complete when the implementation path, risks, and verification steps are clear enough to hand off to `feature-delivery`, `refactor-safe`, or `test-driven-development` — or, in go mode, when the work has been planned, executed, verified, and brought to a commit gate. The pre-execution check and self-review must have been run with all findings addressed or explicitly surfaced.

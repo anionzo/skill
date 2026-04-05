@@ -43,6 +43,7 @@ Dùng cho ghi chú tạm thời trong session:
 - 🧪 Giả thuyết đang active
 - ⏳ Quyết định tạm thời
 - 📌 Follow-up cần promote sau
+- 🪄 Tóm tắt handoff cho công việc chưa hoàn thành
 
 > ⚡ Lớp này thay đổi **thường xuyên** và có thể dọn dẹp mạnh tay.
 

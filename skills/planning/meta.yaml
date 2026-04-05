@@ -1,16 +1,20 @@
 name: planning
-version: 0.3.0
+version: 0.4.0
 category: planning
-summary: Execution-ready plans with bite-sized steps, no placeholders, self-review, and pre-execution validation.
-summary_vi: "Plan sẵn sàng thực thi với bước nhỏ gọn, không placeholder, tự review, và kiểm tra trước thực thi."
+summary: Execution-ready plans with bite-sized steps, no placeholders, self-review, pre-execution validation, and optional go-mode execution.
+summary_vi: "Plan sẵn sàng thực thi với bước nhỏ gọn, không placeholder, tự review, kiểm tra trước thực thi, và có thể chạy theo go mode."
 triggers:
   - make a plan
   - think through the implementation first
   - prepare before coding
+  - run all
+  - go mode
+  - execute everything
 inputs:
   - user request
   - relevant repo context
   - existing patterns and constraints
+  - optional approved spec or explicit requirements
 outputs:
   - scope (in/out)
   - approach
@@ -18,6 +22,7 @@ outputs:
   - pre-execution check results
   - self-review results
   - verification plan
+  - optional go-mode task execution and commit proposal
 constraints:
   - keep the plan concrete and bounded
   - separate planning from implementation
@@ -27,12 +32,10 @@ constraints:
 related_skills:
   - using-skills
   - brainstorming
-  - repo-onboarding
   - research
   - debug
   - feature-delivery
   - refactor-safe
   - code-review
   - test-driven-development
-  - go-pipeline
   - verification-before-completion

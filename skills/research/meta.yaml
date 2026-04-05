@@ -1,21 +1,25 @@
 name: research
-version: 0.1.0
+version: 0.2.0
 category: discovery
-summary: Understand existing code, patterns, and decisions before writing new code to avoid reinventing what exists.
-summary_vi: "T\xECm hi\u1EC3u code, pattern, v\xE0 quy\u1EBFt \u0111\u1ECBnh hi\u1EC7n c\xF3 tr\u01B0\u1EDBc khi vi\u1EBFt code m\u1EDBi \u0111\u1EC3 tr\xE1nh l\xE0m l\u1EA1i nh\u1EEFng g\xEC \u0111\xE3 c\xF3."
+summary: Understand repository structure, existing code, patterns, and decisions before acting so new work follows what already exists.
+summary_vi: "Tìm hiểu cấu trúc repo, code, pattern, và quyết định hiện có trước khi hành động để công việc mới đi đúng theo cái đã có."
 triggers:
   - research this codebase
   - what do we already have for X
   - look into how this works
   - explore before implementing
+  - explain this repo
+  - onboard into a codebase
+  - understand architecture before changing code
 inputs:
-  - topic or feature to research
+  - topic, feature, or repository area to research
   - optional file paths or package names
 outputs:
   - existing implementations found
   - patterns and conventions discovered
   - gaps identified
   - actionable recommendations
+  - repo map and important commands when onboarding
 constraints:
   - search before assuming nothing exists
   - read actual code not just filenames
@@ -24,4 +28,4 @@ related_skills:
   - planning
   - brainstorming
   - extract
-  - repo-onboarding
+  - docs-writer

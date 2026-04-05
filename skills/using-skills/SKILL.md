@@ -34,7 +34,6 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), s
 **Available skills:**
 
 - `an:brainstorming` — explore ideas, lock decisions, optionally write a spec
-- `an:repo-onboarding` — understand an unfamiliar codebase
 - `an:research` — explore existing code and patterns before implementing
 - `an:planning` — create an execution-ready plan with bite-sized steps
 - `an:feature-delivery` — implement a feature
@@ -46,7 +45,6 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), s
 - `an:commit` — create a conventional commit with verification
 - `an:docs-writer` — update documentation
 - `an:extract` — extract patterns, decisions, and learnings from completed work
-- `an:go-pipeline` — execute a full spec-to-commit pipeline in one run
 
 ## Workflow
 
@@ -69,20 +67,20 @@ If the user types `an:<skill-name>` (for example `an:planning` or `an:debug`), s
 
 - `an:<skill-name>` (direct trigger) -> load the named skill immediately
 - vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
-- unfamiliar repo or missing context -> `repo-onboarding`
+- unfamiliar repo or missing context -> `research`
 - need to understand existing code before implementing -> `research`
 - complex feature needing requirements definition -> `brainstorming` (includes spec writing)
-- docs work in an unfamiliar repo -> `repo-onboarding` first, then `docs-writer`
+- docs work in an unfamiliar repo -> `research` first, then `docs-writer`
 - bug report, error trace, failing test, regression -> `debug`
 - implement or change behavior -> `planning`, then `feature-delivery`
 - implement with TDD approach -> `planning`, then `test-driven-development`
+- execute an approved spec or clear task end-to-end with minimal gates -> `planning` in go mode
 - refactor, restructure, extract, or migrate without behavior change -> `planning`, then `refactor-safe`
 - review diff, PR, or changed files -> `code-review`
 - respond to review feedback -> `code-review` (receiving mode)
 - ready to commit -> `commit`
 - update README, runbook, onboarding docs, API notes in a known repo -> `docs-writer`
-- extract learnings from completed work -> `extract`
-- execute an approved spec end-to-end -> `go-pipeline`
+- extract learnings from completed work, or summarize active work for the next session -> `extract`
 
 ## Planning Rule
 

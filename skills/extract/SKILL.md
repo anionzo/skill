@@ -6,6 +6,8 @@ Extract reusable patterns, significant decisions, and failure learnings from com
 
 This skill exists to turn individual task outcomes into organizational memory — not just code patterns, but also the decisions and mistakes that are expensive to repeat.
 
+It also covers session handoff when work is not yet complete: compress the active task state into the smallest high-signal baton pass so a new session can continue without rereading everything.
+
 ## When To Use
 
 Load this skill when:
@@ -15,16 +17,45 @@ Load this skill when:
 - a decision was made that future work should know about
 - a mistake was made that should not be repeated
 - the user says "extract learnings", "document what we learned", or "capture this pattern"
+- the user asks "what did we do so far?" or "summarize where we are"
+- work is being handed to another session or agent
+- the current session is approaching its context limit
 
-Skip this skill when work was routine with no surprises or novel patterns.
+Skip this skill when work was routine with no surprises, novel patterns, or meaningful in-progress state to carry forward.
 
 ## Workflow
 
-1. Identify the source of knowledge (completed task, code change, debugging session).
-2. Analyze across three categories: patterns, decisions, and failures.
-3. Check for existing documentation that should be updated (avoid duplicates).
-4. Create or update knowledge documentation.
-5. Promote critical learnings that would save significant time if known in advance.
+1. Identify the source of value:
+   - completed task or debugging session -> durable learning extraction
+   - unfinished task or near-full context -> session handoff
+2. If extracting durable knowledge, analyze across three categories: patterns, decisions, and failures.
+3. If preparing a handoff, compress the active task into: goal, done so far, current state, locked decisions, open risks, and next best action.
+4. Check for existing documentation that should be updated (avoid duplicates).
+5. Create or update the right artifact:
+   - durable knowledge documentation
+   - temporary handoff summary
+6. Promote critical learnings that would save significant time if known in advance.
+
+## Session Handoff Mode
+
+When the task is not complete, create a high-signal baton pass for the next session.
+
+Include:
+
+- **Goal** — what is actively being worked on
+- **Done So Far** — completed changes, validation, commits, and approved decisions
+- **Current State** — what is verified, what is still in progress, and any dirty worktree notes
+- **Locked Decisions** — decisions that should not be re-litigated unless the user reopens them
+- **Open Questions / Risks** — blockers, uncertainty, or easy-to-miss constraints
+- **Next Best Action** — the single clearest next step
+- **Handoff Payload** — a compact 5-15 line summary for copy-paste into a new session
+
+Compression rules:
+
+- include only details that save meaningful time in the next session
+- prefer concrete file paths, commands, commits, and verification state when relevant
+- do not replay the whole conversation
+- keep temporary task state separate from durable knowledge
 
 ## Three-Category Analysis
 
@@ -126,12 +157,14 @@ Present results using the Shared Output Contract:
 
 1. **Goal/Result** — what knowledge was extracted, updated, or intentionally not extracted
 2. **Key Details:**
-   - what was extracted (patterns, decisions, failures)
+   - what was extracted or handed off
+   - whether this was durable knowledge or temporary task state
    - whether docs were created or updated
    - whether critical learnings were promoted
    - where the canonical knowledge now lives
 3. **Next Action** — only when findings lead somewhere:
    - extracted from completed task → `commit` if changes pending
+   - task is not complete but should continue later → name the primary next skill
    - no clear handoff → stop after the result
 
 ## No-Op Case
@@ -141,6 +174,7 @@ If the work was too routine to generalize, say so explicitly and do not force a 
 ## Red Flags
 
 - only extracting code patterns, ignoring decisions and failures
+- replaying the full session instead of compressing it
 - promoting everything as critical (noise kills the learning loop)
 - writing generic learnings like "test more carefully" (worthless)
 - fabricating findings when the task was straightforward
@@ -150,6 +184,7 @@ If the work was too routine to generalize, say so explicitly and do not force a 
 ## Checklist
 
 - [ ] Three categories analyzed (patterns, decisions, failures)
+- [ ] Or handoff state compressed (goal, done, current state, risks, next action)
 - [ ] Existing docs checked for duplicates
 - [ ] Knowledge is genuinely generalizable
 - [ ] Includes concrete examples (for patterns)
@@ -158,4 +193,9 @@ If the work was too routine to generalize, say so explicitly and do not force a 
 
 ## Done Criteria
 
-This skill is complete when the three-category analysis is done and any findings worth preserving are documented in the appropriate location. If nothing worth extracting was found, an explicit "no-op" statement is the valid completion.
+This skill is complete when either:
+
+- the three-category analysis is done and any durable findings worth preserving are documented in the appropriate location, or
+- the in-progress task has been compressed into a clear handoff that a new session can continue from without redoing expensive analysis.
+
+If nothing worth extracting or handing off was found, an explicit "no-op" statement is the valid completion.

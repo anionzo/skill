@@ -1,25 +1,31 @@
 name: extract
-version: 0.1.0
+version: 0.2.0
 category: knowledge
-summary: Extract reusable patterns, decisions, and failure learnings from completed work to compound knowledge.
-summary_vi: "Tr\xEDch xu\u1EA5t pattern, quy\u1EBFt \u0111\u1ECBnh, v\xE0 b\xE0i h\u1ECDc t\u1EEB c\xF4ng vi\u1EC7c ho\xE0n th\xE0nh \u0111\u1EC3 t\xEDch l\u0169y ki\u1EBFn th\u1EE9c."
+summary: Extract durable learnings from completed work, or compress in-progress task state into a high-signal handoff for the next session.
+summary_vi: "Trích xuất bài học bền vững từ công việc đã xong, hoặc nén trạng thái công việc đang dở thành handoff sắc gọn cho session tiếp theo."
 triggers:
   - extract learnings from this task
   - document what we learned
   - capture this pattern
   - what did we learn
+  - what did we do so far
+  - summarize where we are
+  - prepare a handoff
+  - context is getting full
 inputs:
-  - completed task or feature
-  - code changes or debugging session
+  - completed task, unfinished task, or feature
+  - code changes, debugging session, or current task state
 outputs:
   - patterns documented
   - decisions recorded
   - failures captured
   - critical learnings promoted
+  - handoff payload for the next session
 constraints:
   - search existing docs before creating new ones
   - do not fabricate findings
-  - three-category analysis required
+  - use three-category analysis for durable knowledge
+  - compress instead of replaying the whole session for handoffs
 related_skills:
   - using-skills
   - commit
