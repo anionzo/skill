@@ -257,7 +257,7 @@ bash scripts/sync-platform-files
 
 ### 📦 Publishing a Release
 
-The package is published to [GitHub Packages](https://github.com/anionzo/skill/pkgs/npm/skill) via a GitHub Actions workflow.
+The package is published to [npm](https://www.npmjs.com/package/@anionzo/skill) via a GitHub Actions workflow.
 
 #### To publish a new version:
 
@@ -276,7 +276,7 @@ git push origin main --tags
 gh release create v1.0.1 --generate-notes
 ```
 
-> 💡 The workflow (`.github/workflows/publish.yml`) runs validation, generates platform files, and publishes to GitHub Packages automatically.
+> 💡 The workflow (`.github/workflows/publish.yml`) runs validation, generates platform files, and publishes to npm automatically.
 
 ---
 

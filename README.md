@@ -9,7 +9,7 @@
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square&logo=github)](CONTRIBUTING.md)
-[![npm](https://img.shields.io/badge/npm-%40anionzo%2Fskill-crimson?style=flat-square&logo=npm)](https://github.com/anionzo/skill/pkgs/npm/skill)
+[![npm](https://img.shields.io/npm/v/@anionzo/skill?style=flat-square&logo=npm&color=crimson)](https://www.npmjs.com/package/@anionzo/skill)
 
 ---
 
@@ -124,7 +124,7 @@ bash scripts/sync-platform-files
 
 ### 📦 Install via npm
 
-> Available on [GitHub Packages](https://github.com/anionzo/skill/pkgs/npm/skill)
+> Available on [npm](https://www.npmjs.com/package/@anionzo/skill) — no authentication required
 
 ```bash
 # 1. Install the package
