@@ -1,197 +1,219 @@
-# Skill Spec
+# 🎯 Skill Spec
 
-## Required Layout
+> 🌐 **[English](#-english)** · 🇻🇳 **[Tiếng Việt](#-tiếng-việt)**
+
+---
+
+<a id="-english"></a>
+
+## 🌐 English
+
+### 📁 Required Layout
 
 Every skill lives in its own directory under `skills/`.
 
 ```text
 skills/<skill-name>/
-├─ meta.yaml
-├─ SKILL.md
-├─ examples.md
-└─ references/
+├─ 📄 meta.yaml
+├─ 📖 SKILL.md
+├─ 💡 examples.md
+└─ 📂 references/
    └─ <supporting-file>.md
 ```
 
-## Required Files
+### 📄 Required Files
 
-### `meta.yaml`
+#### `meta.yaml`
 
 Use this file for stable metadata that scripts or future tooling can read.
 
-Required keys:
+**Required keys:**
 
-- `name`
-- `version`
-- `category`
-- `summary`
+| Key | Purpose |
+|---|---|
+| `name` | Skill identifier |
+| `version` | Semantic version |
+| `category` | Skill category |
+| `summary` | One-line description |
 
-Recommended keys:
+**Recommended keys:**
 
-- `triggers`
-- `inputs`
-- `outputs`
-- `constraints`
-- `related_skills`
+| Key | Purpose |
+|---|---|
+| `triggers` | When to activate |
+| `inputs` | What the skill needs |
+| `outputs` | What the skill produces |
+| `constraints` | Guardrails |
+| `related_skills` | Connected skills |
 
-### `SKILL.md`
+#### `SKILL.md`
 
-This is the main instruction file. Keep it focused and operational.
+The main instruction file. Keep it focused and operational.
 
-Recommended sections:
+**Recommended sections:**
 
-- purpose
-- when to use
-- workflow
-- output format
-- red flags
-- done criteria
+- 🎯 Purpose
+- ⏰ When to use
+- 🔄 Workflow
+- 📋 Output format
+- 🚩 Red flags
+- ✅ Done criteria
 
-Strongly recommended when relevant:
+**Strongly recommended when relevant:**
 
-- activation rule or routing hint
-- verification gate
-- handoff to the next skill
+- 🧭 Activation rule or routing hint
+- ✅ Verification gate
+- ➡️ Handoff to the next skill
 
-### `examples.md`
+#### `examples.md`
 
 Show at least one realistic input and the expected style of response or behavior.
 
-### `references/`
+#### `references/`
 
-Use this for supporting artifacts such as:
+Use this for supporting artifacts:
 
-- output templates
-- checklists
-- rubrics
-- decision trees
+- 📋 Output templates
+- ☑️ Checklists
+- 📊 Rubrics
+- 🌳 Decision trees
 
-Do not move the main workflow into `references/`. The main behavior should stay in `SKILL.md`.
+> ⚠️ Do not move the main workflow into `references/`. The main behavior should stay in `SKILL.md`.
 
-## Authoring Rules
+### ✍️ Authoring Rules
 
-- Keep the skill narrow enough that an agent can decide when to use it.
-- Optimize for reuse, not for one-off project details.
-- Prefer portable instructions over vendor-specific syntax.
-- Avoid hidden assumptions about tools, frameworks, or directory names.
-- Ask one short blocking question when needed instead of writing around ambiguity.
-- If the skill changes code or task state, be clear about what evidence counts as done.
+- 🔹 Keep the skill narrow enough that an agent can decide when to use it
+- 🔹 Optimize for reuse, not for one-off project details
+- 🔹 Prefer portable instructions over vendor-specific syntax
+- 🔹 Avoid hidden assumptions about tools, frameworks, or directory names
+- 🔹 Ask one short blocking question when needed instead of writing around ambiguity
+- 🔹 If the skill changes code or task state, be clear about what evidence counts as done
 
-## Quality Bar
+### ✅ Quality Bar
 
 A skill is good enough to keep when it:
 
-- has a clear trigger
-- has a repeatable workflow
-- gives a stable output shape
-- helps the agent avoid a common failure mode
-- includes an example grounded in reality
-- makes it obvious what should happen next
+| | Criteria |
+|---|---|
+| 🎯 | Has a clear trigger |
+| 🔄 | Has a repeatable workflow |
+| 📋 | Gives a stable output shape |
+| 🛡️ | Helps the agent avoid a common failure mode |
+| 💡 | Includes an example grounded in reality |
+| ➡️ | Makes it obvious what should happen next |
 
-## Anti-Patterns
+### 🚫 Anti-Patterns
 
-- skills that try to solve every task at once
-- vague prompts such as "be a great engineer"
-- long theory with no operational steps
-- hard-coded assumptions about one agent platform
-- embedding secrets, user-specific tokens, or machine paths
+- ❌ Skills that try to solve every task at once
+- ❌ Vague prompts such as "be a great engineer"
+- ❌ Long theory with no operational steps
+- ❌ Hard-coded assumptions about one agent platform
+- ❌ Embedding secrets, user-specific tokens, or machine paths
 
 ---
 
-# Đặc Tả Skill (Tiếng Việt)
+<a id="-tiếng-việt"></a>
 
-## Bố Cục Bắt Buộc
+## 🇻🇳 Tiếng Việt
+
+### 📁 Bố Cục Bắt Buộc
 
 Mỗi skill nằm trong thư mục riêng dưới `skills/`.
 
 ```text
 skills/<ten-skill>/
-├─ meta.yaml
-├─ SKILL.md
-├─ examples.md
-└─ references/
+├─ 📄 meta.yaml
+├─ 📖 SKILL.md
+├─ 💡 examples.md
+└─ 📂 references/
    └─ <file-ho-tro>.md
 ```
 
-## File Bắt Buộc
+### 📄 File Bắt Buộc
 
-### `meta.yaml`
+#### `meta.yaml`
 
 Dùng cho metadata ổn định mà script hoặc tooling tương lai có thể đọc.
 
-Trường bắt buộc:
+**Trường bắt buộc:**
 
-- `name`
-- `version`
-- `category`
-- `summary`
+| Key | Mục đích |
+|---|---|
+| `name` | Định danh skill |
+| `version` | Phiên bản semantic |
+| `category` | Danh mục skill |
+| `summary` | Mô tả một dòng |
 
-Trường khuyến nghị:
+**Trường khuyến nghị:**
 
-- `triggers`
-- `inputs`
-- `outputs`
-- `constraints`
-- `related_skills`
+| Key | Mục đích |
+|---|---|
+| `triggers` | Khi nào kích hoạt |
+| `inputs` | Skill cần gì |
+| `outputs` | Skill tạo ra gì |
+| `constraints` | Rào cản |
+| `related_skills` | Skill liên quan |
 
-### `SKILL.md`
+#### `SKILL.md`
 
 File hướng dẫn chính. Giữ tập trung và hướng hành động.
 
-Các section khuyến nghị:
+**Các section khuyến nghị:**
 
-- mục đích (purpose)
-- khi nào dùng (when to use)
-- workflow
-- output format
-- red flag
-- done criteria
+- 🎯 Mục đích
+- ⏰ Khi nào dùng
+- 🔄 Workflow
+- 📋 Output format
+- 🚩 Red flag
+- ✅ Done criteria
 
-Khuyến nghị mạnh khi liên quan:
+**Khuyến nghị mạnh khi liên quan:**
 
-- quy tắc kích hoạt hoặc gợi ý routing
-- cổng verification
-- handoff sang skill tiếp theo
+- 🧭 Quy tắc kích hoạt hoặc gợi ý routing
+- ✅ Cổng verification
+- ➡️ Handoff sang skill tiếp theo
 
-### `examples.md`
+#### `examples.md`
 
 Cho ít nhất một input thực tế và phong cách response hoặc hành vi mong đợi.
 
-### `references/`
+#### `references/`
 
-Dùng cho artifact hỗ trợ như:
+Dùng cho artifact hỗ trợ:
 
-- output template
-- checklist
-- rubric
-- cây quyết định
+- 📋 Output template
+- ☑️ Checklist
+- 📊 Rubric
+- 🌳 Cây quyết định
 
-Không chuyển workflow chính vào `references/`. Hành vi chính phải ở trong `SKILL.md`.
+> ⚠️ Không chuyển workflow chính vào `references/`. Hành vi chính phải ở trong `SKILL.md`.
 
-## Quy Tắc Viết
+### ✍️ Quy Tắc Viết
 
-- Giữ skill đủ hẹp để agent có thể quyết định khi nào dùng.
-- Tối ưu cho tái sử dụng, không phải cho chi tiết dự án một lần.
-- Ưu tiên hướng dẫn portable hơn cú pháp vendor-specific.
-- Tránh giả định ngầm về tool, framework, hay tên thư mục.
-- Hỏi một câu ngắn khi cần thay vì viết xung quanh sự mơ hồ.
-- Nếu skill thay đổi code hoặc trạng thái task, nêu rõ bằng chứng nào tính là hoàn thành.
+- 🔹 Giữ skill đủ hẹp để agent có thể quyết định khi nào dùng
+- 🔹 Tối ưu cho tái sử dụng, không phải cho chi tiết dự án một lần
+- 🔹 Ưu tiên hướng dẫn portable hơn cú pháp vendor-specific
+- 🔹 Tránh giả định ngầm về tool, framework, hay tên thư mục
+- 🔹 Hỏi một câu ngắn khi cần thay vì viết xung quanh sự mơ hồ
+- 🔹 Nếu skill thay đổi code hoặc trạng thái task, nêu rõ bằng chứng nào tính là hoàn thành
 
-## Ngưỡng Chất Lượng
+### ✅ Ngưỡng Chất Lượng
 
 Một skill đủ tốt để giữ khi:
 
-- có trigger rõ ràng
-- có workflow lặp lại được
-- cho output shape ổn định
-- giúp agent tránh một failure mode phổ biến
-- có example thực tế
-- làm rõ bước tiếp theo cần làm gì
+| | Tiêu chí |
+|---|---|
+| 🎯 | Có trigger rõ ràng |
+| 🔄 | Có workflow lặp lại được |
+| 📋 | Cho output shape ổn định |
+| 🛡️ | Giúp agent tránh failure mode phổ biến |
+| 💡 | Có example thực tế |
+| ➡️ | Làm rõ bước tiếp theo cần làm gì |
 
-## Anti-Pattern
+### 🚫 Anti-Pattern
 
-- skill cố giải quyết mọi task cùng lúc
-- prompt mơ hồ kiểu "hãy là kỹ sư giỏi"
-- lý thuyết dài mà không có bước hành động
-- giả định cứng về một nền tảng agent
-- nhúng secret, token cá nhân, hay đường dẫn máy
+- ❌ Skill cố giải quyết mọi task cùng lúc
+- ❌ Prompt mơ hồ kiểu "hãy là kỹ sư giỏi"
+- ❌ Lý thuyết dài mà không có bước hành động
+- ❌ Giả định cứng về một nền tảng agent
+- ❌ Nhúng secret, token cá nhân, hay đường dẫn máy

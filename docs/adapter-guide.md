@@ -1,36 +1,44 @@
-# Adapter Guide
+# 🔌 Adapter Guide
 
-## Goal
+> 🌐 **[English](#-english)** · 🇻🇳 **[Tiếng Việt](#-tiếng-việt)**
+
+---
+
+<a id="-english"></a>
+
+## 🌐 English
+
+### 🎯 Goal
 
 Adapters make the same skill library usable across multiple agent platforms without rewriting the core content.
 
-The core files stay in `skills/` and `knowledge/`.
-Platform-specific instruction files are generated into `generated/`.
+> 📁 Core files stay in `skills/` and `knowledge/`.
+> 📦 Platform-specific files are generated into `generated/`.
 
-## Current Targets
+### 🤖 Current Targets
 
-- Claude Code -> `CLAUDE.md`
-- OpenCode -> `OPENCODE.md`
-- Gemini CLI -> `GEMINI.md`
-- Generic agent environments -> `AGENTS.md`
-- GitHub Copilot -> `.github/copilot-instructions.md`
+| | Agent | Output File |
+|---|---|---|
+| 🤖 | Claude Code | `CLAUDE.md` |
+| ⚡ | OpenCode | `OPENCODE.md` |
+| 💎 | Gemini CLI | `GEMINI.md` |
+| 🔧 | Generic agents | `AGENTS.md` |
+| 🐙 | GitHub Copilot | `.github/copilot-instructions.md` |
 
-## Current Strategy
+### 📋 Current Strategy
 
 The first version does not try to fully translate every skill into platform-specific syntax.
 
 Instead it generates concise platform files that:
 
-- point to the core skill router
-- point to the most important knowledge files
-- include a small skill catalog
-- state working rules that should be stable across platforms
+- 🧭 Point to the core skill router
+- 📚 Point to the most important knowledge files
+- 📋 Include a small skill catalog
+- 📏 State working rules that should be stable across platforms
 
-This keeps the delivery artifacts short and reduces drift.
+> 💡 This keeps the delivery artifacts short and reduces drift.
 
-## Sync Flow
-
-Run:
+### 🔄 Sync Flow
 
 ```bash
 bash scripts/sync-platform-files
@@ -38,60 +46,62 @@ bash scripts/sync-platform-files
 
 This writes fresh files into `generated/`.
 
-## Copy Flow
+### 📋 Copy Flow
 
-After sync, copy the output file to the target repo or agent-specific location:
+After sync, copy the output file to the target repo:
 
-- `generated/CLAUDE.md` -> `CLAUDE.md`
-- `generated/OPENCODE.md` -> `OPENCODE.md`
-- `generated/GEMINI.md` -> `GEMINI.md`
-- `generated/AGENTS.md` -> `AGENTS.md`
-- `generated/copilot-instructions.md` -> `.github/copilot-instructions.md`
+| Source | Target |
+|---|---|
+| `generated/CLAUDE.md` | `CLAUDE.md` |
+| `generated/OPENCODE.md` | `OPENCODE.md` |
+| `generated/GEMINI.md` | `GEMINI.md` |
+| `generated/AGENTS.md` | `AGENTS.md` |
+| `generated/copilot-instructions.md` | `.github/copilot-instructions.md` |
 
-## Future Improvements
+### 🔮 Future Improvements
 
-Likely future upgrades:
-
-- machine-readable skill manifest
-- selective sync by tag or platform
-- project overlays that add `knowledge/project/` automatically
-- MCP or CLI delivery for skill discovery
+- 📋 Machine-readable skill manifest
+- 🏷️ Selective sync by tag or platform
+- 📁 Project overlays that add `knowledge/project/` automatically
+- 🔌 MCP or CLI delivery for skill discovery
 
 ---
 
-# Hướng Dẫn Adapter (Tiếng Việt)
+<a id="-tiếng-việt"></a>
 
-## Mục Tiêu
+## 🇻🇳 Tiếng Việt
+
+### 🎯 Mục Tiêu
 
 Adapter giúp cùng một thư viện skill dùng được trên nhiều nền tảng agent mà không cần viết lại nội dung core.
 
-File core ở trong `skills/` và `knowledge/`.
-File hướng dẫn platform-specific được sinh vào `generated/`.
+> 📁 File core ở trong `skills/` và `knowledge/`.
+> 📦 File platform-specific được sinh vào `generated/`.
 
-## Các Nền Tảng Hiện Tại
+### 🤖 Các Nền Tảng Hiện Tại
 
-- Claude Code -> `CLAUDE.md`
-- OpenCode -> `OPENCODE.md`
-- Gemini CLI -> `GEMINI.md`
-- Môi trường agent chung -> `AGENTS.md`
-- GitHub Copilot -> `.github/copilot-instructions.md`
+| | Agent | File output |
+|---|---|---|
+| 🤖 | Claude Code | `CLAUDE.md` |
+| ⚡ | OpenCode | `OPENCODE.md` |
+| 💎 | Gemini CLI | `GEMINI.md` |
+| 🔧 | Agent chung | `AGENTS.md` |
+| 🐙 | GitHub Copilot | `.github/copilot-instructions.md` |
 
-## Chiến Lược Hiện Tại
+### 📋 Chiến Lược Hiện Tại
 
 Phiên bản đầu không cố dịch toàn bộ mỗi skill sang cú pháp platform-specific.
 
 Thay vào đó, nó sinh file platform ngắn gọn:
 
-- trỏ đến skill router core
-- trỏ đến các file knowledge quan trọng nhất
-- bao gồm danh mục skill nhỏ
-- nêu quy tắc làm việc ổn định xuyên nền tảng
+- 🧭 Trỏ đến skill router core
+- 📚 Trỏ đến các file knowledge quan trọng nhất
+- 📋 Bao gồm danh mục skill nhỏ
+- 📏 Nêu quy tắc làm việc ổn định xuyên nền tảng
 
-Điều này giữ artifact phân phối ngắn và giảm drift.
+> 💡 Điều này giữ artifact phân phối ngắn và giảm drift.
 
-## Luồng Sync
-
-Chạy:
+### 🔄 Luồng Sync
 
 ```bash
 bash scripts/sync-platform-files
@@ -99,21 +109,21 @@ bash scripts/sync-platform-files
 
 Lệnh này ghi file mới vào `generated/`.
 
-## Luồng Copy
+### 📋 Luồng Copy
 
-Sau khi sync, copy file output sang repo đích hoặc vị trí agent-specific:
+Sau khi sync, copy file output sang repo đích:
 
-- `generated/CLAUDE.md` -> `CLAUDE.md`
-- `generated/OPENCODE.md` -> `OPENCODE.md`
-- `generated/GEMINI.md` -> `GEMINI.md`
-- `generated/AGENTS.md` -> `AGENTS.md`
-- `generated/copilot-instructions.md` -> `.github/copilot-instructions.md`
+| Nguồn | Đích |
+|---|---|
+| `generated/CLAUDE.md` | `CLAUDE.md` |
+| `generated/OPENCODE.md` | `OPENCODE.md` |
+| `generated/GEMINI.md` | `GEMINI.md` |
+| `generated/AGENTS.md` | `AGENTS.md` |
+| `generated/copilot-instructions.md` | `.github/copilot-instructions.md` |
 
-## Cải Tiến Tương Lai
+### 🔮 Cải Tiến Tương Lai
 
-Nâng cấp có thể trong tương lai:
-
-- skill manifest machine-readable
-- sync chọn lọc theo tag hoặc nền tảng
-- project overlay tự động thêm `knowledge/project/`
-- phân phối qua MCP hoặc CLI cho skill discovery
+- 📋 Skill manifest machine-readable
+- 🏷️ Sync chọn lọc theo tag hoặc nền tảng
+- 📁 Project overlay tự động thêm `knowledge/project/`
+- 🔌 Phân phối qua MCP hoặc CLI cho skill discovery
