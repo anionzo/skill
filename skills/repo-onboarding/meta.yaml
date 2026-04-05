@@ -1,0 +1,23 @@
+name: repo-onboarding
+version: 0.1.0
+category: discovery
+summary: Build a practical map of an unfamiliar repository before making claims or edits.
+summary_vi: Xây dựng bản đồ thực tế của repo lạ trước khi đưa ra nhận định hoặc sửa code.
+triggers:
+  - explain this repo
+  - onboard into a codebase
+  - understand architecture before changing code
+inputs:
+  - repository files
+  - README and operating docs when present
+outputs:
+  - architecture summary
+  - important commands
+  - open questions and next reads
+constraints:
+  - prefer source-grounded observations
+  - do not infer architecture from names alone
+related_skills:
+  - using-skills
+  - planning
+  - docs-writer

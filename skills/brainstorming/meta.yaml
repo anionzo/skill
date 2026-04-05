@@ -1,0 +1,23 @@
+name: brainstorming
+version: 0.1.0
+category: discovery
+summary: Turn a rough idea or underspecified request into a concrete, reviewable direction before planning begins.
+summary_vi: Biến ý tưởng thô hoặc request chưa rõ thành hướng đi cụ thể, có thể review, trước khi bắt đầu lập plan.
+triggers:
+  - help me think this through
+  - explore the approach first
+  - the request is vague or underspecified
+inputs:
+  - rough idea
+  - user goals and constraints
+outputs:
+  - clarified goal
+  - key decisions
+  - open questions
+  - handoff into planning
+constraints:
+  - avoid jumping into code or low-level implementation too early
+  - keep the discussion concrete and decision-oriented
+related_skills:
+  - using-skills
+  - planning

@@ -1,0 +1,29 @@
+name: planning
+version: 0.1.0
+category: planning
+summary: Turn a request into an execution-ready plan with scope, approach, risks, and verification before code changes begin.
+summary_vi: Biến request thành plan sẵn sàng thực thi với phạm vi, cách tiếp cận, rủi ro, và xác minh trước khi bắt đầu code.
+triggers:
+  - make a plan
+  - think through the implementation first
+  - prepare before coding
+inputs:
+  - user request
+  - relevant repo context
+  - existing patterns and constraints
+outputs:
+  - scope
+  - approach
+  - file plan
+  - verification plan
+constraints:
+  - keep the plan concrete and bounded
+  - separate planning from implementation
+related_skills:
+  - using-skills
+  - brainstorming
+  - repo-onboarding
+  - feature-delivery
+  - bug-triage
+  - refactor-safe
+  - verification-before-completion

@@ -1,0 +1,29 @@
+name: using-skills
+version: 0.1.0
+category: routing
+summary: Route a user request to the right primary skill and working mode before deeper work begins.
+summary_vi: Phân loại request và chọn đúng skill chính trước khi bắt đầu công việc sâu hơn.
+triggers:
+  - start a new session
+  - decide which skill to load
+  - handle mixed or unclear requests
+inputs:
+  - user request
+  - repo context if available
+outputs:
+  - chosen skill
+  - working mode
+  - immediate next step
+constraints:
+  - ask only the shortest blocking question when necessary
+  - prefer one primary skill at a time
+related_skills:
+  - brainstorming
+  - repo-onboarding
+  - planning
+  - bug-triage
+  - feature-delivery
+  - refactor-safe
+  - code-review
+  - verification-before-completion
+  - docs-writer
