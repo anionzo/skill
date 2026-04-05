@@ -151,6 +151,8 @@ Installer behavior:
 - press **enter** to install the selected platforms
 - you can also choose whether to update `.gitignore` with the installed agent files
 - `npm install @anionzo/skill` still runs in silent postinstall mode and installs the default skill directories automatically
+- the install is now self-contained under `.anionzo/`, including shared `skills/`, `knowledge/`, and `docs/`
+- each installed skill directory now includes the full skill package: `SKILL.md`, `meta.yaml`, `examples.md`, and `references/`
 
 #### Edit or extend the library
 

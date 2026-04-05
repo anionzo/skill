@@ -149,6 +149,8 @@ Hành vi của installer:
 - nhấn **enter** để cài các platform đã chọn
 - bạn cũng có thể chọn cập nhật `.gitignore` cho các file agent vừa cài
 - `npm install @anionzo/skill` vẫn chạy theo postinstall silent mode và tự cài các thư mục skill mặc định
+- bản cài giờ self-contained trong `.anionzo/`, gồm shared `skills/`, `knowledge/`, và `docs/`
+- mỗi skill được cài ra giờ mang theo full package: `SKILL.md`, `meta.yaml`, `examples.md`, và `references/`
 
 #### Sửa hoặc mở rộng thư viện
 
