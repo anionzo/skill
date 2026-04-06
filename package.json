@@ -1,6 +1,6 @@
 {
   "name": "@anionzo/skill",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
   "bin": {
     "anionzo-skill": "scripts/install-opencode-skills"
