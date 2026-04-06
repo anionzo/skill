@@ -258,26 +258,37 @@ bash scripts/sync-platform-files
 
 ### 📦 Phát Hành Phiên Bản Mới
 
-Package được publish lên [npm](https://www.npmjs.com/package/@anionzo/skill) qua GitHub Actions workflow.
+Repo này hỗ trợ cả publish thủ công lẫn publish qua GitHub Actions.
 
-#### Cách publish phiên bản mới:
+#### Flow phát hành khuyến nghị:
 
 ```bash
-# 1. Tăng version trong package.json
-npm version patch   # 1.0.0 → 1.0.1
-# hoặc
-npm version minor   # 1.0.0 → 1.1.0
-# hoặc
-npm version major   # 1.0.0 → 2.0.0
+# 1. Validate và sinh lại delivery artifact
+bash scripts/validate-skills
+bash scripts/sync-platform-files
 
-# 2. Push version tag
-git push origin main --tags
+# 2. Tăng version trong package.json
+# patch: 1.0.0 -> 1.0.1
+# minor: 1.0.0 -> 1.1.0
+# major: 1.0.0 -> 2.0.0
 
-# 3. Tạo GitHub Release (kích hoạt workflow publish)
+# 3. Commit phần tăng version
+git add package.json
+git commit -m "chore: bump package version to 1.0.1"
+
+# 4. Push main và version tag
+git push origin main
+git tag v1.0.1 HEAD
+git push origin v1.0.1
+
+# 5. Publish lên npm
+npm publish --access public
+
+# 6. Tạo GitHub Release
 gh release create v1.0.1 --generate-notes
 ```
 
-> 💡 Workflow (`.github/workflows/publish.yml`) chạy validation, sinh platform file, và publish lên npm tự động.
+> 💡 Repo vẫn có workflow GitHub Actions trong `.github/workflows/publish.yml`, nhưng publish thủ công vẫn được hỗ trợ khi bạn muốn kiểm soát chặt hơn quá trình phát hành.
 
 ---
 

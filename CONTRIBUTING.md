@@ -258,26 +258,37 @@ bash scripts/sync-platform-files
 
 ### 📦 Publishing a Release
 
-The package is published to [npm](https://www.npmjs.com/package/@anionzo/skill) via a GitHub Actions workflow.
+This repo supports both manual release publishing and GitHub Actions publishing.
 
-#### To publish a new version:
+#### Recommended release flow:
 
 ```bash
-# 1. Bump the version in package.json
-npm version patch   # 1.0.0 → 1.0.1
-# or
-npm version minor   # 1.0.0 → 1.1.0
-# or
-npm version major   # 1.0.0 → 2.0.0
+# 1. Validate and regenerate delivery artifacts
+bash scripts/validate-skills
+bash scripts/sync-platform-files
 
-# 2. Push the version tag
-git push origin main --tags
+# 2. Bump the version in package.json
+# patch: 1.0.0 -> 1.0.1
+# minor: 1.0.0 -> 1.1.0
+# major: 1.0.0 -> 2.0.0
 
-# 3. Create a GitHub Release (triggers publish workflow)
+# 3. Commit the version bump
+git add package.json
+git commit -m "chore: bump package version to 1.0.1"
+
+# 4. Push main and the version tag
+git push origin main
+git tag v1.0.1 HEAD
+git push origin v1.0.1
+
+# 5. Publish to npm
+npm publish --access public
+
+# 6. Create a GitHub Release
 gh release create v1.0.1 --generate-notes
 ```
 
-> 💡 The workflow (`.github/workflows/publish.yml`) runs validation, generates platform files, and publishes to npm automatically.
+> 💡 A GitHub Actions workflow also exists in `.github/workflows/publish.yml`, but manual release publishing is supported and may be used when you want tighter release control.
 
 ---
 

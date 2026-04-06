@@ -8,8 +8,14 @@
 
 Adapter giúp cùng một thư viện skill dùng được trên nhiều nền tảng agent mà không cần viết lại nội dung core.
 
-> 📁 File core ở trong `skills/` và `knowledge/`.
-> 📦 File platform-specific được sinh vào `generated/`.
+Repo này hỗ trợ hai cách phân phối:
+
+- flow dùng source repo hoặc làm thủ công: sinh file vào `generated/` rồi tự copy
+- flow npm installer: `npx @anionzo/skill` sẽ cài thư viện self-contained vào `.anionzo/` và tự ghi các file platform đã chọn
+
+> 📁 File core nguồn nằm trong `skills/`, `knowledge/`, và `docs/`.
+> 📦 Artifact để phân phối thủ công được sinh vào `generated/`.
+> 🧳 Project đã cài sẽ giữ file runtime dùng chung trong `.anionzo/`.
 
 ### 🤖 Các Nền Tảng Hiện Tại
 
@@ -34,6 +40,8 @@ Thay vào đó, nó sinh file platform ngắn gọn:
 
 > 💡 Điều này giữ artifact phân phối ngắn và giảm drift.
 
+Trong project đã cài, các instruction file được sinh ra sẽ trỏ sang `.anionzo/...` để nội dung hướng dẫn khớp với file thật sự tồn tại trong repo đích.
+
 ### 🔄 Luồng Sync
 
 ```bash
@@ -42,9 +50,9 @@ bash scripts/sync-platform-files
 
 Lệnh này ghi file mới vào `generated/`.
 
-### 📋 Luồng Copy
+### 📋 Luồng Copy Thủ Công
 
-Sau khi sync, copy file output sang repo đích:
+Sau khi sync, chỉ copy file output sang repo đích nếu bạn đang dùng source repo trực tiếp:
 
 | Nguồn | Đích |
 |---|---|
@@ -54,9 +62,27 @@ Sau khi sync, copy file output sang repo đích:
 | `generated/AGENTS.md` | `AGENTS.md` |
 | `generated/copilot-instructions.md` | `.github/copilot-instructions.md` |
 
+> ⚠️ Các file generated này trỏ sang path `.anionzo/...`. Nếu bạn copy tay, hãy copy luôn phần shared library (`skills/`, `knowledge/`, và `docs/`) vào `.anionzo/` trong repo đích, hoặc dùng `npx @anionzo/skill` thay thế.
+
+### 📦 Luồng npm Installer
+
+Với flow mặc định cho end-user, chạy:
+
+```bash
+npx @anionzo/skill
+```
+
+Lệnh này sẽ cài:
+
+- `.anionzo/skills/`
+- `.anionzo/knowledge/`
+- `.anionzo/docs/`
+- các top-level instruction file đã chọn
+- các thư mục skill theo platform như `.opencode/skills/`, `.claude/skills/`, và `.agents/skills/`
+
 ### 🔮 Cải Tiến Tương Lai
 
 - 📋 Skill manifest machine-readable
 - 🏷️ Sync chọn lọc theo tag hoặc nền tảng
-- 📁 Project overlay tự động thêm `knowledge/project/`
+- 📁 Tầng project overlay và project-specific knowledge tốt hơn
 - 🔌 Phân phối qua MCP hoặc CLI cho skill discovery

@@ -150,9 +150,10 @@ Installer behavior:
 - press **space** to select one or more platforms
 - press **enter** to install the selected platforms
 - you can also choose whether to update `.gitignore` with the installed agent files
-- `npm install @anionzo/skill` still runs in silent postinstall mode and installs the default skill directories automatically
+- `npm install @anionzo/skill` still runs in silent postinstall mode and installs the shared `.anionzo/` library plus the default skill directories automatically
 - the install is now self-contained under `.anionzo/`, including shared `skills/`, `knowledge/`, and `docs/`
 - each installed skill directory now includes the full skill package: `SKILL.md`, `meta.yaml`, `examples.md`, and `references/`
+- interactive `npx` installs the selected top-level agent files; silent `npm install` does not create those top-level instruction files
 
 #### Edit or extend the library
 
@@ -202,19 +203,33 @@ Or add as a project dependency (creates package.json):
 npm install @anionzo/skill
 ```
 
-Skills are automatically installed into:
+Interactive `npx` installs a shared library into:
 
-- `.opencode/skills/` — for OpenCode
-- `.claude/skills/` — for Claude Code
-- `.agents/skills/` — for other agents
+- `.anionzo/skills/`
+- `.anionzo/knowledge/`
+- `.anionzo/docs/`
 
-Open your agent and use `/skill` to see available skills.
+It then writes the selected platform files into:
+
+- `.opencode/skills/` and `OPENCODE.md` — for OpenCode
+- `.claude/skills/` and `CLAUDE.md` — for Claude Code
+- `.agents/skills/` and `AGENTS.md` — for other agents
+- `GEMINI.md` — for Gemini CLI
+- `.github/copilot-instructions.md` — for GitHub Copilot
+
+Silent `npm install @anionzo/skill` also installs `.anionzo/`, plus the default skill directories for OpenCode, Claude Code, and generic agents, but it does not create the top-level instruction files.
+
+Open your agent and start with the `using-skills` router, or ask it to use the most relevant skill for your task.
 
 > 💡 Or clone the repo directly if you prefer editing skills in place.
 
 ### 🔌 Agent Integration
 
 > This repo is the **source of truth**. Generated files are delivery artifacts only.
+
+If you use the npm installer, you do not need to copy these files manually. The table below is for source-repo or manual delivery flows.
+
+If you use the manual flow, copy the shared library content into `.anionzo/` in the target repo too. The generated instruction files reference `.anionzo/...` paths.
 
 | Agent | Copy from | Copy to |
 |---|---|---|

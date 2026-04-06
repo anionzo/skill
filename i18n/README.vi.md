@@ -148,9 +148,10 @@ Hành vi của installer:
 - nhấn **space** để chọn một hoặc nhiều platform
 - nhấn **enter** để cài các platform đã chọn
 - bạn cũng có thể chọn cập nhật `.gitignore` cho các file agent vừa cài
-- `npm install @anionzo/skill` vẫn chạy theo postinstall silent mode và tự cài các thư mục skill mặc định
+- `npm install @anionzo/skill` vẫn chạy theo postinstall silent mode và tự cài shared library `.anionzo/` cùng các thư mục skill mặc định
 - bản cài giờ self-contained trong `.anionzo/`, gồm shared `skills/`, `knowledge/`, và `docs/`
 - mỗi skill được cài ra giờ mang theo full package: `SKILL.md`, `meta.yaml`, `examples.md`, và `references/`
+- `npx` tương tác sẽ tạo các top-level instruction file đã chọn; còn `npm install` silent mode thì không tạo các file đó
 
 #### Sửa hoặc mở rộng thư viện
 
@@ -200,19 +201,33 @@ Hoặc thêm như dependency của project (tạo package.json):
 npm install @anionzo/skill
 ```
 
-Skill tự động được cài vào:
+Chế độ `npx` tương tác sẽ cài shared library vào:
 
-- `.opencode/skills/` — cho OpenCode
-- `.claude/skills/` — cho Claude Code
-- `.agents/skills/` — cho các agent khác
+- `.anionzo/skills/`
+- `.anionzo/knowledge/`
+- `.anionzo/docs/`
 
-Mở agent và dùng `/skill` để xem danh sách skill.
+Sau đó nó ghi các file platform đã chọn vào:
+
+- `.opencode/skills/` và `OPENCODE.md` — cho OpenCode
+- `.claude/skills/` và `CLAUDE.md` — cho Claude Code
+- `.agents/skills/` và `AGENTS.md` — cho các agent khác
+- `GEMINI.md` — cho Gemini CLI
+- `.github/copilot-instructions.md` — cho GitHub Copilot
+
+`npm install @anionzo/skill` ở silent mode cũng cài `.anionzo/` và các thư mục skill mặc định cho OpenCode, Claude Code, và agent chung, nhưng không tạo các top-level instruction file.
+
+Mở agent và bắt đầu với router `using-skills`, hoặc yêu cầu agent dùng skill phù hợp nhất cho task.
 
 > 💡 Hoặc clone repo trực tiếp nếu muốn chỉnh sửa skill tại chỗ.
 
 ### 🔌 Tích Hợp Agent
 
 > Repo này là **nguồn sự thật duy nhất**. Các file sinh ra chỉ là artifact phân phối.
+
+Nếu bạn dùng npm installer thì không cần copy tay các file này. Bảng bên dưới dành cho flow dùng source repo hoặc phân phối thủ công.
+
+Nếu dùng flow thủ công, hãy copy luôn shared library vào `.anionzo/` trong repo đích. Các instruction file được sinh ra hiện trỏ sang path `.anionzo/...`.
 
 | Agent | Copy từ | Copy tới |
 |---|---|---|

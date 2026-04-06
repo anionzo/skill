@@ -8,8 +8,14 @@
 
 Adapters make the same skill library usable across multiple agent platforms without rewriting the core content.
 
-> 📁 Core files stay in `skills/` and `knowledge/`.
-> 📦 Platform-specific files are generated into `generated/`.
+This repo supports two delivery modes:
+
+- source-repo/manual flow: generate files into `generated/` and copy them yourself
+- npm installer flow: `npx @anionzo/skill` installs a self-contained `.anionzo/` library and writes the selected platform files for you
+
+> 📁 Core source files stay in `skills/`, `knowledge/`, and `docs/`.
+> 📦 Manual delivery artifacts are generated into `generated/`.
+> 🧳 Installed projects keep shared runtime files under `.anionzo/`.
 
 ### 🤖 Current Targets
 
@@ -34,6 +40,8 @@ Instead it generates concise platform files that:
 
 > 💡 This keeps the delivery artifacts short and reduces drift.
 
+In installed projects, the generated instruction files point to `.anionzo/...` so the instructions match files that actually exist in the target repo.
+
 ### 🔄 Sync Flow
 
 ```bash
@@ -42,9 +50,9 @@ bash scripts/sync-platform-files
 
 This writes fresh files into `generated/`.
 
-### 📋 Copy Flow
+### 📋 Manual Copy Flow
 
-After sync, copy the output file to the target repo:
+After sync, copy the output file to the target repo only if you are using the source repo directly:
 
 | Source | Target |
 |---|---|
@@ -54,9 +62,27 @@ After sync, copy the output file to the target repo:
 | `generated/AGENTS.md` | `AGENTS.md` |
 | `generated/copilot-instructions.md` | `.github/copilot-instructions.md` |
 
+> ⚠️ These generated files reference `.anionzo/...` paths. If you copy them manually, also copy the shared library content (`skills/`, `knowledge/`, and `docs/`) into `.anionzo/` in the target repo, or use `npx @anionzo/skill` instead.
+
+### 📦 npm Installer Flow
+
+For the default end-user flow, run:
+
+```bash
+npx @anionzo/skill
+```
+
+This installs:
+
+- `.anionzo/skills/`
+- `.anionzo/knowledge/`
+- `.anionzo/docs/`
+- the selected top-level agent instruction files
+- platform skill directories such as `.opencode/skills/`, `.claude/skills/`, and `.agents/skills/`
+
 ### 🔮 Future Improvements
 
 - 📋 Machine-readable skill manifest
 - 🏷️ Selective sync by tag or platform
-- 📁 Project overlays that add `knowledge/project/` automatically
+- 📁 Better project overlays and project-specific knowledge layering
 - 🔌 MCP or CLI delivery for skill discovery
