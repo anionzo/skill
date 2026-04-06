@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v6
 
@@ -23,7 +24,41 @@ jobs:
       - name: Generate platform files
         run: bash scripts/sync-platform-files
 
-      - name: Publish package
-        run: npm publish --access public
+      - name: Check npmjs version
+        id: npmjs
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view @anionzo/skill@"$VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish package to npmjs
+        if: steps.npmjs.outputs.already_published != 'true'
+        run: npm publish --access public --registry=https://registry.npmjs.org
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Set up GitHub Packages registry
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: '@anionzo'
+
+      - name: Check GitHub Packages version
+        id: ghpkg
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view @anionzo/skill@"$VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish package to GitHub Packages
+        if: steps.ghpkg.outputs.already_published != 'true'
+        run: npm publish --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
