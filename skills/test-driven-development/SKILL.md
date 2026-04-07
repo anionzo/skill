@@ -13,6 +13,8 @@ Load this skill when:
 - refactoring code that lacks test coverage
 - the user says "use TDD", "test first", or "red-green-refactor"
 
+Prefer this skill over `feature-delivery` when the expected behavior is clear enough to drive from a failing test first. If the requirements are still fuzzy or the work spans multiple files with open design questions, use `planning` first and then execute with this skill.
+
 Exceptions (confirm with the user first):
 
 - throwaway prototypes or spikes

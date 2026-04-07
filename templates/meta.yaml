@@ -2,6 +2,7 @@ name: skill-name
 version: 0.1.0
 category: category
 summary: One sentence describing the skill and its value.
+summary_vi: "Một câu mô tả skill và giá trị của nó."
 triggers:
   - trigger phrase
 inputs:

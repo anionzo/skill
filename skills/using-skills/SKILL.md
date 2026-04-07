@@ -86,6 +86,22 @@ Examples:
 - update README, runbook, onboarding docs, API notes in a known repo -> `docs-writer`
 - extract learnings from completed work, or summarize active work for the next session -> `extract`
 
+## Choosing Feature Delivery Vs TDD
+
+Use `feature-delivery` when:
+
+- the request is clear and implementation can be verified after the code change
+- the repo does not need strict test-first discipline for this task
+- the user asked to add or update behavior, but not specifically to work test-first
+
+Use `test-driven-development` when:
+
+- the user explicitly asks for TDD, test-first, or red-green-refactor
+- a bug fix should start with a regression test that proves the failure first
+- the expected behavior is already clear enough to express as a failing test
+
+If the change is multi-file, risky, or still ambiguous, use `planning` first in either case.
+
 ## Planning Rule
 
 Use `planning` before code changes when any of these are true:
@@ -122,6 +138,15 @@ Present results using the Shared Output Contract:
 - asking broad planning questions before checking if the task is already clear
 - forcing a feature workflow onto a review or docs task
 - skipping TDD when the user requested it
+
+## Checklist
+
+- [ ] Explicit skill request honored when present
+- [ ] Task type classified correctly
+- [ ] One primary skill chosen
+- [ ] Planning need stated explicitly
+- [ ] Single blocking question asked only if necessary
+- [ ] Immediate next step communicated clearly
 
 ## Done Criteria
 

@@ -38,6 +38,15 @@ Good skill files are **operational**:
 - 📋 Define how the result should be reported
 - 🚩 Call out the common mistakes the skill is meant to prevent
 - ➡️ Define whether the skill hands off to another skill or ends the flow
+- 🧱 Define the nearest neighboring skill when confusion is likely (for example `feature-delivery` vs `test-driven-development`)
+
+Use stable section names where possible so validators and future tooling can reason about the file consistently:
+
+- `## Purpose`
+- `## When To Use`
+- `## Output Format`
+- `## Red Flags`
+- `## Done Criteria`
 
 ### 💡 Examples
 
@@ -48,6 +57,13 @@ Include:
 - 🗣️ A representative user request
 - 📋 The intended response shape or chosen workflow
 - 🔑 Any key assumptions that affect routing
+- ✅ At least one sample completed output when the response shape is non-trivial
+
+When a skill returns structured output, prefer the shared contract:
+
+1. `Goal/Result`
+2. `Key Details`
+3. `Next Action`
 
 ### ☑️ Review Checklist
 

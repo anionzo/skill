@@ -51,6 +51,16 @@ Present results using the Shared Output Contract:
 - declaring done based on "looks right" without running tests
 - mixing a refactor commit with a feature change commit
 
+## Checklist
+
+- [ ] Refactor goal stated with no intended behavior change
+- [ ] Scope boundary fixed explicitly
+- [ ] Existing regression coverage checked
+- [ ] Coverage gaps addressed before structural edits
+- [ ] Behavioral drift checked at the boundary
+- [ ] Relevant test suite run and passed
+- [ ] `verification-before-completion` identified before declaring done
+
 ## Done Criteria
 
 This skill is complete when the test suite passes, no behavioral drift is detected at the refactored surface, and the verification field is populated with actual test output.

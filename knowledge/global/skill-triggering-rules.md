@@ -9,9 +9,9 @@ These notes keep the library behavior consistent across agents and sessions.
 - Start with `using-skills` when the task shape is unclear.
 - Use `brainstorming` when the request is still fuzzy and the user is really asking for a clarified direction.
 - Use `planning` before code changes for multi-file, ambiguous, or higher-risk work.
-- Use `feature-delivery` only after the implementation path is concrete enough to execute.
+- Use `feature-delivery` only after the implementation path is concrete enough to execute and post-change verification is sufficient.
 - Use `debug` before fixing an issue whose cause is not yet grounded.
-- Use `test-driven-development` when implementing with TDD discipline (red-green-refactor).
+- Use `test-driven-development` when implementing with TDD discipline (red-green-refactor), especially for explicit test-first requests and regression-driven bug fixes.
 - Use `verification-before-completion` before any strong success claim.
 - Use `code-review` for review requests and post-implementation risk checks.
 - Use `research` when entering an unfamiliar codebase before productive work can begin.

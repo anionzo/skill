@@ -8,6 +8,8 @@ Implement a feature with a minimal, repo-aligned change that is verified before 
 
 Load this skill when the user wants code changed to add or update behavior.
 
+Skip this skill and prefer `test-driven-development` when the user explicitly wants test-first execution, when a bug fix should begin with a regression test, or when the behavior is best defined by a failing test before implementation.
+
 ## Workflow
 
 1. Restate the desired outcome in user-visible terms.
@@ -36,6 +38,16 @@ Present results using the Shared Output Contract:
 - widening scope during implementation without calling it out
 - stopping after code edits without verification
 - describing code changes only in implementation terms instead of user impact
+
+## Checklist
+
+- [ ] User-visible outcome restated
+- [ ] Existing patterns inspected before editing
+- [ ] Smallest viable approach chosen
+- [ ] Files changed are named explicitly
+- [ ] Relevant verification run
+- [ ] Risks or uncertainty called out
+- [ ] `verification-before-completion` identified as the next gate
 
 ## Done Criteria
 

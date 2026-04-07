@@ -48,6 +48,69 @@ warn_key() {
   fi
 }
 
+require_section() {
+  file=$1
+  section=$2
+
+  if [ ! -f "$file" ]; then
+    return
+  fi
+
+  if ! grep -Eq "^## ${section}$" "$file"; then
+    printf 'Missing section %s in %s\n' "$section" "$file" >&2
+    FAIL=1
+  fi
+}
+
+warn_pattern() {
+  file=$1
+  pattern=$2
+  message=$3
+
+  if [ ! -f "$file" ]; then
+    return
+  fi
+
+  if ! grep -Eq "$pattern" "$file"; then
+    printf 'WARN: %s in %s\n' "$message" "$file" >&2
+    WARN=1
+  fi
+}
+
+require_skill_name_matches_dir() {
+  skill_dir=$1
+  meta_file="$skill_dir/meta.yaml"
+  expected_name=$(basename "$skill_dir")
+
+  if [ ! -f "$meta_file" ]; then
+    return
+  fi
+
+  actual_name=$(sed -n 's/^name:[[:space:]]*//p' "$meta_file" | sed -n '1p')
+
+  if [ -n "$actual_name" ] && [ "$actual_name" != "$expected_name" ]; then
+    printf 'Skill name mismatch: %s declares "%s" but directory name is "%s"\n' "$meta_file" "$actual_name" "$expected_name" >&2
+    FAIL=1
+  fi
+}
+
+warn_unknown_related_skills() {
+  meta_file=$1
+
+  if [ ! -f "$meta_file" ]; then
+    return
+  fi
+
+  related_names=$(sed -n '/^related_skills:/,/^[^[:space:]-]/p' "$meta_file" | sed '1d' | sed -n 's/^[[:space:]]*-[[:space:]]*//p')
+
+  for related_name in $related_names; do
+    if [ ! -d "$ROOT/skills/$related_name" ]; then
+      printf 'WARN: Unknown related skill "%s" in %s\n' "$related_name" "$meta_file" >&2
+      WARN=1
+    fi
+  done
+}
+
 warn_empty_dir() {
   dir=$1
   label=$2
@@ -60,12 +123,32 @@ warn_empty_dir() {
   fi
 }
 
+warn_missing_markdown_refs() {
+  dir=$1
+
+  if [ ! -d "$dir" ]; then
+    return
+  fi
+
+  set -- "$dir"/*.md
+  if [ ! -f "$1" ]; then
+    printf 'WARN: %s has no markdown support files\n' "$dir" >&2
+    WARN=1
+  fi
+}
+
 require_dir "$ROOT/docs"
 require_dir "$ROOT/skills"
 require_dir "$ROOT/knowledge"
 require_dir "$ROOT/templates"
 require_dir "$ROOT/adapters"
 require_dir "$ROOT/scripts"
+require_dir "$ROOT/templates/references"
+
+require_file "$ROOT/templates/meta.yaml"
+require_file "$ROOT/templates/SKILL.md"
+require_file "$ROOT/templates/examples.md"
+require_file "$ROOT/templates/references/output-template.md"
 
 for layer in global project working; do
   require_dir "$ROOT/knowledge/$layer"
@@ -84,11 +167,27 @@ for skill_dir in "$ROOT"/skills/*; do
   require_key "$skill_dir/meta.yaml" "category"
   require_key "$skill_dir/meta.yaml" "summary"
 
+  require_skill_name_matches_dir "$skill_dir"
+
+  require_section "$skill_dir/SKILL.md" "Purpose"
+  require_section "$skill_dir/SKILL.md" "When To Use"
+  require_section "$skill_dir/SKILL.md" "Output Format"
+  require_section "$skill_dir/SKILL.md" "Red Flags"
+  require_section "$skill_dir/SKILL.md" "Done Criteria"
+
   warn_key "$skill_dir/meta.yaml" "summary_vi"
   warn_key "$skill_dir/meta.yaml" "triggers"
   warn_key "$skill_dir/meta.yaml" "related_skills"
+  warn_unknown_related_skills "$skill_dir/meta.yaml"
 
   warn_empty_dir "$skill_dir/references" "$skill_dir/references"
+  warn_missing_markdown_refs "$skill_dir/references"
+
+  warn_pattern "$skill_dir/SKILL.md" "Shared Output Contract" "SKILL.md should reference the Shared Output Contract"
+  warn_pattern "$skill_dir/SKILL.md" "^## Checklist$" "SKILL.md should include a checklist section"
+  warn_pattern "$skill_dir/examples.md" "^## Example [0-9]" "examples.md should include numbered example headings"
+  warn_pattern "$skill_dir/examples.md" "User request:|\*\*User:\*\*" "examples.md should include a realistic user request"
+  warn_pattern "$skill_dir/examples.md" "Expected result:|Expected routing:|Completed output" "examples.md should include expected routing, expected result, or completed output"
 done
 
 if [ "$WARN" -ne 0 ]; then
