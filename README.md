@@ -157,7 +157,7 @@ npx @anionzo/skill --platform opencode,agents
 - **Linux/macOS**: Uses bash script
 - Interactive menu will let you choose agents (OpenCode, Claude Code, Agents, Gemini, Copilot...)
 
-> **Version 1.9.0+** is required for full Windows support.
+> **Version 1.10.0+** is required for full Windows support.
 
 If you get bash error on Windows, clear cache and force latest local version:
 
