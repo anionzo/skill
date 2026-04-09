@@ -121,25 +121,59 @@ This scaffold distills patterns from strong public repos:
 | 🗃️ [`knowns-dev/knowns`](https://github.com/knowns-dev/knowns) | Separate skills from knowledge; generate platform files |
 | 📦 [`hoangnb24/skills`](https://github.com/hoangnb24/skills) | Workflow-first skill design with router and output contracts |
 
-### 🚀 Quick Start
+### 🚀 Quick Start (Cross-platform)
+
+**Command works on Windows, macOS, Linux:**
+
+```bash
+npx @anionzo/skill
+```
+
+If you want a reusable local CLI on your machine, link this repo once:
+
+```bash
+cd /home/quantri/skill
+npm link
+```
+
+Then inside any project, run:
+
+```bash
+anionzo init
+
+# or
+anionzo skill init
+```
+
+Non-interactive examples:
+
+```bash
+anionzo init --yes
+anionzo init --platform opencode,claude,copilot,gitignore
+npx @anionzo/skill --platform opencode,agents
+```
+
+- **Windows**: Uses PowerShell automatically (thanks to `.cmd` + `.mjs` + `.ps1`)
+- **Linux/macOS**: Uses bash script
+- Interactive menu will let you choose agents (OpenCode, Claude Code, Agents, Gemini, Copilot...)
+
+> **Version 1.9.0+** is required for full Windows support.
+
+If you get bash error on Windows, clear cache and force latest local version:
+
+```powershell
+npm cache clean --force
+npx --yes @anionzo/skill
+```
 
 #### Use the library
 
-If you just want to use the skill library in your agent:
+After running the command above, open your agent and say:
 
-```bash
-# 1. Install the library into your current project or workspace
-npx @anionzo/skill
-
-# 2. Open your agent in the target repo
-# Then ask the router to pick the right starting skill
-# "Use the using-skills router for this task"
-
-# 3. Ask naturally, for example:
-# "Help me understand this repo"
-# "Plan this feature first"
-# "Review these changes"
-```
+- `Use the using-skills router for this task`
+- `Help me understand this repo`
+- `Plan this feature first`
+- `Review these changes`
 
 The router will pick the right primary skill and next step.
 
@@ -194,6 +228,11 @@ npx @anionzo/skill
 # Quieter first-run startup if npm shows progress noise before the menu
 npx -y --loglevel=error @anionzo/skill
 ```
+
+Windows notes:
+
+- `npx @anionzo/skill` now works in PowerShell and Windows Terminal without Git Bash or WSL
+- If Windows still resolves an older cached package, run `npm cache clean --force` and retry
 
 If npm prints progress output before the interactive menu appears, that output is coming from `npx` while it downloads the package, before the installer script starts. For the quietest startup, prefer `npx -y --loglevel=error @anionzo/skill`.
 

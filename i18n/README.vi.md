@@ -121,6 +121,40 @@ Catalog này được giữ gọn có chủ đích: mỗi skill nên sở hữu 
 
 ### 🚀 Bắt Đầu Nhanh
 
+**Lệnh cài đặt chạy được trên Windows, macOS, Linux:**
+
+```bash
+npx @anionzo/skill
+```
+
+Nếu bạn muốn có CLI local dùng lại trên máy, link repo này một lần:
+
+```bash
+cd /home/quantri/skill
+npm link
+```
+
+Sau đó ở bất kỳ project nào, chạy:
+
+```bash
+anionzo init
+
+# hoặc
+anionzo skill init
+```
+
+Ví dụ chạy không tương tác:
+
+```bash
+anionzo init --yes
+anionzo init --platform opencode,claude,copilot,gitignore
+npx @anionzo/skill --platform opencode,agents
+```
+
+- **Windows**: tự dùng PowerShell (`.cmd` + `.mjs` + `.ps1`), không cần Git Bash hay WSL
+- **Linux/macOS**: dùng bash script hiện có
+- Menu tương tác sẽ cho bạn chọn agent cần cài (OpenCode, Claude Code, Agents, Gemini, Copilot...)
+
 #### Dùng thư viện
 
 Nếu bạn chỉ muốn dùng skill library trong agent của mình:
@@ -192,6 +226,11 @@ npx @anionzo/skill
 # Khởi động yên hơn nếu npm hiện progress trước khi menu mở ra
 npx -y --loglevel=error @anionzo/skill
 ```
+
+Tùy chọn trên Windows:
+
+- `npx @anionzo/skill` giờ chạy được trực tiếp trong PowerShell và Windows Terminal, không cần Git Bash hay WSL
+- Nếu Windows còn dùng cache của bản cũ, hãy chạy `npm cache clean --force` rồi thử lại
 
 Nếu npm in progress output trước khi menu tương tác xuất hiện, phần đó đến từ `npx` trong lúc tải package, tức là xảy ra trước khi script installer bắt đầu chạy. Muốn startup yên nhất, nên dùng `npx -y --loglevel=error @anionzo/skill`.
 

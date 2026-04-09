@@ -18,34 +18,78 @@ ROOT=$(CDPATH= cd -- "$(dirname "$SCRIPT_PATH")/.." && pwd)
 show_help() {
   printf '%s\n' 'Usage:'
   printf '%s\n' '  npx @anionzo/skill'
+  printf '%s\n' '  npx @anionzo/skill --yes'
+  printf '%s\n' '  npx @anionzo/skill --platform opencode,claude,copilot'
   printf '%s\n' '  npx -y --loglevel=error @anionzo/skill'
   printf '%s\n' '  npm install @anionzo/skill'
-  printf '%s\n' '  bash scripts/install-opencode-skills [project-dir]'
+  printf '%s\n' '  bash scripts/install-opencode-skills [options] [project-dir]'
   printf '\n'
   printf '%s\n' 'Notes:'
   printf '%s\n' '  - For the quietest interactive startup, prefer `npx -y --loglevel=error @anionzo/skill`.'
   printf '%s\n' '  - `npm install @anionzo/skill` runs the silent postinstall flow.'
+  printf '%s\n' '  - `--yes` skips the picker and installs all top-level agent files.'
+  printf '%s\n' '  - `--platform` accepts: opencode, claude, agents, gemini, copilot, gitignore.'
 }
 
-case "${1:-}" in
-  -h|--help)
-    show_help
-    exit 0
-    ;;
-  -*)
-    printf 'Unknown option: %s\n\n' "$1" >&2
-    show_help >&2
-    exit 1
-    ;;
-esac
+YES_MODE=0
+PLATFORM_ARG=""
+PROJECT_ARG=""
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -h|--help)
+      show_help
+      exit 0
+      ;;
+    -y|--yes)
+      YES_MODE=1
+      ;;
+    --platform)
+      if [ "$#" -lt 2 ]; then
+        printf '%s\n\n' 'Missing value for --platform' >&2
+        show_help >&2
+        exit 1
+      fi
+      PLATFORM_ARG="$2"
+      shift
+      ;;
+    --platform=*)
+      PLATFORM_ARG="${1#--platform=}"
+      ;;
+    --)
+      shift
+      if [ "$#" -gt 1 ]; then
+        printf '%s\n\n' 'Too many positional arguments' >&2
+        show_help >&2
+        exit 1
+      fi
+      PROJECT_ARG="${1:-}"
+      break
+      ;;
+    -*)
+      printf 'Unknown option: %s\n\n' "$1" >&2
+      show_help >&2
+      exit 1
+      ;;
+    *)
+      if [ -n "$PROJECT_ARG" ]; then
+        printf '%s\n\n' 'Too many positional arguments' >&2
+        show_help >&2
+        exit 1
+      fi
+      PROJECT_ARG="$1"
+      ;;
+  esac
+  shift
+done
 
 # Determine project root:
 #   1. explicit arg
 #   2. npm_config_local_prefix during lifecycle scripts (correct for npm install --prefix)
 #   3. INIT_CWD (npm invocation cwd)
 #   4. current dir
-if [ -n "${1:-}" ]; then
-  PROJECT="$1"
+if [ -n "$PROJECT_ARG" ]; then
+  PROJECT="$PROJECT_ARG"
 elif [ "${npm_lifecycle_event:-}" = "postinstall" ] && [ -n "${npm_config_local_prefix:-}" ]; then
   PROJECT="$npm_config_local_prefix"
 elif [ -n "${INIT_CWD:-}" ]; then
@@ -191,6 +235,110 @@ write_agent_file() {
 
 is_interactive() {
   [ "${npm_lifecycle_event:-}" != "postinstall" ] && [ -t 0 ] && [ -t 1 ]
+}
+
+clear_selected_platforms() {
+  do_opencode=0
+  do_claude=0
+  do_agents=0
+  do_gemini=0
+  do_copilot=0
+  do_gitignore=0
+}
+
+enable_platform() {
+  case "$1" in
+    opencode)
+      do_opencode=1
+      ;;
+    claude)
+      do_claude=1
+      ;;
+    agents|generic)
+      do_agents=1
+      ;;
+    gemini)
+      do_gemini=1
+      ;;
+    copilot|github-copilot)
+      do_copilot=1
+      ;;
+    gitignore)
+      do_gitignore=1
+      ;;
+    all)
+      do_opencode=1
+      do_claude=1
+      do_agents=1
+      do_gemini=1
+      do_copilot=1
+      ;;
+    *)
+      printf 'Unknown platform: %s\n' "$1" >&2
+      exit 1
+      ;;
+  esac
+}
+
+select_platforms_from_arg() {
+  local raw="$1"
+  local old_ifs="$IFS"
+  local item
+
+  clear_selected_platforms
+  IFS=,
+  for item in $raw; do
+    item=${item##[[:space:]]}
+    item=${item%%[[:space:]]}
+    [ -n "$item" ] || continue
+    enable_platform "$item"
+  done
+  IFS="$old_ifs"
+}
+
+run_selected_install() {
+  local total
+  local catalog
+
+  total=$((do_opencode + do_claude + do_agents + do_gemini + do_copilot))
+  if [ "$total" -eq 0 ]; then
+    printf '\n  Nothing selected. Exiting.\n\n'
+    exit 0
+  fi
+
+  catalog=$(build_catalog)
+
+  printf '\n  Installing...\n\n'
+
+  install_shared_library
+
+  if [ "$do_opencode" -eq 1 ]; then
+    install_skills "$PROJECT/.opencode/skills" "OpenCode"
+    write_agent_file "OpenCode Instructions" "$PROJECT/OPENCODE.md" "$catalog"
+    printf '  -> OPENCODE.md\n'
+  fi
+  if [ "$do_claude" -eq 1 ]; then
+    install_skills "$PROJECT/.claude/skills" "Claude"
+    write_agent_file "Claude Code Instructions" "$PROJECT/CLAUDE.md" "$catalog"
+    printf '  -> CLAUDE.md\n'
+  fi
+  if [ "$do_agents" -eq 1 ]; then
+    install_skills "$PROJECT/.agents/skills" "Agents"
+    write_agent_file "Generic Agent Instructions" "$PROJECT/AGENTS.md" "$catalog"
+    printf '  -> AGENTS.md\n'
+  fi
+  if [ "$do_gemini" -eq 1 ]; then
+    write_agent_file "Gemini Instructions" "$PROJECT/GEMINI.md" "$catalog"
+    printf '  -> GEMINI.md\n'
+  fi
+  if [ "$do_copilot" -eq 1 ]; then
+    mkdir -p "$PROJECT/.github"
+    write_agent_file "GitHub Copilot Instructions" "$PROJECT/.github/copilot-instructions.md" "$catalog"
+    printf '  -> .github/copilot-instructions.md\n'
+  fi
+  if [ "$do_gitignore" -eq 1 ]; then
+    update_gitignore
+  fi
 }
 
 # --- Interactive picker ---
@@ -403,7 +551,14 @@ update_gitignore() {
 
 # --- Main ---
 
-if is_interactive; then
+if [ -n "$PLATFORM_ARG" ]; then
+  select_platforms_from_arg "$PLATFORM_ARG"
+  run_selected_install
+elif [ "$YES_MODE" -eq 1 ]; then
+  clear_selected_platforms
+  enable_platform all
+  run_selected_install
+elif is_interactive; then
   # --- Interactive: let user pick platforms with arrows + space ---
 
   interactive_select
@@ -420,47 +575,7 @@ if is_interactive; then
   do_copilot=${SELECTED_COPILOT:-0}
   do_gitignore=${SELECTED_GITIGNORE:-0}
 
-  # Check if anything was selected
-  total=$((do_opencode + do_claude + do_agents + do_gemini + do_copilot))
-  if [ "$total" -eq 0 ]; then
-    printf '\n  Nothing selected. Exiting.\n\n'
-    exit 0
-  fi
-
-  catalog=$(build_catalog)
-
-  printf '\n  Installing...\n\n'
-
-  install_shared_library
-
-  if [ "$do_opencode" -eq 1 ]; then
-    install_skills "$PROJECT/.opencode/skills" "OpenCode"
-    write_agent_file "OpenCode Instructions" "$PROJECT/OPENCODE.md" "$catalog"
-    printf '  -> OPENCODE.md\n'
-  fi
-  if [ "$do_claude" -eq 1 ]; then
-    install_skills "$PROJECT/.claude/skills" "Claude"
-    write_agent_file "Claude Code Instructions" "$PROJECT/CLAUDE.md" "$catalog"
-    printf '  -> CLAUDE.md\n'
-  fi
-  if [ "$do_agents" -eq 1 ]; then
-    install_skills "$PROJECT/.agents/skills" "Agents"
-    write_agent_file "Generic Agent Instructions" "$PROJECT/AGENTS.md" "$catalog"
-    printf '  -> AGENTS.md\n'
-  fi
-  if [ "$do_gemini" -eq 1 ]; then
-    write_agent_file "Gemini Instructions" "$PROJECT/GEMINI.md" "$catalog"
-    printf '  -> GEMINI.md\n'
-  fi
-  if [ "$do_copilot" -eq 1 ]; then
-    mkdir -p "$PROJECT/.github"
-    write_agent_file "GitHub Copilot Instructions" "$PROJECT/.github/copilot-instructions.md" "$catalog"
-    printf '  -> .github/copilot-instructions.md\n'
-  fi
-
-  if [ "$do_gitignore" -eq 1 ]; then
-    update_gitignore
-  fi
+  run_selected_install
 
 else
   # --- Silent mode: postinstall — install all skill dirs, no agent files ---

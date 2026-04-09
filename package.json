@@ -1,15 +1,18 @@
 {
   "name": "@anionzo/skill",
-  "version": "1.8.2",
+  "version": "1.10.0",
   "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
   "bin": {
-    "anionzo-skill": "scripts/install-opencode-skills"
+    "skill": "scripts/anionzo.mjs",
+    "anionzo": "scripts/anionzo.mjs",
+    "anionzo-skill": "scripts/anionzo.mjs"
   },
+  "preferGlobal": true,
   "scripts": {
     "validate": "bash scripts/validate-skills",
     "sync": "bash scripts/sync-platform-files",
-    "install-opencode": "bash scripts/install-opencode-skills",
-    "postinstall": "bash scripts/install-opencode-skills"
+    "install-opencode": "node scripts/install-opencode-skills.mjs",
+    "postinstall": "node scripts/install-opencode-skills.mjs"
   },
   "files": [
     "skills/",
