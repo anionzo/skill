@@ -4,12 +4,12 @@
 
 **Thư viện skill đa agent, vendor-neutral cho kỹ thuật phần mềm hỗ trợ AI**
 
-[![Skills](https://img.shields.io/badge/skills-13-blue?style=flat-square&logo=bookstack)](../skills/)
+[![Skills](https://img.shields.io/badge/skills-16-blue?style=flat-square&logo=bookstack)](../skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](../knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](../adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](../LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square&logo=github)](../CONTRIBUTING.md)
-[![npm](https://img.shields.io/npm/v/@anionzo/skill?style=flat-square&logo=npm&color=crimson)](https://www.npmjs.com/package/@anionzo/skill)
+[![npm](https://img.shields.io/badge/npm-v@anionzo/skill-crimson?style=flat-square&logo=npm)](https://www.npmjs.com/package/@anionzo/skill)
 
 ---
 
@@ -21,93 +21,144 @@
 
 > 🎯 Giữ các workflow AI lặp lại ở một nơi. Tách skill khỏi kiến thức. Dùng được với mọi agent.
 
-Repo này nhẹ hơn một sản phẩm workflow đầy đủ. Nó lấy tư duy **workflow-first** từ `hoangnb24/skills`, hành vi **plan-first** từ các coding agent hiện đại như OpenCode, và tư duy **multi-platform** từ `knowns-dev/knowns` — rồi biến chúng thành thư viện cá nhân thực dụng.
+Repo này cung cấp bộ skill AI agent cho kỹ thuật phần mềm. Nó cân bằng giữa **tính portable** (skill dùng được trong mọi project) và **độ sâu hệ sinh thái** (workflow anionzo cho execution đa agent có cấu trúc).
 
-Thư viện hiện tại được cô đọng có chủ đích: giữ **13 skill sắc nét hơn** thay vì tách mỗi workflow gần nhau thành một tên riêng. Các luồng bị chồng lắp như onboarding repo, handoff giữa session, và go mode end-to-end đã được nhập vào các skill lõi mạnh hơn (`research`, `extract`, và `planning`) để giảm nhiễu khi route.
+Thư viện theo tư duy **consolidated**: các workflow chồng lắp được nhập vào skill thống nhất có modes rõ ràng, không bị tách thành nhiều file. Mọi skill đều tuân theo output contract giống nhau (`Goal/Result → Key Details → Next Action`) và cùng pattern handoff.
 
 ### 🏗️ Mục Tiêu Thiết Kế
 
 | | Mục tiêu |
 |---|---|
-| 🔹 | Skill nhỏ, cụ thể, tái sử dụng |
+| 🔹 | Skill nhỏ, cụ thể, tái sử dụng — dùng modes thay vì nhiều file riêng |
 | 🔹 | Kiến thức lưu tách biệt khỏi skill |
 | 🔹 | Adapter sinh tự động từ một nguồn — không viết tay |
-| 🔹 | Hoạt động mà không cần plugin runtime |
+| 🔹 | Hoạt động không cần plugin runtime (general skills) |
+| 🔹 | Anionzo ecosystem skills mở rộng core với workflow có cấu trúc |
 
 ### 📁 Cấu Trúc Repo
 
 ```
 .
 ├─ 📄 docs/                 → Spec, quy tắc viết, quyết định thiết kế
-├─ 🎯 skills/               → Định nghĩa skill tái sử dụng
+├─ 🎯 skills/               → Định nghĩa skill tái sử dụng (16 skills)
 ├─ 📚 knowledge/            → Kiến thức global, project, working
-├─ 📋 templates/            → Mẫu khởi tạo skill mới
-├─ 🔌 adapters/             → Hướng dẫn cho từng nền tảng
-├─ ⚙️ scripts/              → Script validate và sync
-├─ 🌐 i18n/                 → Bản dịch tiếng Việt
-└─ 📦 generated/            → Output tự sinh (đã gitignore)
+├─ 📋 templates/           → Mẫu khởi tạo skill mới
+├─ 🔌 adapters/            → Hướng dẫn cho từng nền tảng
+├─ ⚙️ scripts/             → Script validate và sync
+├─ 🌐 i18n/                → Bản dịch tiếng Việt
+└─ 📦 generated/           → Output tự sinh (đã gitignore)
 ```
 
-### 🎯 Danh Mục Skill
+---
 
-Catalog này được giữ gọn có chủ đích: mỗi skill nên sở hữu một nhiệm vụ thật sự khác biệt, còn các workflow gần nhau sẽ được gộp lại trừ khi mức rủi ro hoặc cách làm việc khác nhau rõ rệt.
+## 🎯 Danh Mục Skill
+
+**16 skills** xếp theo 3 tier: General Purpose, Anionzo Ecosystem, và Domain-Specific.
+
+### General Purpose (dùng được trong mọi project)
+
+| | Skill | Mục đích | Modes chính |
+|---|---|---|---|
+| 🧭 | `using-skills` | Phân loại request, chọn đúng skill và mode | router |
+| 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec hoặc extract yêu cầu | `quick` · `spec` · `deep-explore` |
+| 🔎 | `research` | Tìm hiểu codebase, onboard repo, scout web, nâng cấp prompt, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
+| 📐 | `planning` | Research → plan → validation gate trước khi viết bất kỳ code nào | full pipeline + Phase 8 validation gate |
+| 🚀 | `feature-delivery` | Implement, test-first, hoặc refactor — tất cả trong một skill | `standard` · `tdd` · `refactor` |
+| 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc | + anionzo ecosystem extensions |
+| 📖 | `docs-writer` | Tạo hoặc cập nhật bất kỳ tài liệu nào từ source đã xác minh | `prompt-only` · `docs-execution` · `prompt+execution` |
+| 🔍 | `code-review` | Cho review, nhận review, verify trước khi tuyên bố xong | verification gate · giving · receiving |
+| 📝 | `commit` | Tạo commit conventional sạch sẽ với review staged | — |
+| 🧬 | `extract` | Trích xuất bài học bền vững, handoff session, compounding sâu, dream consolidation | `handoff` · `extract` · `compound` · `dream` |
+
+### Anionzo Ecosystem (workflow đa agent có cấu trúc)
+
+| | Skill | Mục đích | Vị trí |
+|---|---|---|---|
+| ⚙️ | `using-anionzo` | Bootstrap anionzo project: onboarding, STATE.md, go-mode pipeline | điểm bắt đầu |
+| 🐝 | `swarming` | Điều phối worker agent song song với rescue coordination | phase 5 of 9 |
+| 📋 | `reviewing` | Post-execution verification: 5 specialist agents + artifact checks + human UAT | phase 7 of 9 |
+
+### Domain-Specific (chỉ load khi task phù hợp)
 
 | | Skill | Mục đích |
 |---|---|---|
-| 🧭 | `using-skills` | Phân loại request và chọn đúng skill |
-| 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec nếu cần |
-| 🔎 | `research` | Tìm hiểu code và pattern có sẵn trước khi implement |
-| 📐 | `planning` | Plan thực thi, kèm go mode cho công việc đã rõ và đã duyệt |
-| 🚀 | `feature-delivery` | Triển khai feature với thay đổi tối thiểu, phù hợp repo |
-| 🧪 | `test-driven-development` | Kỷ luật test-first với chu trình red-green-refactor |
-| 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc |
-| ♻️ | `refactor-safe` | Tái cấu trúc code mà không thay đổi hành vi |
-| ✅ | `verification-before-completion` | Luật sắt: không tuyên bố xong mà không có bằng chứng mới |
-| 🔍 | `code-review` | Cho và nhận code review với phân loại mức độ |
-| 📝 | `commit` | Tạo commit conventional với review thay đổi staged |
-| 📖 | `docs-writer` | Cập nhật docs từ hành vi thực tế đã xác minh |
-| 🧬 | `extract` | Trích xuất bài học bền vững hoặc cô đọng công việc đang dở thành handoff |
+| 🎨 | `animated-landing-pages` | Landing page motion-first với AI-generated visuals |
+| 📚 | `book-sft-pipeline` | Fine-tune model trên giọng văn sách: ePub → SFT dataset → LoRA training |
+| 🛠️ | `writing-anionzo-skills` | Tạo hoặc sửa anionzo skill bằng phương pháp TDD |
 
-### 🔄 Workflow Mặc Định
+---
+
+## 🔄 Workflow Chuẩn
+
+### General Purpose
 
 ```
-┌─────────────┐     ┌───────────────┐     ┌─────────────────┐
-│ using-skills │────▶│ brainstorming │────▶│  research  │
-│  (router)    │     │ (nếu mơ hồ)  │     │ (nếu cần)   │
-└──────┬───────┘     └───────┬───────┘     └──────┬──────┘
-       │                     │                     │
-       │                     ▼                     │
-       │              ┌──────────┐                 │
-       └─────────────▶│ planning │◀────────────────┘
-                      └────┬─────┘
-                           │
-              ┌────────────┼────────────┐
-              ▼            ▼            ▼
-     ┌────────────┐ ┌───────────┐ ┌──────────────┐
-     │  feature-  │ │   debug   │ │ refactor-safe│
-     │  delivery  │ │           │ │              │
-     └─────┬──────┘ └─────┬─────┘ └──────┬───────┘
-           │              │              │
-           │       ┌──────┴──────┐       │
-           │       │     TDD     │       │
-           │       └──────┬──────┘       │
-           ▼              ▼              ▼
-     ┌─────────────────────────────────────────┐
-     │      verification-before-completion     │
-     └────────────────────┬────────────────────┘
-                          ▼
-                   ┌─────────────┐
-                   │ code-review │
-                   └──────┬──────┘
-                          ▼
-                    ┌──────────┐
-                    │  commit  │
-                    └────┬─────┘
-                         ▼
-                    ┌──────────┐
-                    │ extract  │
-                    └──────────┘
+using-skills ──► brainstorming ──► research ──► planning
+     (router)        (nếu mơ hồ)      (nếu cần)         │
+                                                 ┌─────┴─────┐
+                                                 ▼           ▼
+                                          feature-delivery    debug
+                                          (standard|tdd|refactor)
+                                                 │           │
+                                                 └─────┬─────┘
+                                                       ▼
+                                                  code-review
+                                                  (verification gate
+                                                   + giving
+                                                   + receiving)
+                                                       │
+                                                       ▼
+                                                    commit
+                                                       │
+                                                       ▼
+                                                    extract
+                                                  (handoff|extract)
 ```
+
+### Anionzo Ecosystem
+
+```
+using-anionzo ──► brainstorming ──► research ──► planning (+ validation gate)
+      (bootstrap)      (deep-explore)                    │
+                                                         ▼
+                                                    swarming
+                                               (orchestrate workers)
+                                                         │
+                                                         ▼
+                                                    reviewing
+                                              (5-agent verification
+                                               + human UAT
+                                               + PR/cleanup/close)
+                                                         │
+                                                         ▼
+                                                    extract
+                                                 (compound mode)
+```
+
+### Bảng Modes Nhanh
+
+| Skill | Mode | Dùng khi |
+|---|---|---|
+| `brainstorming` | `quick` | Chỉ khóa hướng đi, không output artifact |
+| `brainstorming` | `spec` | Viết spec đầy đủ: FR/NFR/ACs/Scenarios |
+| `brainstorming` | `deep-explore` | Socratic dialogue + xuất CONTEXT.md (anionzo) |
+| `research` | `quick-search` | Tra cứu có mục tiêu trong repo quen |
+| `research` | `repo-bootstrap` | Onboard vào repo lạ |
+| `research` | `deep-scout` | Feature rủi ro cao: local + upstream + web docs |
+| `research` | `prompt-upgrade` | Nâng cấp prompt thô thành instruction sẵn dùng |
+| `research` | `codebase-intel` | Dùng gkg MCP tools cho architecture snapshot |
+| `feature-delivery` | `standard` | Implement feature bình thường |
+| `feature-delivery` | `tdd` | Test-first: red-green-refactor trước production code |
+| `feature-delivery` | `refactor` | Tái cấu trúc không đổi behavior |
+| `docs-writer` | `prompt-only` | Trả prompt đã nâng cấp, không execute |
+| `docs-writer` | `docs-execution` | Trực tiếp cập nhật docs từ live repo |
+| `docs-writer` | `prompt+execution` | Cả hai: trả prompt và execute |
+| `extract` | `handoff` | Session gần đầy, cô đọng state cho session tiếp |
+| `extract` | `extract` | Capture bài học bền vững từ task đã xong |
+| `extract` | `compound` | Phân tích sâu post-merge: 3 subagent song song (anionzo) |
+| `extract` | `dream` | Consolidation pass trên accumulated learnings (anionzo) |
+
+---
 
 ### 📖 Nghiên Cứu Tham Khảo
 
@@ -117,33 +168,33 @@ Catalog này được giữ gọn có chủ đích: mỗi skill nên sở hữu 
 | ⚡ [`obra/superpowers`](https://github.com/obra/superpowers) | Luồng brainstorm → plan → execute → verify |
 | 🧩 [`affaan-m/everything-claude-code`](https://github.com/affaan-m/everything-claude-code) | Mô hình phân lớp: skills, rules, memory, adapter |
 | 🗃️ [`knowns-dev/knowns`](https://github.com/knowns-dev/knowns) | Tách skill khỏi knowledge; sinh platform file tự động |
-| 📦 [`hoangnb24/skills`](https://github.com/hoangnb24/skills) | Thiết kế skill workflow-first với router và output contract |
+| 📦 [`hoangnb24/skills`](https://github.com/hoangnb24/skills) | Thiết kế skill workflow-first với router và output contracts |
+| 🧩 [`anionzo/skills`](https://github.com/anionzo/skills) | Hệ sinh thái anionzo: bead graph, swarm orchestration, compounding |
+
+---
 
 ### 🚀 Bắt Đầu Nhanh
-
-**Lệnh cài đặt chạy được trên Windows, macOS, Linux:**
 
 ```bash
 npx @anionzo/skill
 ```
 
-Nếu bạn muốn có CLI local dùng lại trên máy, link repo này một lần:
+Muốn CLI local dùng lại:
 
 ```bash
-cd /home/quantri/skill
+cd /path/to/skill
 npm link
 ```
 
-Sau đó ở bất kỳ project nào, chạy:
+Sau đó ở bất kỳ project nào:
 
 ```bash
 anionzo init
-
 # hoặc
 anionzo skill init
 ```
 
-Ví dụ chạy không tương tác:
+Không tương tác:
 
 ```bash
 anionzo init --yes
@@ -151,122 +202,50 @@ anionzo init --platform opencode,claude,copilot,gitignore
 npx @anionzo/skill --platform opencode,agents
 ```
 
-- **Windows**: tự dùng PowerShell (`.cmd` + `.mjs` + `.ps1`), không cần Git Bash hay WSL
-- **Linux/macOS**: dùng bash script hiện có
-- Menu tương tác sẽ cho bạn chọn agent cần cài (OpenCode, Claude Code, Agents, Gemini, Copilot...)
+- **Windows**: tự dùng PowerShell (`.cmd` + `.mjs` + `.ps1`)
+- **Linux/macOS**: dùng bash script
+
+> Cần **version 1.10.0+** để Windows hỗ trợ đầy đủ.
+
+```powershell
+npm cache clean --force
+npx --yes @anionzo/skill
+```
 
 #### Dùng thư viện
 
-Nếu bạn chỉ muốn dùng skill library trong agent của mình:
+Sau khi cài, mở agent và nói:
+
+- `Use the using-skills router for this task`
+- `Use the anionzo go-mode pipeline for this feature`
+- `Help me understand this repo first`
+- `Plan this feature, then implement it`
+
+Hành vi installer:
+
+- `npx @anionzo/skill` mở terminal picker tương tác
+- `npm install @anionzo/skill` chạy silent postinstall mode
+- Cài shared library vào `.anionzo/` (skills, knowledge, docs)
+- Platform files vào thư mục agent tương ứng (`.opencode/`, `.claude/`, ...)
+
+---
+
+### 📦 Cài Qua npm
 
 ```bash
-# 1. Cài thư viện vào project hoặc workspace hiện tại
+# Khuyên dùng
 npx @anionzo/skill
 
-# 2. Mở agent trong repo đích
-# Sau đó bảo agent dùng router skill để chọn hướng bắt đầu
-# "Use the using-skills router for this task"
-
-# 3. Hỏi tự nhiên, ví dụ:
-# "Help me understand this repo"
-# "Plan this feature first"
-# "Review these changes"
-```
-
-Router sẽ chọn đúng skill chính và bước tiếp theo.
-
-Hành vi của installer:
-
-- `npx @anionzo/skill` sẽ mở terminal picker tương tác
-- dùng **phím mũi tên** để di chuyển
-- nhấn **space** để chọn một hoặc nhiều platform
-- nhấn **enter** để cài các platform đã chọn
-- bạn cũng có thể chọn cập nhật `.gitignore` cho các file agent vừa cài
-- `npm install @anionzo/skill` vẫn chạy theo postinstall silent mode và tự cài shared library `.anionzo/` cùng các thư mục skill mặc định
-- bản cài giờ self-contained trong `.anionzo/`, gồm shared `skills/`, `knowledge/`, và `docs/`
-- mỗi skill được cài ra giờ mang theo full package: `SKILL.md`, `meta.yaml`, `examples.md`, và `references/`
-- `npx` tương tác sẽ tạo các top-level instruction file đã chọn; còn `npm install` silent mode thì không tạo các file đó
-
-#### Sửa hoặc mở rộng thư viện
-
-Nếu bạn muốn tùy biến chính repo này:
-
-```bash
-# 1. Đọc tài liệu thiết kế và quy tắc viết
-less docs/design-brief.md
-less docs/authoring-guide.md
-
-# 2. Chỉnh knowledge global nếu muốn đổi default behavior
-vim knowledge/global/engineering-principles.md
-
-# 3. Sửa skill, docs, hoặc adapters
-vim skills/using-skills/SKILL.md
-
-# 4. Validate cấu trúc thư viện
-bash scripts/validate-skills
-
-# 5. Sinh lại platform file sau khi đổi skill/knowledge
-bash scripts/sync-platform-files
-```
-
-Ghi chú:
-
-- `bash scripts/validate-skills` kiểm tra file bắt buộc, key metadata, và tính nhất quán cơ bản của thư viện.
-- `bash scripts/sync-platform-files` sinh lại các file trong `generated/` cho từng agent đích.
-- Chỉ cần chạy sync khi skill, knowledge, adapter, hoặc summary thay đổi.
-
-### 📦 Cài Đặt Qua npm
-
-> Có sẵn trên [npm](https://www.npmjs.com/package/@anionzo/skill) — không cần xác thực
-
-```bash
-# Khuyên dùng: một lệnh, không tạo package.json
-npx @anionzo/skill
-
-# Khởi động yên hơn nếu npm hiện progress trước khi menu mở ra
+# Khởi động yên
 npx -y --loglevel=error @anionzo/skill
-```
 
-Tùy chọn trên Windows:
-
-- `npx @anionzo/skill` giờ chạy được trực tiếp trong PowerShell và Windows Terminal, không cần Git Bash hay WSL
-- Nếu Windows còn dùng cache của bản cũ, hãy chạy `npm cache clean --force` rồi thử lại
-
-Nếu npm in progress output trước khi menu tương tác xuất hiện, phần đó đến từ `npx` trong lúc tải package, tức là xảy ra trước khi script installer bắt đầu chạy. Muốn startup yên nhất, nên dùng `npx -y --loglevel=error @anionzo/skill`.
-
-Hoặc thêm như dependency của project (tạo package.json):
-
-```bash
+# Thêm như dependency
 npm install @anionzo/skill
 ```
-
-Chế độ `npx` tương tác sẽ cài shared library vào:
-
-- `.anionzo/skills/`
-- `.anionzo/knowledge/`
-- `.anionzo/docs/`
-
-Sau đó nó ghi các file platform đã chọn vào:
-
-- `.opencode/skills/` và `OPENCODE.md` — cho OpenCode
-- `.claude/skills/` và `CLAUDE.md` — cho Claude Code
-- `.agents/skills/` và `AGENTS.md` — cho các agent khác
-- `GEMINI.md` — cho Gemini CLI
-- `.github/copilot-instructions.md` — cho GitHub Copilot
-
-`npm install @anionzo/skill` ở silent mode cũng cài `.anionzo/` và các thư mục skill mặc định cho OpenCode, Claude Code, và agent chung, nhưng không tạo các top-level instruction file.
-
-Mở agent và bắt đầu với router `using-skills`, hoặc yêu cầu agent dùng skill phù hợp nhất cho task.
-
-> 💡 Hoặc clone repo trực tiếp nếu muốn chỉnh sửa skill tại chỗ.
 
 ### 🔌 Tích Hợp Agent
 
 > Repo này là **nguồn sự thật duy nhất**. Các file sinh ra chỉ là artifact phân phối.
-
-Nếu bạn dùng npm installer thì không cần copy tay các file này. Bảng bên dưới dành cho flow dùng source repo hoặc phân phối thủ công.
-
-Nếu dùng flow thủ công, hãy copy luôn shared library vào `.anionzo/` trong repo đích. Các instruction file được sinh ra hiện trỏ sang path `.anionzo/...`.
 
 | Agent | Copy từ | Copy tới |
 |---|---|---|
@@ -276,6 +255,8 @@ Nếu dùng flow thủ công, hãy copy luôn shared library vào `.anionzo/` tr
 | 🔧 Agent chung | `generated/AGENTS.md` | `AGENTS.md` |
 | 🐙 GitHub Copilot | `generated/copilot-instructions.md` | `.github/copilot-instructions.md` |
 
+---
+
 ### ➕ Tạo Skill Mới
 
 ```bash
@@ -283,13 +264,19 @@ Nếu dùng flow thủ công, hãy copy luôn shared library vào `.anionzo/` tr
 cp -r templates/ skills/<ten-skill>/
 
 # 2. Sửa các file
-vim skills/<ten-skill>/meta.yaml
 vim skills/<ten-skill>/SKILL.md
-vim skills/<ten-skill>/examples.md
+vim skills/<ten-skill>/meta.yaml
 
 # 3. Validate
 bash scripts/validate-skills
+
+# 4. Sinh lại platform files
+bash scripts/sync-platform-files
 ```
+
+Với anionzo ecosystem skills, đọc thêm `skills/writing-anionzo-skills/SKILL.md` để biết phương pháp TDD-for-skills.
+
+---
 
 ### ⚙️ Lệnh
 
@@ -298,30 +285,35 @@ bash scripts/validate-skills
 | `bash scripts/validate-skills` | Kiểm tra mọi skill có đủ file và key bắt buộc |
 | `bash scripts/sync-platform-files` | Sinh file hướng dẫn cho từng nền tảng |
 
+---
+
 ### 📋 Thứ Tự Tùy Chỉnh Khuyến Nghị
 
 1. 🥇 `knowledge/global/engineering-principles.md`
 2. 🥈 `knowledge/global/review-heuristics.md`
 3. 🥉 `knowledge/global/debugging-patterns.md`
-4. 🎯 Các skill bạn dùng hàng tuần
+4. 🎯 `skills/using-skills/SKILL.md` — router, tùy biến routing cho stack của bạn
 5. 🔌 Adapter output cho hai agent bạn dùng nhiều nhất
+
+---
 
 ### 🤝 Đóng Góp
 
-Chào mừng đóng góp! Xem **[CONTRIBUTING.md](../CONTRIBUTING.md)** để biết:
-
-🇻🇳 [Hướng dẫn đóng góp tiếng Việt](../i18n/CONTRIBUTING.vi.md)
+Xem **[CONTRIBUTING.md](../CONTRIBUTING.md)** và **[Hướng dẫn tiếng Việt](../i18n/CONTRIBUTING.vi.md)** để biết:
 
 - ➕ Cách thêm skill mới
-- ✏️ Cách sửa skill có sẵn
+- ✏️ Cách sửa skill có sẵn (tuân theo phương pháp TDD-for-skills cho anionzo ecosystem skills)
 - 📚 Cách đóng góp knowledge
 - 🔄 Quy trình pull request và quy ước
 
+---
+
 ### 📌 Ghi Chú
 
-- `generated/` bị gitignore — tái sinh bất kỳ lúc nào
-- Chưa ship plugin runtime hay MCP server
-- Bước tiếp theo: manifest machine-readable hoặc MCP bridge
+- `generated/` bị gitignore — tái sinh sau mỗi thay đổi skill/knowledge
+- General skills (không có deps) hoạt động trong mọi project không cần plugins
+- Anionzo ecosystem skills cần `.anionzo/` onboarding (chạy `anionzo init` trước)
+- Mọi skill tuân theo Shared Output Contract: `Goal/Result → Key Details → Next Action`
 
 ---
 

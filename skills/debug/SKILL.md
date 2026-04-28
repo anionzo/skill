@@ -1,4 +1,30 @@
+---
+name: debug
+description: Systematic debugging for blocked workers, test failures, build errors, runtime crashes, and integration issues. Invoked standalone ("debug this error") or by other skills (reviewing spawns debugger on UAT failure, executing invokes it on blocker). Reads history/learnings/critical-patterns.md to avoid re-solving known issues. Writes debug notes that compounding can later capture.
+metadata:
+  ecosystem: anionzo
+  dependencies:
+    - id: beads-cli
+      kind: command
+      command: br
+      missing_effect: degraded
+      reason: Debugging checks bead context and creates fix beads with br when needed.
+    - id: beads-viewer
+      kind: command
+      command: bv
+      missing_effect: degraded
+      reason: Debugging inspects blocker and cycle state with bv during stuck-worker triage.
+    - id: agent-mail
+      kind: mcp_server
+      server_names: [mcp_agent_mail]
+      config_sources: [repo_codex_config, global_codex_config]
+      missing_effect: degraded
+      reason: Debugging checks epic mail threads and reports blockers or fixes through Agent Mail.
+---
+
 # Debug
+
+If `.anionzo/onboarding.json` is missing or stale for the current repo, stop and invoke `anionzo:using-anionzo` before continuing.
 
 ## Purpose
 
@@ -29,6 +55,22 @@ If you have not completed Phase 1, you cannot propose fixes. Symptom fixes are f
 ## The Four Phases
 
 You MUST complete each phase before proceeding to the next.
+
+---
+
+### Phase 0: Check Known Patterns
+
+**Before any investigation, check whether this failure is already documented:**
+
+```bash
+cat history/learnings/critical-patterns.md 2>/dev/null | grep -i "<keyword from classification>"
+```
+
+If a known pattern matches → jump directly to Phase 3 (Fix), using the documented resolution.
+
+Teams report that 30–40% of recurring failures are already documented. Do not re-investigate what is already solved.
+
+---
 
 ### Phase 1: Investigate — Find the Root Cause
 
@@ -99,6 +141,33 @@ Write a one-sentence root cause:
 
 **If you cannot write this sentence, you do not have the root cause yet. Do NOT proceed to Phase 2.**
 
+#### 1g. Check Bead Context (anionzo)
+
+```bash
+br show <bead-id>   # What was this bead supposed to do?
+```
+
+Verify: does the failure indicate the bead was implemented against the wrong spec, or that it was implemented correctly but the spec was wrong?
+
+#### 1h. Check Decision Violations (anionzo)
+
+```bash
+cat history/<feature>/CONTEXT.md
+```
+
+Ask: was a locked decision (D1, D2...) violated by the implementation? Decision violations are a frequent root cause — the code does something "reasonable" that was explicitly excluded.
+
+#### 1i. Check Agent Mail (anionzo)
+
+```bash
+fetch_topic(project_key="<project-root-path>", topic_name="<EPIC_TOPIC>")
+fetch_inbox(project_key="<project-root-path>", agent_name="<agent-name>", topic="<EPIC_TOPIC>")
+```
+
+Another worker may have already reported the same issue or a related conflict. Avoid duplicate debugging.
+
+---
+
 ### Phase 2: Analyze — Find the Pattern
 
 #### 2a. Find Working Examples
@@ -118,6 +187,8 @@ What is different between working and broken? List every difference, however sma
 State clearly: "I think X is the root cause because Y."
 
 Be specific, not vague. Write it down.
+
+---
 
 ### Phase 3: Fix — Implement and Verify
 
@@ -162,6 +233,46 @@ Signs of an architectural problem:
 
 **Stop and discuss with the user before attempting more fixes.** This is not a failed hypothesis — this is a wrong architecture.
 
+#### Blocker Protocol (anionzo)
+
+When a worker is stuck (cannot make progress, not a code error):
+
+1. Check bead dependencies: `bv --robot-insights 2>/dev/null | jq '.Cycles'`
+2. Check file reservations via Agent Mail for conflicts
+3. Determine: is this **waiting for another worker** or **genuinely blocked**?
+
+**Waiting for another worker** → report to orchestrator and yield:
+
+```
+send_message(
+  project_key: "<project-root-path>",
+  sender_name: "<agent-name>",
+  to: ["<COORDINATOR_AGENT_NAME>"],
+  thread_id: "<epic-thread-id>",
+  topic: "<EPIC_TOPIC>",
+  subject: "Blocked: waiting on <bead-id>",
+  body_md: "<bead-id> cannot proceed until <dependency> completes. Pausing."
+)
+```
+
+**Genuinely blocked** (circular dep, impossible constraint, conflicting decisions):
+
+```
+send_message(
+  project_key: "<project-root-path>",
+  sender_name: "<agent-name>",
+  to: ["<COORDINATOR_AGENT_NAME>"],
+  thread_id: "<epic-thread-id>",
+  topic: "<EPIC_TOPIC>",
+  subject: "Hard blocker: <description>",
+  body_md: "Cannot resolve: <what is impossible and why>. Options: <A> or <B>. Needs human decision."
+)
+```
+
+Do not spin. One report, then pause and let the orchestrator escalate.
+
+---
+
 ### Phase 4: Learn — Capture the Pattern
 
 Ask: would knowing this save 15+ minutes in a future session?
@@ -178,6 +289,24 @@ If yes, document the pattern:
 
 Consider handing off to `extract` for significant learnings.
 
+#### Report Fix via Agent Mail (anionzo)
+
+After verifying the fix, notify the coordinator:
+
+```
+send_message(
+  project_key: "<project-root-path>",
+  sender_name: "<agent-name>",
+  to: ["<COORDINATOR_AGENT_NAME>"],
+  thread_id: "<epic-thread-id>",
+  topic: "<EPIC_TOPIC>",
+  subject: "Fix applied: <classification from Phase 1>",
+  body_md: "Root cause: <sentence from 1f>. Fix: <what was changed>. Verification: passed."
+)
+```
+
+---
+
 ## Quick Reference
 
 | Situation | First action |
@@ -189,6 +318,8 @@ Consider handing off to `extract` for significant learnings.
 | Integration error | Check env vars, then API response body (not just status code) |
 | Bug report | Restate symptom, then reproduce or explain why reproduction is blocked |
 | 3+ fixes failed | Stop fixing. Question the architecture. |
+| Worker stuck | Check bead deps with `bv`, then Agent Mail for conflicts |
+| Recurring issue | Check `history/learnings/critical-patterns.md` first |
 
 ## Output Format
 
@@ -232,19 +363,26 @@ Present results using the Shared Output Contract:
 - not capturing a learning when the fix took more than 15 minutes to find
 - declaring "should work now" without running the failing command again
 - attempting fix #4+ without questioning the architecture
+- **not checking critical-patterns.md** — teams report 30–40% of recurring failures are already documented; check before investigating
+- **decision violation silently patched** — violating a CONTEXT.md decision to make a test pass propagates the violation downstream; always report and align first
 
 ## Checklist
 
 - [ ] Issue classified (one-line)
+- [ ] Known patterns checked (critical-patterns.md)
 - [ ] Reproduced with exact command
 - [ ] Implicated files read
 - [ ] Recent changes checked
 - [ ] Root cause identified (one sentence with file:line)
+- [ ] Bead context verified (anionzo)
+- [ ] Decision violations checked (anionzo)
+- [ ] Agent Mail checked for related issues (anionzo)
 - [ ] Working example compared (if applicable)
 - [ ] Fix applied
 - [ ] Fix verified (original command passes)
 - [ ] Regression check run
 - [ ] Fix attempt count tracked (escalate at 3+)
+- [ ] Fix reported via Agent Mail (anionzo)
 - [ ] Learning captured (if pattern is new/useful)
 
 ## Done Criteria

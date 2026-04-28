@@ -1,3 +1,9 @@
+---
+name: code-review
+description: Review code changes with a risk-first, multi-perspective approach using severity-based triage. Covers both giving reviews and receiving feedback. Includes a verification gate to prevent false completion claims.
+dependencies: []
+---
+
 # Code Review
 
 ## Purpose
@@ -14,6 +20,44 @@ Load this skill when:
 - you are receiving code review feedback and need to evaluate and respond to it
 - the user says "review this", "check this code", or "fix the review comments"
 
+## Verification Gate
+
+### The Iron Law
+
+```
+NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+```
+
+If you have not run the verification command in this response, you cannot claim it passes. No exceptions.
+
+### When to Apply This Gate
+
+Apply the verification gate when:
+
+- about to claim a fix works
+- about to say tests or builds pass
+- about to mark work complete
+- about to commit, open a PR, or hand off finished work
+- verifying implementation against a spec's acceptance criteria
+- expressing satisfaction about work state ("done", "ready", "all good")
+
+### Verification Levels
+
+For each deliverable, verify at three levels:
+
+| Level | Check | Meaning |
+|-------|-------|---------|
+| **L1: EXISTS** | File/component/route exists | Created but unknown quality |
+| **L2: SUBSTANTIVE** | Not a stub (no `return null`, empty handlers, TODO-only) | Has real implementation |
+| **L3: WIRED** | Imported and used in the integration layer | Actually connected |
+
+Report status per deliverable:
+
+- L1+L2+L3: fully wired
+- L1+L2 only: created but not integrated (flag it)
+- L1 only (stub): exists but empty (blocks completion)
+- Missing: not found (blocks completion)
+
 ## Part 1: Giving Code Reviews
 
 ### Workflow
@@ -23,6 +67,8 @@ Load this skill when:
 3. Triage each finding by severity (P1/P2/P3).
 4. Present findings grouped by severity.
 5. Gate the commit on P1 findings.
+
+> **Note:** Before marking any finding as resolved, run the verification command — do not claim a fix works without fresh evidence.
 
 ### Multi-Perspective Review
 
@@ -206,6 +252,17 @@ Present results using the Shared Output Contract:
 - avoiding pushback when the suggestion is technically wrong
 - implementing unclear items based on assumptions
 - thanking the reviewer instead of just fixing the issue
+
+**When verifying:**
+- using any forbidden word without fresh evidence
+- saying "should work now"
+- treating code edits as proof
+- using stale test output as fresh evidence
+- extrapolating from a partial check to a broader claim
+- declaring success while verification is still blocked
+- marking stubs (L1 only) as complete
+- skipping AC coverage check for spec-linked work
+- expressing satisfaction before running verification
 
 ## Checklist
 

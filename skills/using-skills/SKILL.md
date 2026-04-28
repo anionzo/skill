@@ -1,14 +1,17 @@
+---
+name: using-skills
+description: Use when starting a new session, when the task shape is unclear, when a request mixes multiple intents, or when you need to route to the right skill and working mode. This is the router — load it first, then hand off to the correct skill.
+metadata:
+  dependencies: []
+---
+
 # Using Skills
 
 ## Purpose
 
-Use this skill first when the task shape is unclear or when a session is starting from little context.
+Classify the request, pick one primary skill, and define the next move.
 
-Its job is to classify the request, pick one primary skill, and define the next move.
-
-For code-changing work, prefer an explicit planning step before implementation unless the change is trivially local and already unambiguous.
-
-If the request itself is still fuzzy, use a brainstorming step before planning.
+This is the entry point for every session. Its job is routing — not implementing, not planning. Once the right skill is identified, hand off immediately.
 
 ## When To Use
 
@@ -16,91 +19,77 @@ Load this skill when:
 
 - starting work in a new session
 - the user request mixes multiple intents
-- you are unsure whether the task is implementation, debugging, review, or docs
+- you are unsure which skill applies
 
-## Explicit Skill Requests
+## Skill Catalog
 
-If the user explicitly asks for a specific skill by name, load that skill immediately instead of re-classifying the task.
+| Skill | Purpose | Key Modes |
+|---|---|---|
+| `brainstorming` | Explore ideas, lock decisions, write spec, or extract locked decisions (Socratic) | `quick` · `spec` · `deep-explore` |
+| `research` | Explore codebase, onboard to repo, deep web scout, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
+| `planning` | Research → plan → phase execution → validation gate before code is written | full pipeline with Phase 8 validation gate |
+| `feature-delivery` | Implement, TDD, or refactor | `standard` · `tdd` · `refactor` |
+| `debug` | Systematic root cause investigation and fix | 4-phase + anionzo ecosystem extensions |
+| `docs-writer` | Create or update any documentation | `prompt-only` · `docs-execution` · `prompt+execution` |
+| `code-review` | Give reviews, receive reviews, verify before claiming done | verification gate · giving · receiving |
+| `commit` | Create clean conventional commits with staged review | — |
+| `extract` | Extract learnings, session handoff, deep compounding, or dream consolidation | `handoff` · `extract` · `compound` · `dream` |
+| `using-anionzo` | Bootstrap anionzo ecosystem: onboarding, STATE.md, full go-mode pipeline | anionzo projects only |
 
-Examples:
+**Domain skills** (load only when task matches):
 
-- "Use `planning` for this task"
-- "Load `debug` and investigate this error"
-- "Do a `code-review` on these changes"
+| Skill | When to load |
+|---|---|
+| `animated-landing-pages` | Motion-first landing page with AI-generated visuals |
+| `book-sft-pipeline` | Fine-tuning on books, SFT dataset from ePub, author-voice model |
+| `writing-anionzo-skills` | Creating or editing a new anionzo skill using TDD methodology |
 
-**Rules:**
+## Canonical Workflow
 
-- when the user names a skill directly, treat that as an intentional routing choice
-- if the named skill does not exist, say so and list available skills
-- still apply planning and verification rules if relevant
-- after the requested skill completes, return to normal workflow
+```
+brainstorming ──► research ──► planning ──► feature-delivery
+     (if vague)     (if needed)              debug
+                                             docs-writer
+                                                │
+                                           code-review
+                                                │
+                                             commit
+                                                │
+                                            extract
+```
 
-**Available skills:**
+**For anionzo projects**, the extended pipeline is:
 
-- `brainstorming` — explore ideas, lock decisions, optionally write a spec
-- `research` — explore existing code and patterns before implementing
-- `planning` — create an execution-ready plan with bite-sized steps
-- `feature-delivery` — implement a feature
-- `test-driven-development` — implement with TDD (red-green-refactor)
-- `debug` — systematic 4-phase debugging: investigate, analyze, fix, learn
-- `refactor-safe` — restructure code without behavior change
-- `verification-before-completion` — verify before claiming done
-- `code-review` — review a diff/PR, or evaluate received feedback
-- `commit` — create a conventional commit with verification
-- `docs-writer` — update documentation
-- `extract` — extract patterns, decisions, and learnings from completed work
-
-## Workflow
-
-1. Check for an explicit skill request: if the user named a skill directly, load that skill and skip to step 5.
-2. Classify the request into one of these modes:
-   - idea refinement, specification, or requirements definition
-   - repo understanding
-   - bug or regression investigation
-   - planning and implementation
-   - test-driven implementation
-   - code review (giving or receiving)
-   - documentation work
-   - answer-only guidance
-3. Decide whether the task first needs brainstorming or can go straight to planning.
-4. Pick one primary skill.
-5. State the chosen skill and the immediate next step.
-6. Ask a short blocking question only if the task cannot proceed safely without it.
+```
+using-anionzo ──► brainstorming ──► research ──► planning (+ validation gate)
+──► swarming (orchestrate workers) ──► reviewing ──► extract (compound mode)
+```
 
 ## Routing Guide
 
-- explicit request for a named skill -> load that skill immediately
-- vague feature idea, unclear goal, tradeoff exploration -> `brainstorming`, then `planning`
-- unfamiliar repo or missing context -> `research`
-- need to understand existing code before implementing -> `research`
-- complex feature needing requirements definition -> `brainstorming` (includes spec writing)
-- docs work in an unfamiliar repo -> `research` first, then `docs-writer`
-- bug report, error trace, failing test, regression -> `debug`
-- implement or change behavior -> `planning`, then `feature-delivery`
-- implement with TDD approach -> `planning`, then `test-driven-development`
-- execute an approved spec or clear task end-to-end with minimal gates -> `planning` in go mode
-- refactor, restructure, extract, or migrate without behavior change -> `planning`, then `refactor-safe`
-- review diff, PR, or changed files -> `code-review`
-- respond to review feedback -> `code-review` (receiving mode)
-- ready to commit -> `commit`
-- update README, runbook, onboarding docs, API notes in a known repo -> `docs-writer`
-- extract learnings from completed work, or summarize active work for the next session -> `extract`
-
-## Choosing Feature Delivery Vs TDD
-
-Use `feature-delivery` when:
-
-- the request is clear and implementation can be verified after the code change
-- the repo does not need strict test-first discipline for this task
-- the user asked to add or update behavior, but not specifically to work test-first
-
-Use `test-driven-development` when:
-
-- the user explicitly asks for TDD, test-first, or red-green-refactor
-- a bug fix should start with a regression test that proves the failure first
-- the expected behavior is already clear enough to express as a failing test
-
-If the change is multi-file, risky, or still ambiguous, use `planning` first in either case.
+| Request shape | Route to |
+|---|---|
+| Explicit skill name from user | Load that skill immediately |
+| Vague idea, unclear goal, tradeoff exploration | `brainstorming` (quick or spec mode) → `planning` |
+| Need to understand existing code before acting | `research` (quick-search or repo-bootstrap) |
+| Unfamiliar repo, new session context | `research` (repo-bootstrap mode) |
+| High-risk or ambiguous feature in unfamiliar stack | `research` (deep-scout mode) |
+| Rough prompt needs upgrading | `research` (prompt-upgrade mode) |
+| Complex feature needing locked decisions + spec | `brainstorming` (spec mode) → `planning` |
+| Clear feature or behavior change | `planning` → `feature-delivery` (standard mode) |
+| Bug fix, failing test, error trace, regression | `debug` |
+| Test-first implementation explicitly requested | `planning` → `feature-delivery` (tdd mode) |
+| Restructure without behavior change | `planning` → `feature-delivery` (refactor mode) |
+| Review a diff, PR, or commit range | `code-review` (giving mode) |
+| Responding to review feedback | `code-review` (receiving mode) |
+| About to claim work is done or passing | `code-review` (verification gate) |
+| Update README, runbooks, API docs, onboarding | `docs-writer` |
+| Stale docs need refresh from live repo | `docs-writer` (docs-execution mode) |
+| Ready to commit | `commit` |
+| Task complete, capture what was learned | `extract` (extract mode) |
+| Session near context limit, hand off to next session | `extract` (handoff mode) |
+| Post-merge deep learning capture (anionzo) | `extract` (compound mode) |
+| Anionzo project: start session or run full pipeline | `using-anionzo` |
 
 ## Planning Rule
 
@@ -111,21 +100,35 @@ Use `planning` before code changes when any of these are true:
 - the implementation touches state, data flow, API shape, or architecture boundaries
 - the user explicitly asks for a plan
 
-You may skip a separate planning step only when the change is clearly local, low-risk, and already unambiguous.
+Skip planning only when the change is clearly local, low-risk, and already unambiguous.
 
 ## Verification Rule
 
-Use `verification-before-completion` before any strong claim that work is done, fixed, passing, or ready. No completion claims without fresh evidence.
+`code-review` now contains the verification gate (Iron Law: no completion claims without fresh evidence). Run it before any claim that work is done, fixed, or passing.
+
+## Explicit Skill Requests
+
+If the user names a skill directly — load that skill immediately instead of re-classifying.
+
+- still apply planning and verification rules if relevant
+- if the named skill does not exist, say so and list available skills
+
+## Workflow
+
+1. Check for an explicit skill request — if present, load that skill and go.
+2. Classify the request using the Routing Guide above.
+3. Decide if brainstorming or research is needed before planning.
+4. Pick ONE primary skill.
+5. State the chosen skill and the immediate next step.
+6. Ask a single blocking question only if the task cannot proceed safely without it.
 
 ## Output Format
 
-Present results using the Shared Output Contract:
-
-1. **Goal/Result** — the task classified and primary skill chosen
+1. **Goal/Result** — task classified and primary skill chosen
 2. **Key Details:**
    - task type
-   - chosen primary skill
-   - whether planning is required
+   - chosen primary skill and mode
+   - whether planning is required first
    - key assumption or missing decision, if any
 3. **Next Action** — the immediate first step with the chosen skill
 
@@ -133,21 +136,21 @@ Present results using the Shared Output Contract:
 
 - starting code changes before understanding the request shape
 - treating a fuzzy idea as implementation-ready
-- starting multi-file code changes without an explicit plan
+- starting multi-file code changes without a plan
 - loading many skills at once without a clear reason
-- asking broad planning questions before checking if the task is already clear
 - forcing a feature workflow onto a review or docs task
-- skipping TDD when the user requested it
+- routing to `feature-delivery` when the request is a refactor (use refactor mode)
+- routing to old skill names that no longer exist as standalone files
 
 ## Checklist
 
 - [ ] Explicit skill request honored when present
 - [ ] Task type classified correctly
-- [ ] One primary skill chosen
+- [ ] One primary skill and mode chosen
 - [ ] Planning need stated explicitly
 - [ ] Single blocking question asked only if necessary
 - [ ] Immediate next step communicated clearly
 
 ## Done Criteria
 
-This skill is complete when the chosen skill and the first concrete action are both stated explicitly.
+This skill is complete when the chosen skill, the correct mode, and the first concrete action are all stated explicitly.
