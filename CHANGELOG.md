@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.0.1 (2026-04-28)
+
+### Minor Fixes
+
+- **Skills 17 → 16**: removed standalone `xia` skill, folded deep-scout workflow into `research` as a mode
+- **Restructured skill catalog**: now organized as Core Chain (10) / Anionzo Chain (3) / Standalone (3)
+  - Core Chain: primary workflow — using-skills → brainstorming → research → planning → feature-delivery/debug/docs-writer → code-review → commit → extract
+  - Anionzo Chain: multi-agent workflow — using-anionzo → brainstorming → research → planning → swarming → reviewing → extract
+  - Standalone: secondary skills — animated-landing-pages, book-sft-pipeline, writing-anionzo-skills
+- **research/SKILL.md**: deep-scout mode restored with full xia workflow (5-step research, HARD-GATE, source-provenance labeling, recommendation rule)
+- **README.md + i18n/README.vi.md**: redesigned catalog layout with clear tier separation
+
+
+
 ## v2.0.0
 
 ### Breaking Changes

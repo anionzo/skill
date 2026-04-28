@@ -1,7 +1,7 @@
 {
   "name": "@anionzo/skill",
-  "version": "2.0.0",
-  "description.*16 vendor-neutral skills for AI-powered software engineering. Consolidated design with explicit modes, canonical workflows, and anionzo ecosystem support.",
+  "version": "2.0.1",
+  "description": "16 vendor-neutral skills for AI-powered software engineering. Core Chain + Anionzo Chain + Standalone skills, explicit modes, canonical workflows.",
   "bin": {
     "skill": "scripts/anionzo.mjs",
     "anionzo": "scripts/anionzo.mjs",
