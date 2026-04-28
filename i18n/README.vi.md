@@ -4,7 +4,7 @@
 
 **Thư viện skill đa agent, vendor-neutral cho kỹ thuật phần mềm hỗ trợ AI**
 
-[![Skills](https://img.shields.io/badge/skills-16-blue?style=flat-square&logo=bookstack)](../skills/)
+[![Skills](https://img.shields.io/badge/skills-17-blue?style=flat-square&logo=bookstack)](../skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](../knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](../adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](../LICENSE)
@@ -21,9 +21,9 @@
 
 > 🎯 Giữ các workflow AI lặp lại ở một nơi. Tách skill khỏi kiến thức. Dùng được với mọi agent.
 
-Repo này cung cấp bộ skill AI agent cho kỹ thuật phần mềm. Nó cân bằng giữa **tính portable** (skill dùng được trong mọi project) và **độ sâu hệ sinh thái** (workflow anionzo cho execution đa agent có cấu trúc).
+Repo này cung cấp bộ skill AI agent cho kỹ thuật phần mềm. Cân bằng giữa **tính portable** (skill dùng được trong mọi project) và **độ sâu hệ sinh thái** (workflow anionzo cho execution đa agent có cấu trúc).
 
-Thư viện theo tư duy **consolidated**: các workflow chồng lắp được nhập vào skill thống nhất có modes rõ ràng, không bị tách thành nhiều file. Mọi skill đều tuân theo output contract giống nhau (`Goal/Result → Key Details → Next Action`) và cùng pattern handoff.
+Thư viện theo tư duy **consolidated**: các workflow chồng lắp được nhập vào skill thống nhất có modes rõ ràng. Mọi skill đều tuân theo output contract giống nhau (`Goal/Result → Key Details → Next Action`).
 
 ### 🏗️ Mục Tiêu Thiết Kế
 
@@ -40,12 +40,12 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 ```
 .
 ├─ 📄 docs/                 → Spec, quy tắc viết, quyết định thiết kế
-├─ 🎯 skills/               → Định nghĩa skill tái sử dụng (16 skills)
+├─ 🎯 skills/               → Định nghĩa skill tái sử dụng (17 skills)
 ├─ 📚 knowledge/            → Kiến thức global, project, working
 ├─ 📋 templates/           → Mẫu khởi tạo skill mới
-├─ 🔌 adapters/            → Hướng dẫn cho từng nền tảng
-├─ ⚙️ scripts/             → Script validate và sync
-├─ 🌐 i18n/                → Bản dịch tiếng Việt
+├─ 🔌 adapters/             → Hướng dẫn cho từng nền tảng
+├─ ⚙️ scripts/              → Script validate và sync
+├─ 🌐 i18n/                 → Bản dịch tiếng Việt
 └─ 📦 generated/           → Output tự sinh (đã gitignore)
 ```
 
@@ -53,7 +53,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 
 ## 🎯 Danh Mục Skill
 
-**16 skills** xếp theo 3 tier: General Purpose, Anionzo Ecosystem, và Domain-Specific.
+**17 skills** xếp theo 3 tier: General Purpose, Anionzo Ecosystem, và Domain-Specific.
 
 ### General Purpose (dùng được trong mọi project)
 
@@ -91,58 +91,99 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 
 ## 🔄 Workflow Chuẩn
 
-### General Purpose
+### ═══════════════════════════════════════
+###  General Purpose — Luồng Chính
+### ═══════════════════════════════════════
 
 ```
-using-skills ──► brainstorming ──► xia ──► planning
-     (router)        (nếu mơ hồ)    (before impl)         │
-                                                 ┌─────┴─────┐
-                                                 ▼           ▼
-                                          feature-delivery    debug
-                                          (standard|tdd|refactor)
-                                                 │           │
-                                                 └─────┬─────┘
-                                                       ▼
-                                                  code-review
-                                                  (verification gate
-                                                   + giving
-                                                   + receiving)
-                                                       │
-                                                       ▼
-                                                    commit
-                                                       │
-                                                       ▼
-                                                    extract
-                                                  (handoff|extract)
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ using-skills │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│   (router)   │     │ (nếu mơ hồ) │     │(before impl) │     │(validate gate│
+└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
+                                                                       │
+                              ┌──────────────────────────────────────────┤
+                              │                                          │
+                              ▼                                          ▼
+                   ┌──────────────────┐                    ┌──────────────┐
+                   │ feature-delivery  │                    │     debug     │
+                   │(standard│tdd│ref)│                    │  4-phase fix  │
+                   └────────┬─────────┘                    └──────┬───────┘
+                            │                                       │
+                            └───────────────┬───────────────────────┘
+                                            ▼
+                                 ┌──────────────────┐
+                                 │   code-review    │
+                                 │(verify│give│recv)│
+                                 └────────┬─────────┘
+                                          │
+                                          ▼
+                                 ┌──────────────────┐
+                                 │      commit      │
+                                 └────────┬─────────┘
+                                          │
+                                          ▼
+                                 ┌──────────────────┐
+                                 │     extract      │
+                                 │(handoff│extract)│
+                                 └──────────────────┘
 ```
 
-### Anionzo Ecosystem
+### ═══════════════════════════════════════
+###  Anionzo Ecosystem — Luồng Đầy Đủ
+### ═══════════════════════════════════════
 
 ```
-using-anionzo ──► brainstorming ──► xia ──► planning (+ validation gate)
-      (bootstrap)      (deep-explore)        │
-                                                         ▼
-                                                    swarming
-                                               (orchestrate workers)
-                                                         │
-                                                         ▼
-                                                    reviewing
-                                              (5-agent verification
-                                               + human UAT
-                                               + PR/cleanup/close)
-                                                         │
-                                                         ▼
-                                                    extract
-                                                 (compound mode)
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│using-anionzo │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│  (bootstrap) │     │(deep-explore)│     │(before impl) │     │(+ validation)│
+└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
+                                                                      │
+                                                                      ▼
+                                                             ┌──────────────┐
+                                                             │   swarming   │
+                                                             │(orchestrate  │
+                                                             │  workers)    │
+                                                             └───────┬──────┘
+                                                                     │
+                                                                     ▼
+                                                             ┌──────────────┐
+                                                             │   reviewing  │
+                                                             │(5-agent verify│
+                                                             │ + human UAT) │
+                                                             └───────┬──────┘
+                                                                     │
+                                                                     ▼
+                                                             ┌──────────────┐
+                                                             │    extract   │
+                                                             │ (compound)   │
+                                                             └──────────────┘
 ```
 
-### Bảng Modes Nhanh
+### ═══════════════════════════════════════
+###  Skills at a Glance — Bảng Modes
+### ═══════════════════════════════════════
+
+```
+┌──────────────────┬──────────────────────────────────────────────────────────────────────┐
+│     SKILL        │  MODES                                                               │
+├──────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ brainstorming    │ quick · spec · deep-explore                                         │
+│ xia              │ quick · standard · deep                                              │
+│ research         │ quick-search · repo-bootstrap · prompt-upgrade · codebase-intel       │
+│ feature-delivery │ standard · tdd · refactor                                           │
+│ docs-writer      │ prompt-only · docs-execution · prompt+execution                      │
+│ code-review      │ verification-gate · giving · receiving                              │
+│ extract          │ handoff · extract · compound · dream                                │
+└──────────────────┴──────────────────────────────────────────────────────────────────────┘
+```
+
+### Chi Tiết Modes
 
 | Skill | Mode | Dùng khi |
 |---|---|---|
-| `brainstorming` | `quick` | Chỉ khóa hướng đi, không output artifact |
-| `brainstorming` | `spec` | Viết spec đầy đủ: FR/NFR/ACs/Scenarios |
-| `brainstorming` | `deep-explore` | Socratic dialogue + xuất CONTEXT.md (anionzo) |
+| `brainstorming` | `quick` | Chỉ khóa hướng đi — không output artifact |
+| `brainstorming` | `spec` | Viết spec đầy đủ: FR/NFR/ACs/Given-When-Then |
+| `brainstorming` | `deep-explore` | Socratic dialogue + khóa quyết định + CONTEXT.md (anionzo) |
 | `xia` | `quick` | Nhanh: repo contract + seam search + brief |
 | `xia` | `standard` | Mặc định: repo map + local reuse + upstream + official docs + brief |
 | `xia` | `deep` | Cross-cutting, version-sensitive, hoặc kiến trúc nặng |
@@ -156,7 +197,10 @@ using-anionzo ──► brainstorming ──► xia ──► planning (+ valida
 | `docs-writer` | `prompt-only` | Trả prompt đã nâng cấp, không execute |
 | `docs-writer` | `docs-execution` | Trực tiếp cập nhật docs từ live repo |
 | `docs-writer` | `prompt+execution` | Cả hai: trả prompt và execute |
-| `extract` | `handoff` | Session gần đầy, cô đọng state cho session tiếp |
+| `code-review` | `verification-gate` | Luật sắt: không claim khi chưa có bằng chứng mới |
+| `code-review` | `giving` | Review diffs, PRs, commit ranges |
+| `code-review` | `receiving` | Phản hồi review feedback |
+| `extract` | `handoff` | Session gần đầy — cô đọng state cho session tiếp |
 | `extract` | `extract` | Capture bài học bền vững từ task đã xong |
 | `extract` | `compound` | Phân tích sâu post-merge: 3 subagent song song (anionzo) |
 | `extract` | `dream` | Consolidation pass trên accumulated learnings (anionzo) |
@@ -215,21 +259,12 @@ npm cache clean --force
 npx --yes @anionzo/skill
 ```
 
-#### Dùng thư viện
-
 Sau khi cài, mở agent và nói:
 
 - `Use the using-skills router for this task`
 - `Use the anionzo go-mode pipeline for this feature`
 - `Help me understand this repo first`
 - `Plan this feature, then implement it`
-
-Hành vi installer:
-
-- `npx @anionzo/skill` mở terminal picker tương tác
-- `npm install @anionzo/skill` chạy silent postinstall mode
-- Cài shared library vào `.anionzo/` (skills, knowledge, docs)
-- Platform files vào thư mục agent tương ứng (`.opencode/`, `.claude/`, ...)
 
 ---
 

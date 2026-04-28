@@ -4,16 +4,16 @@
 
 **A vendor-neutral, multi-agent skill library for AI-powered software engineering**
 
-[![Skills](https://img.shields.io/badge/skills-16-blue?style=flat-square&logo=bookstack)](skills/)
+[![Skills](https://img.shields.io/badge/skills-17-blue?style=flat-square&logo=bookstack)](skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square&logo=github)](CONTRIBUTING.md)
-[![npm](https://img.shields.io/npm/v/@anionzo/skill?style=flat-square&logo=npm&color=crimson)](https://www.npmjs.com/package/@anionzo/skill)
+[![npm](https://img.shields.io/badge/npm-v@anionzo/skill-crimson?style=flat-square&logo=npm)](https://www.npmjs.com/package/@anionzo/skill)
 
 ---
 
-🇻🇳 **[Tiếng Việt](i18n/README.vi.md)**
+🌐 **[Tiếng Việt](i18n/README.vi.md)**
 
 </div>
 
@@ -40,20 +40,20 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 ```
 .
 ├─ 📄 docs/                 → Specs, authoring rules, design decisions
-├─ 🎯 skills/               → Reusable skill definitions (16 skills)
+├─ 🎯 skills/               → Reusable skill definitions (17 skills)
 ├─ 📚 knowledge/            → Global, project, and working knowledge
-├─ 📋 templates/            → Starting points for new skills
-├─ 🔌 adapters/             → Platform-specific guidance
+├─ 📋 templates/           → Starting points for new skills
+├─ 🔌 adapters/            → Platform-specific guidance
 ├─ ⚙️ scripts/              → Validation and sync helpers
 ├─ 🌐 i18n/                 → Vietnamese translations
-└─ 📦 generated/            → Auto-generated output (gitignored)
+└─ 📦 generated/           → Auto-generated output (gitignored)
 ```
 
 ---
 
 ## 🎯 Skill Catalog
 
-**16 skills** across three tiers: General Purpose, Anionzo Ecosystem, and Domain-Specific.
+**17 skills** across three tiers: General Purpose, Anionzo Ecosystem, and Domain-Specific.
 
 ### General Purpose (works in any project)
 
@@ -82,7 +82,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 ### Domain-Specific (load only when task matches)
 
 | | Skill | Purpose |
-|---|---|---|
+|---|---|
 | 🎨 | `animated-landing-pages` | Motion-first landing page with AI-generated visuals |
 | 📚 | `book-sft-pipeline` | Fine-tune models on book style: ePub → SFT dataset → LoRA training |
 | 🛠️ | `writing-anionzo-skills` | Create or edit anionzo skills using TDD methodology |
@@ -91,59 +91,100 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 
 ## 🔄 Canonical Workflows
 
-### General Purpose
+### ═══════════════════════════════════════
+###  General Purpose — Flow
+### ═══════════════════════════════════════
 
 ```
-using-skills ──► brainstorming ──► xia ──► planning
-     (router)        (if vague)    (before impl)    │
-                                                  ┌─────┴─────┐
-                                                  ▼           ▼
-                                            feature-delivery    debug
-                                            (standard|tdd|refactor)
-                                                  │           │
-                                                  └─────┬─────┘
-                                                        ▼
-                                                   code-review
-                                                   (verification gate
-                                                    + giving
-                                                    + receiving)
-                                                        │
-                                                        ▼
-                                                     commit
-                                                        │
-                                                        ▼
-                                                    extract
-                                                  (handoff|extract)
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ using-skills  │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│    (router)   │     │  (if vague)   │     │(before impl)  │     │(validate gate)│
+└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
+                                                                       │
+                              ┌──────────────────────────────────────────┤
+                              │                                          │
+                              ▼                                          ▼
+                   ┌──────────────────┐                    ┌──────────────┐
+                   │ feature-delivery  │                    │     debug     │
+                   │(standard│tdd│ref) │                    │  4-phase fix  │
+                   └────────┬─────────┘                    └──────┬───────┘
+                            │                                       │
+                            └───────────────┬───────────────────────┘
+                                            ▼
+                                 ┌──────────────────┐
+                                 │   code-review    │
+                                 │(verify│give│recv)│
+                                 └────────┬─────────┘
+                                          │
+                                          ▼
+                                 ┌──────────────────┐
+                                 │      commit      │
+                                 └────────┬─────────┘
+                                          │
+                                          ▼
+                                 ┌──────────────────┐
+                                 │     extract      │
+                                 │(handoff│extract) │
+                                 └──────────────────┘
 ```
 
-### Anionzo Ecosystem
+### ═══════════════════════════════════════
+###  Anionzo Ecosystem — Flow
+### ═══════════════════════════════════════
 
 ```
-using-anionzo ──► brainstorming ──► xia ──► planning (+ validation gate)
-      (bootstrap)    (deep-explore)        │
-                                           ▼
-                                               swarming
-                                           (orchestrate workers)
-                                                    │
-                                                    ▼
-                                               reviewing
-                                            (5-agent verification
-                                             + human UAT
-                                             + PR/cleanup/close)
-                                                    │
-                                                    ▼
-                                              extract
-                                           (compound mode)
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│using-anionzo │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│  (bootstrap)  │     │(deep-explore)│     │(before impl) │     │(+ validation) │
+└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
+                                                                      │
+                                                                      ▼
+                                                             ┌──────────────┐
+                                                             │   swarming   │
+                                                             │(orchestrate  │
+                                                             │  workers)    │
+                                                             └───────┬──────┘
+                                                                     │
+                                                                     ▼
+                                                             ┌──────────────┐
+                                                             │   reviewing  │
+                                                             │(5-agent verify│
+                                                             │ + human UAT)  │
+                                                             └───────┬──────┘
+                                                                     │
+                                                                     ▼
+                                                             ┌──────────────┐
+                                                             │    extract    │
+                                                             │ (compound)    │
+                                                             └──────────────┘
 ```
 
-### Skill Modes at a Glance
+### ═══════════════════════════════════════
+###  Skills at a Glance — Mode Map
+### ═══════════════════════════════════════
 
-| Skill | Mode | Use when |
+```
+┌──────────────────┬──────────────────────────────────────────────────────────────────────┐
+│     SKILL        │  MODES                                                               │
+├──────────────────┼──────────────────────────────────────────────────────────────────────┤
+│ brainstorming    │ quick · spec · deep-explore                                         │
+│ xia              │ quick · standard · deep                                              │
+│ research         │ quick-search · repo-bootstrap · prompt-upgrade · codebase-intel       │
+│ feature-delivery │ standard · tdd · refactor                                           │
+│ docs-writer      │ prompt-only · docs-execution · prompt+execution                     │
+│ code-review      │ verification-gate · giving · receiving                              │
+│ extract          │ handoff · extract · compound · dream                                 │
+└──────────────────┴──────────────────────────────────────────────────────────────────────┘
+```
+
+### Mode Details
+
+| Skill | Mode | When to use |
 |---|---|---|
-| `brainstorming` | `quick` | Lock direction only, no output artifact |
-| `brainstorming` | `spec` | Write full spec: FR/NFR/ACs/Scenarios |
-| `brainstorming` | `deep-explore` | Socratic dialogue + CONTEXT.md output (anionzo) |
-| `xia` | `quick` | Fast: repo contract + seam search + brief |
+| `brainstorming` | `quick` | Lock direction only — no output artifact |
+| `brainstorming` | `spec` | Write full spec: FR/NFR/ACs/Given-When-Then |
+| `brainstorming` | `deep-explore` | Socratic dialogue + locked decisions + CONTEXT.md (anionzo) |
+| `xia` | `quick` | Fast check: repo contract + seam search + brief |
 | `xia` | `standard` | Default: repo map + local reuse + upstream + official docs + brief |
 | `xia` | `deep` | Cross-cutting, version-sensitive, or architecture-heavy work |
 | `research` | `quick-search` | Targeted lookup in known repo |
@@ -156,7 +197,10 @@ using-anionzo ──► brainstorming ──► xia ──► planning (+ valida
 | `docs-writer` | `prompt-only` | Return upgraded prompt, no doc execution |
 | `docs-writer` | `docs-execution` | Directly update docs from live repo |
 | `docs-writer` | `prompt+execution` | Both: return prompt and execute |
-| `extract` | `handoff` | Session near context limit, compress state for next session |
+| `code-review` | `verification-gate` | Iron law: no claim without fresh evidence |
+| `code-review` | `giving` | Review diffs, PRs, commit ranges |
+| `code-review` | `receiving` | Respond to review feedback |
+| `extract` | `handoff` | Session near context limit — compress state for next session |
 | `extract` | `extract` | Capture durable learnings from completed task |
 | `extract` | `compound` | Post-merge deep analysis: 3 parallel subagents (anionzo) |
 | `extract` | `dream` | Consolidation pass over accumulated learnings (anionzo) |
@@ -164,8 +208,6 @@ using-anionzo ──► brainstorming ──► xia ──► planning (+ valida
 ---
 
 ### 📖 Research Highlights
-
-This scaffold distills patterns from strong public repos:
 
 | Source | Key Pattern |
 |---|---|
@@ -178,7 +220,7 @@ This scaffold distills patterns from strong public repos:
 
 ---
 
-### 🚀 Quick Start (Cross-platform)
+### 🚀 Quick Start
 
 ```bash
 npx @anionzo/skill
@@ -217,21 +259,12 @@ npm cache clean --force
 npx --yes @anionzo/skill
 ```
 
-#### Use the library
-
 After installation, open your agent and say:
 
 - `Use the using-skills router for this task`
 - `Use the anionzo go-mode pipeline for this feature`
 - `Help me understand this repo first`
 - `Plan this feature, then implement it`
-
-Installer notes:
-
-- `npx @anionzo/skill` opens an interactive terminal picker
-- `npm install @anionzo/skill` runs silent postinstall mode
-- Installs shared library into `.anionzo/` (skills, knowledge, docs)
-- Platform files go into agent-specific directories (`.opencode/`, `.claude/`, etc.)
 
 ---
 
