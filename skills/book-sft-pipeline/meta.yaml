@@ -1,0 +1,19 @@
+name: book-sft-pipeline
+version: 0.1.0
+category: domain
+summary: Fine-tune models on book style: ePub → SFT dataset → LoRA training — capture author voice for consistent AI output.
+summary_vi: "Fine-tune model trên giọng văn sách: ePub → SFT dataset → LoRA training — capture author voice cho AI output nhất quán."
+triggers:
+  - fine-tune on books
+  - SFT dataset from epub
+  - book style model
+  - author voice training
+inputs:
+  - source material
+  - output requirements
+outputs:
+  - final output
+  - process artifacts
+constraints:
+  - follows domain-specific workflow
+related_skills: []

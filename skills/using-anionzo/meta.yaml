@@ -1,0 +1,21 @@
+name: using-anionzo
+version: 0.2.0
+category: bootstrap
+summary: Bootstrap anionzo ecosystem projects — onboarding, STATE.md, go-mode pipeline for structured multi-agent workflows.
+summary_vi: "Bootstrap anionzo ecosystem project — onboarding, STATE.md, go-mode pipeline cho structured multi-agent workflows."
+triggers:
+  - start new anionzo project
+  - initialize anionzo ecosystem
+  - setup go-mode pipeline
+inputs:
+  - project directory
+  - ecosystem type
+outputs:
+  - .anionzo/ directory
+  - STATE.md
+  - onboarding complete
+constraints:
+  - run before any anionzo ecosystem skill
+related_skills:
+  - brainstorming
+  - swarming

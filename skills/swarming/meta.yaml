@@ -1,0 +1,24 @@
+name: swarming
+version: 0.2.0
+category: execution
+summary: Orchestrate parallel worker agents with rescue coordination — multi-agent task distribution with fault tolerance.
+summary_vi: "Điều phối worker agent song song với rescue coordination — phân phối task đa agent với fault tolerance."
+triggers:
+  - run multiple agents in parallel
+  - orchestrate workers
+  - swarm execution
+  - parallel task distribution
+inputs:
+  - task breakdown
+  - worker count
+  - coordination strategy
+outputs:
+  - aggregated results
+  - rescue coordination log
+  - completion status
+constraints:
+  - rescue coordination on worker failure
+  - clear handoff between phases
+related_skills:
+  - planning
+  - reviewing

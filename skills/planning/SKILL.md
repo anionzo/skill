@@ -47,6 +47,22 @@ metadata:
 
 If `.anionzo/onboarding.json` is missing or stale for the current repo, stop and invoke `anionzo:using-anionzo` before continuing.
 
+## Purpose
+
+Transform research into actionable phase plans. Validate through mandatory gate before any code is written. Covers discovery, synthesis, phase planning, and the full validation gate.
+## When To Use
+
+Use after research completes. Required before any code implementation.
+## Output Format
+
+**Phase plan:** plain-English breakdown of next phase
+**Validation report:** 8-dimension structural verification
+**Bead graph:** visual representation of work units
+## Done Criteria
+
+- [ ] Phase plan approved by human
+- [ ] Validation gate passed
+- [ ] Current phase ready for execution
 Planning has two jobs:
 
 1. Show the whole feature in a way a human can immediately understand.

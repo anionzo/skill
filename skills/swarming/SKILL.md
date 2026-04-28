@@ -43,6 +43,45 @@ metadata:
 
 # Swarming
 
+
+## Purpose
+
+Orchestrate parallel worker agents with rescue coordination. Distribute tasks across workers, monitor execution, and recover from failures.
+
+## When To Use
+
+Use this skill when:
+- Multiple agents need to execute in parallel
+- Task can be broken into independent subtasks
+- Fault tolerance and rescue coordination are needed
+
+When NOT to use: Single agent tasks (use feature-delivery).
+
+## Output Format
+
+**Orchestration plan:**
+- Worker count and distribution
+- Coordination strategy
+- Rescue protocol
+
+**Execution report:**
+- Per-worker results
+- Rescue events
+- Final aggregation
+
+## Red Flags
+
+- No rescue protocol defined
+- Workers with dependencies (not truly parallel)
+- Missing aggregation step
+
+## Done Criteria
+
+- [ ] Workers distributed correctly
+- [ ] Parallel execution verified
+- [ ] Rescue coordination tested
+- [ ] Results aggregated
+
 If `.anionzo/onboarding.json` is missing or stale for the current repo, stop and invoke `anionzo:using-anionzo` before continuing.
 
 ## Role Boundary — Read First

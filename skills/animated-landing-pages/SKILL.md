@@ -100,8 +100,26 @@ Ask one short clarification question only when a decision materially changes the
 
 Otherwise, proceed with a reasonable default and state the assumption after the work.
 
-## References
+## Purpose
 
-- `references/workflow.md`
-- `references/prompt-library.md`
-- `references/pressure-scenarios.md`
+Domain-specific workflow for animated-landing-pages. Execute the specialized task with domain expertise and best practices.
+
+## When To Use
+
+Load this skill when the task matches the domain: animated-landing-pages. Otherwise, use the Core Chain skills.
+
+## Output Format
+
+**Domain output:** specialized result based on task requirements
+**Process artifacts:** intermediate outputs during execution
+
+## Red Flags
+
+- Task outside domain scope
+- Missing domain-specific requirements
+
+## Done Criteria
+
+- [ ] Domain-specific task completed
+- [ ] Output meets requirements
+- [ ] Artifacts documented

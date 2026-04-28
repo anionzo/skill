@@ -56,7 +56,7 @@ require_section() {
     return
   fi
 
-  if ! grep -Eq "^## ${section}$" "$file"; then
+  if ! grep -Eq "^## ${section}($|[^a-zA-Z\*])" "$file"; then
     printf 'Missing section %s in %s\n' "$section" "$file" >&2
     FAIL=1
   fi

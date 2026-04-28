@@ -1,0 +1,20 @@
+name: reviewing
+version: 0.2.0
+category: verification
+summary: Post-execution verification — 5 specialist agents verify each output layer plus human UAT acceptance gate.
+summary_vi: "Post-execution verification — 5 specialist agent kiểm tra mỗi output layer cộng human UAT acceptance gate."
+triggers:
+  - verify execution results
+  - post-execution review
+  - acceptance testing
+inputs:
+  - execution results
+  - expected outcomes
+outputs:
+  - verification report
+  - acceptance status
+constraints:
+  - human UAT required before claiming done
+related_skills:
+  - swarming
+  - extract

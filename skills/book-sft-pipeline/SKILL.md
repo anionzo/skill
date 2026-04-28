@@ -351,31 +351,26 @@ The "modern scenario" test is a form of out-of-distribution evaluation that prov
 ### context-fundamentals
 Prompt diversity prevents attention collapse on single patterns. When training with identical prompt structures, the model memorizes the instruction-response mapping. Diverse templates force attention across the style patterns themselves.
 
-## References
+## Purpose
 
-Internal references:
-- [Segmentation Strategies](./references/segmentation-strategies.md) - Text chunking patterns
-- [Tinker Format Specification](./references/tinker-format.md) - Datum structure
-- [Tinker API Documentation](./references/tinker.txt) - Full API reference
+Domain-specific workflow for book-sft-pipeline. Execute the specialized task with domain expertise and best practices.
 
-Related skills from Agent Skills for Context Engineering:
-- project-development - Pipeline architecture patterns
-- context-compression - Compression strategies  
-- multi-agent-patterns - Agent coordination
-- evaluation - Evaluation frameworks
-- context-fundamentals - Attention and information density
+## When To Use
 
-External resources:
-- [Research Paper](https://arxiv.org/pdf/2510.13939) - Chakrabarty et al. 2025
-- [Dataset on Hugging Face](https://huggingface.co/datasets/MuratcanKoylan/gertrude-stein-style-sft)
-- [Gertrude Stein Case Study](./examples/gertrude-stein/) - Complete working example
+Load this skill when the task matches the domain: book-sft-pipeline. Otherwise, use the Core Chain skills.
 
----
+## Output Format
 
-## Skill Metadata
+**Domain output:** specialized result based on task requirements
+**Process artifacts:** intermediate outputs during execution
 
-**Created**: 2025-12-26
-**Last Updated**: 2025-12-28
-**Author**: Muratcan Koylan
-**Version**: 2.0.0
-**Standalone**: Yes (separate from main context-engineering collection)
+## Red Flags
+
+- Task outside domain scope
+- Missing domain-specific requirements
+
+## Done Criteria
+
+- [ ] Domain-specific task completed
+- [ ] Output meets requirements
+- [ ] Artifacts documented

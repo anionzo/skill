@@ -18,15 +18,13 @@ constraints:
   - ask only the shortest blocking question when necessary
   - prefer one primary skill at a time
 related_skills:
+  - using-anionzo
   - brainstorming
   - research
   - planning
-  - test-driven-development
   - debug
   - feature-delivery
-  - refactor-safe
   - code-review
   - commit
-  - verification-before-completion
   - docs-writer
   - extract

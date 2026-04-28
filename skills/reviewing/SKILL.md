@@ -299,3 +299,48 @@ history/<feature>/
 - `references/review-agent-prompts.md` — Exact prompts for all 5 agents (load when dispatching)
 - `references/review-bead-template.md` — Review bead format and creation contract
 - `references/finding-template.md` — Deprecation pointer for the retired file-based finding contract
+
+---
+
+## Purpose
+
+Post-execution verification: 5 specialist agents verify each output layer plus human UAT acceptance gate. Ensures no defect escapes to production.
+
+## When To Use
+
+Use this skill when:
+- Feature implementation is complete and needs verification
+- Post-execution review is required before claiming done
+- Human acceptance testing (UAT) is needed
+
+When NOT to use: During implementation (use feature-delivery). For code review (use code-review skill).
+
+## Output Format
+
+**Verification report:**
+- Each layer verified by specialist agent
+- Defects found with severity
+- Human UAT status
+
+**Acceptance decision:**
+- Accepted: proceed to extract
+- Rejected: return to planning
+
+## Red Flags
+
+- Skipping specialist verification layers
+- Claiming done without human UAT
+- Ignoring verification defects
+- Proceeding without aggregation report
+
+---
+
+## Done Criteria
+
+> ✅ All items satisfied = verification complete.
+
+- [ ] All 5 specialist agents completed verification
+- [ ] Each layer has verification report
+- [ ] Defects documented with severity
+- [ ] Human UAT completed
+- [ ] Acceptance decision documented

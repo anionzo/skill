@@ -50,6 +50,31 @@ Bootstrap meta-skill. Load this first. It tells you which skill to invoke next a
 
 ---
 
+
+## Purpose
+
+Bootstrap anionzo ecosystem projects. Load this skill first on any anionzo project — it lists all skills, provides routing logic, and starts the go-mode pipeline.
+## When To Use
+
+Load this skill when:
+- Starting a new anionzo session
+- Choosing which skill to invoke next
+- Running the full pipeline end-to-end
+- Resuming after a handoff
+- Setting up a new anionzo project
+
+When NOT to use: Non-anionzo projects (use using-skills instead).
+## Output Format
+
+**Skill catalog:** all available skills with routing logic
+**Routing decision:** recommended next skill and mode
+**Bootstrap status:** .anionzo/ and STATE.md readiness
+## Done Criteria
+
+- [ ] Skill catalog presented with routing guidance
+- [ ] Correct skill and mode identified for the request
+- [ ] Bootstrap complete (or bootstrap initiated if needed)
+- [ ] Go-mode pipeline ready if full pipeline requested
 ## Plugin Onboarding
 
 Before any normal bootstrap, verify that the current machine has Node.js available and that the current repo is onboarded for the Anionzo plugin.
