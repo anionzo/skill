@@ -4,7 +4,7 @@
 
 **A vendor-neutral, multi-agent skill library for AI-powered software engineering**
 
-[![Skills](https://img.shields.io/badge/skills-17-blue?style=flat-square&logo=bookstack)](skills/)
+[![Skills](https://img.shields.io/badge/skills-16-blue?style=flat-square&logo=bookstack)](skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](LICENSE)
@@ -40,7 +40,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 ```
 .
 ├─ 📄 docs/                 → Specs, authoring rules, design decisions
-├─ 🎯 skills/               → Reusable skill definitions (17 skills)
+├─ 🎯 skills/               → Reusable skill definitions (16 skills)
 ├─ 📚 knowledge/            → Global, project, and working knowledge
 ├─ 📋 templates/           → Starting points for new skills
 ├─ 🔌 adapters/            → Platform-specific guidance
@@ -61,8 +61,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 |---|---|---|---|
 | 🧭 | `using-skills` | Route a request to the right skill and mode | router |
 | 💡 | `brainstorming` | Explore ideas, lock decisions, write spec or extract requirements | `quick` · `spec` · `deep-explore` |
-| 🔎 | `xia` | Anti-reinvention scout — research-first feature discovery before implementation | `quick` · `standard` · `deep` |
-| 🔎 | `research` | Explore codebase, onboard to repo, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel` |
+| 🔎 | `research` | Explore codebase, onboard to repo, deep-scout feature discovery, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
 | 📐 | `planning` | Research → plan → validation gate before any code is written | full pipeline + Phase 8 validation |
 | 🚀 | `feature-delivery` | Implement, test-first, or refactor — all in one skill | `standard` · `tdd` · `refactor` |
 | 🐛 | `debug` | 4-phase systematic debugging with root cause investigation | + anionzo ecosystem extensions |
@@ -97,7 +96,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│ using-skills  │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│ using-skills  │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
 │    (router)   │     │  (if vague)   │     │(before impl)  │     │(validate gate)│
 └──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
                                                                        │
@@ -134,7 +133,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│using-anionzo │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│using-anionzo │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
 │  (bootstrap)  │     │(deep-explore)│     │(before impl) │     │(+ validation) │
 └──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
                                                                       │
@@ -168,8 +167,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 │     SKILL        │  MODES                                                               │
 ├──────────────────┼──────────────────────────────────────────────────────────────────────┤
 │ brainstorming    │ quick · spec · deep-explore                                         │
-│ xia              │ quick · standard · deep                                              │
-│ research         │ quick-search · repo-bootstrap · prompt-upgrade · codebase-intel       │
+│ research         │ quick-search · repo-bootstrap · deep-scout · prompt-upgrade · codebase-intel       │
 │ feature-delivery │ standard · tdd · refactor                                           │
 │ docs-writer      │ prompt-only · docs-execution · prompt+execution                     │
 │ code-review      │ verification-gate · giving · receiving                              │
@@ -184,11 +182,9 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 | `brainstorming` | `quick` | Lock direction only — no output artifact |
 | `brainstorming` | `spec` | Write full spec: FR/NFR/ACs/Given-When-Then |
 | `brainstorming` | `deep-explore` | Socratic dialogue + locked decisions + CONTEXT.md (anionzo) |
-| `xia` | `quick` | Fast check: repo contract + seam search + brief |
-| `xia` | `standard` | Default: repo map + local reuse + upstream + official docs + brief |
-| `xia` | `deep` | Cross-cutting, version-sensitive, or architecture-heavy work |
 | `research` | `quick-search` | Targeted lookup in known repo |
 | `research` | `repo-bootstrap` | Onboard to unfamiliar repo |
+| `research` | `deep-scout` | High-risk feature: map stack + local reuse + upstream patterns + official docs (HARD-GATE: no code before brief) |
 | `research` | `prompt-upgrade` | Refine rough prompt into execution-ready instruction |
 | `research` | `codebase-intel` | Use gkg MCP tools for architecture snapshot |
 | `feature-delivery` | `standard` | Normal feature implementation |

@@ -4,7 +4,7 @@
 
 **Thư viện skill đa agent, vendor-neutral cho kỹ thuật phần mềm hỗ trợ AI**
 
-[![Skills](https://img.shields.io/badge/skills-17-blue?style=flat-square&logo=bookstack)](../skills/)
+[![Skills](https://img.shields.io/badge/skills-16-blue?style=flat-square&logo=bookstack)](../skills/)
 [![Knowledge](https://img.shields.io/badge/knowledge-5_files-green?style=flat-square&logo=readme)](../knowledge/)
 [![Platforms](https://img.shields.io/badge/platforms-5_agents-purple?style=flat-square&logo=robot-framework)](../adapters/)
 [![License](https://img.shields.io/badge/license-MIT-yellow?style=flat-square)](../LICENSE)
@@ -40,7 +40,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 ```
 .
 ├─ 📄 docs/                 → Spec, quy tắc viết, quyết định thiết kế
-├─ 🎯 skills/               → Định nghĩa skill tái sử dụng (17 skills)
+├─ 🎯 skills/               → Định nghĩa skill tái sử dụng (16 skills)
 ├─ 📚 knowledge/            → Kiến thức global, project, working
 ├─ 📋 templates/           → Mẫu khởi tạo skill mới
 ├─ 🔌 adapters/             → Hướng dẫn cho từng nền tảng
@@ -61,8 +61,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 |---|---|---|---|
 | 🧭 | `using-skills` | Phân loại request, chọn đúng skill và mode | router |
 | 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec hoặc extract yêu cầu | `quick` · `spec` · `deep-explore` |
-| 🔎 | `xia` | Anti-reinvention scout — research-first feature discovery trước khi implement | `quick` · `standard` · `deep` |
-| 🔎 | `research` | Tìm hiểu codebase, onboard repo, nâng cấp prompt, codebase intel | `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel` |
+| 🔎 | `research` | Tìm hiểu codebase, onboard repo, deep-scout feature discovery, nâng cấp prompt, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
 | 📐 | `planning` | Research → plan → validation gate trước khi viết bất kỳ code nào | full pipeline + Phase 8 validation gate |
 | 🚀 | `feature-delivery` | Implement, test-first, hoặc refactor — tất cả trong một skill | `standard` · `tdd` · `refactor` |
 | 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc | + anionzo ecosystem extensions |
@@ -97,7 +96,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│ using-skills │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│ using-skills │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
 │   (router)   │     │ (nếu mơ hồ) │     │(before impl) │     │(validate gate│
 └──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
                                                                        │
@@ -134,7 +133,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│using-anionzo │────▶│ brainstorming │────▶│     xia      │────▶│   planning   │
+│using-anionzo │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
 │  (bootstrap) │     │(deep-explore)│     │(before impl) │     │(+ validation)│
 └──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
                                                                       │
@@ -168,8 +167,7 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 │     SKILL        │  MODES                                                               │
 ├──────────────────┼──────────────────────────────────────────────────────────────────────┤
 │ brainstorming    │ quick · spec · deep-explore                                         │
-│ xia              │ quick · standard · deep                                              │
-│ research         │ quick-search · repo-bootstrap · prompt-upgrade · codebase-intel       │
+│ research         │ quick-search · repo-bootstrap · deep-scout · prompt-upgrade · codebase-intel       │
 │ feature-delivery │ standard · tdd · refactor                                           │
 │ docs-writer      │ prompt-only · docs-execution · prompt+execution                      │
 │ code-review      │ verification-gate · giving · receiving                              │
@@ -184,14 +182,13 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 | `brainstorming` | `quick` | Chỉ khóa hướng đi — không output artifact |
 | `brainstorming` | `spec` | Viết spec đầy đủ: FR/NFR/ACs/Given-When-Then |
 | `brainstorming` | `deep-explore` | Socratic dialogue + khóa quyết định + CONTEXT.md (anionzo) |
-| `xia` | `quick` | Nhanh: repo contract + seam search + brief |
-| `xia` | `standard` | Mặc định: repo map + local reuse + upstream + official docs + brief |
-| `xia` | `deep` | Cross-cutting, version-sensitive, hoặc kiến trúc nặng |
 | `research` | `quick-search` | Tra cứu có mục tiêu trong repo quen |
 | `research` | `repo-bootstrap` | Onboard vào repo lạ |
+| `research` | `deep-scout` | Feature rủi ro cao: map stack + local reuse + upstream patterns + official docs (HARD-GATE: không code trước brief) |
 | `research` | `prompt-upgrade` | Nâng cấp prompt thô thành instruction sẵn dùng |
 | `research` | `codebase-intel` | Dùng gkg MCP tools cho architecture snapshot |
 | `feature-delivery` | `standard` | Implement feature bình thường |
+| `research` | `deep-scout` | Feature rủi ro cao: map stack + local reuse + upstream patterns + official docs (HARD-GATE: không code trước brief) |
 | `feature-delivery` | `tdd` | Test-first: red-green-refactor trước production code |
 | `feature-delivery` | `refactor` | Tái cấu trúc không đổi behavior |
 | `docs-writer` | `prompt-only` | Trả prompt đã nâng cấp, không execute |

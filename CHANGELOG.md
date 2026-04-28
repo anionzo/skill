@@ -10,18 +10,14 @@
 
 - **Consolidated skill design**: each skill now has explicit modes instead of separate files
   - `brainstorming`: `quick` · `spec` · `deep-explore`
-  - `xia`: `quick` · `standard` · `deep` (anti-reinvention scout)
   - `research`: `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel`
   - `feature-delivery`: `standard` · `tdd` · `refactor`
   - `docs-writer`: `prompt-only` · `docs-execution` · `prompt+execution`
   - `code-review`: `verification-gate` · `giving` · `receiving`
   - `extract`: `handoff` · `extract` · `compound` · `dream`
 
-- **New standalone skill `xia`**: anti-reinvention scout — research-first feature discovery with 5-step workflow (map repo → local reuse → upstream patterns → official docs → brief), MCP deps (exa + deepwiki), HARD-GATE blocking code before brief
 
 - **Canonical workflow diagrams**: redesigned with box-drawing characters for clean visual hierarchy
-  - General Purpose flow: using-skills → brainstorming → xia → planning → feature-delivery/debug/docs-writer → code-review → commit → extract
-  - Anionzo Ecosystem flow: using-anionzo → brainstorming → xia → planning (+ validation gate) → swarming → reviewing → extract (compound)
   - Skill Mode Map table and Mode Details table
 
 ### Skill Mergers
@@ -36,7 +32,7 @@
 | `brainstorming` | `exploring` |
 | `extract` | `compounding` + `dream` |
 | `planning` | `validating` (Phase 8 validation gate) |
-| `research` | `xia` (as deep-scout mode) + `gkg` + `prompt-leverage` |
+| `research` | absorbed gkg + prompt-leverage (xia merged as deep-scout mode) |
 
 ### New Skills Added
 

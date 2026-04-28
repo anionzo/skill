@@ -26,8 +26,7 @@ Load this skill when:
 | Skill | Purpose | Key Modes |
 |---|---|---|
 | `brainstorming` | Explore ideas, lock decisions, write spec, or extract locked decisions (Socratic) | `quick` · `spec` · `deep-explore` |
-| `xia` | Anti-reinvention scout — research-first feature discovery before implementation | `quick` · `standard` · `deep` |
-| `research` | Explore codebase, onboard to repo, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel` |
+| `research` | Explore codebase, onboard to repo, deep-scout feature discovery, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
 | `planning` | Research → plan → phase execution → validation gate before code is written | full pipeline with Phase 8 validation gate |
 | `feature-delivery` | Implement, TDD, or refactor | `standard` · `tdd` · `refactor` |
 | `debug` | Systematic root cause investigation and fix | 4-phase + anionzo ecosystem extensions |
@@ -48,7 +47,7 @@ Load this skill when:
 ## Canonical Workflow
 
 ```
-brainstorming ──► xia ──► planning ──► feature-delivery
+brainstorming ──► research ──► planning ──► feature-delivery
      (if vague)    (before implement)              debug
                                                         docs-writer
                                                            │
@@ -62,7 +61,7 @@ brainstorming ──► xia ──► planning ──► feature-delivery
 **For anionzo projects**, the extended pipeline is:
 
 ```
-using-anionzo ──► brainstorming ──► xia ──► planning (+ validation gate)
+using-anionzo ──► brainstorming ──► research ──► planning (+ validation gate)
 ──► swarming (orchestrate workers) ──► reviewing ──► extract (compound mode)
 ```
 
@@ -74,9 +73,7 @@ using-anionzo ──► brainstorming ──► xia ──► planning (+ valida
 | Vague idea, unclear goal, tradeoff exploration | `brainstorming` (quick or spec mode) → `planning` |
 | Need to understand existing code before acting | `research` (quick-search or repo-bootstrap) |
 | Unfamiliar repo, new session context | `research` (repo-bootstrap mode) |
-| High-risk or ambiguous feature in unfamiliar stack | `xia` (standard or deep mode) |
 | Rough prompt needs upgrading | `research` (prompt-upgrade mode) |
-| High-risk feature: map stack + find reuse + check upstream + verify docs | `xia` (standard or deep mode) |
 | Complex feature needing locked decisions + spec | `brainstorming` (spec mode) → `planning` |
 | Clear feature or behavior change | `planning` → `feature-delivery` (standard mode) |
 | Bug fix, failing test, error trace, regression | `debug` |

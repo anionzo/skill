@@ -1,12 +1,12 @@
 ---
 name: research
 description: >-
-  Comprehensive research skill for codebase exploration, repository onboarding, and prompt
-  strengthening. Use for: (1) quick-search: targeted lookup in a known repo; (2) repo-bootstrap:
-  onboard to an unfamiliar repository using source-first investigation; (3) prompt-upgrade:
-  strengthen a rough prompt into an execution-ready instruction set; (4) codebase-intel:
-  architecture snapshot and code discovery using gkg MCP tools in supported Anionzo repos.
-  For evaluating whether something should become a skill, use the xia skill instead.
+  Comprehensive research skill for codebase exploration, repository onboarding, prompt strengthening,
+  and anti-reinvention discovery. Use for: (1) quick-search: targeted lookup in a known repo;
+  (2) repo-bootstrap: onboard to an unfamiliar repository; (3) deep-scout: research-first feature
+  discovery — map repo stack, find local reuse, check upstream patterns via deepwiki, verify official
+  docs via exa before planning or implementing; (4) prompt-upgrade: strengthen a rough prompt into
+  an execution-ready instruction set; (5) codebase-intel: architecture snapshot using gkg MCP tools.
 metadata:
   dependencies:
     - id: exa
