@@ -9,23 +9,49 @@ metadata:
 
 If `.anionzo/onboarding.json` is missing or stale for the current repo, stop and invoke `anionzo:using-anionzo` before continuing.
 
-## Overview
+## Purpose
 
-Skills are code. They have bugs. Test them before deploying.
-
-This is the TDD-for-skills methodology adapted from Superpowers (N=28,000 scale testing confirms persuasion-optimized skills produce 3-4× better agent compliance than plain instructions).
+Enforce TDD-for-skills methodology: write pressure scenarios BEFORE SKILL.md content. Agent skills need testing under realistic pressure — not just academic validation. The skill produces bulletproof SKILL.md that survives rationalization.
 
 **THE IRON LAW: NO SKILL WITHOUT A FAILING TEST FIRST.**
 Write skill before testing? Delete it. Start over. No exceptions — not for "simple additions," not for "just a section," not for "reference only."
 
-## When to Use
+## When To Use
 
 Use this skill when you are about to:
 - Create any new skill for the anionzo ecosystem
 - Edit an existing skill (even a small section)
 - Deploy a skill and want confidence it works under pressure
+- Validate that an existing skill is bulletproof
 
 When NOT to use: AGENTS.md files, project-specific conventions, one-off prompt instructions.
+
+## Output Format
+
+Each phase produces specific artifacts:
+
+**Phase 1 — RED output:**
+```
+Scenario: [name]
+Combined pressures: [list]
+Exact violation: [what agent chose]
+Exact rationalization (verbatim): "[quote]"
+```
+
+**Phase 2 — GREEN output:**
+- Complete `SKILL.md` with YAML frontmatter
+- Section structure: Purpose → When To Use → Output Format → Red Flags → Done Criteria
+- Shared Output Contract reference in References
+
+**Phase 3 — REFACTOR output:**
+- Updated `SKILL.md` with explicit negation of new rationalizations
+- Red flags list expanded
+
+**Phase 4 — VALIDATE output:**
+- Validation script output (pass/fail)
+- `CREATION-LOG.md` documenting full TDD process
+
+---
 
 ## The Core Cycle: RED → GREEN → REFACTOR
 
@@ -170,7 +196,7 @@ If the edited skill owns a repo-local test script, run that too.
 
 ---
 
-## Red Flags — STOP and Run Baseline Tests
+## Red Flags
 
 - Writing skill content before creating any pressure scenarios
 - "I already know what agents will do"
@@ -182,6 +208,72 @@ If the edited skill owns a repo-local test script, run that too.
 - "The skill was good last month, edits don't need testing"
 
 **All of these mean: Stop. Run baseline tests first.**
+
+---
+
+## Done Criteria
+
+> ✅ All items satisfied = skill ready to deploy.
+
+- [ ] Phase 1 RED complete: 3–5 pressure scenarios run WITHOUT skill, rationalizations documented verbatim
+- [ ] Phase 2 GREEN complete: SKILL.md written addressing all documented rationalizations
+- [ ] Phase 2 GREEN verified: all scenarios pass WITH skill present
+- [ ] Phase 3 REFACTOR complete: no new rationalizations after re-testing
+- [ ] Meta-test passed: agent cites specific skill sections when complying
+- [ ] YAML frontmatter valid: name matches directory, description starts with "Use when..."
+- [ ] SKILL.md body lean: < 400 lines, overflow in `references/`
+- [ ] All persuasion principles applied (Authority, Commitment, Scarcity, Social Proof, Unity)
+- [ ] HARD-GATE markers present on critical stops
+- [ ] CREATION-LOG.md created documenting full TDD process
+- [ ] **Outputs follow the Shared Output Contract:** `Goal/Result → Key Details → Next Action`
+
+---
+
+## Shared Output Contract
+
+All skill outputs must follow this contract. Every skill in this repo adheres to it.
+
+### Structure
+
+Every response should contain exactly three parts:
+
+1. **Goal / Result** — What was accomplished or decided
+2. **Key Details** — Specific findings, options, or decisions with reasoning
+3. **Next Action** — Clear next step with direction to the appropriate agent or workflow
+
+### Rules
+
+| Rule | What it means |
+|---|---|
+| No header needed | Avoid repeating "Goal:" labels; structure is implicit |
+| Keep parts short | Each should be a single paragraph or bullet list |
+| No floating text | Anything not in one of the three parts is noise — cut it |
+| Next Action is mandatory | Never end with an open loop; always point to next step |
+| Key Details > Key Opinions | Prefer observable facts over preferences |
+
+### Examples
+
+**Good (all three parts present):**
+
+```
+## Decided: Use SQLite for local cache
+
+- Write small (< 50k records), simple queries, no concurrent writes
+- Benchmark: 10k reads/s, 2ms latency — sufficient for this use case
+- Migration cost: ~4 hours for existing data
+
+Next: Proceed with SQLite implementation; I will handle the schema migration.
+```
+
+**Bad (missing Next Action):**
+
+```
+## Decided: Use SQLite
+
+Benchmark shows 10k reads/s. Should be sufficient.
+
+*We could also consider Redis if performance becomes an issue later.*
+```
 
 ---
 

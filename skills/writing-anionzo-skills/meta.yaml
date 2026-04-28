@@ -1,0 +1,25 @@
+name: writing-anionzo-skills
+version: 0.2.0
+category: meta
+summary: TDD-for-skills methodology — write failing pressure scenarios first, then write minimal SKILL.md that addresses agent rationalizations.
+summary_vi: "Phương pháp TDD cho skill — viết pressure scenario fail trước, rồi viết SKILL.md tối thiểu giải quyết agent rationalizations."
+triggers:
+  - create a new anionzo skill
+  - edit an existing anionzo skill
+  - test a skill before deploying
+  - verify skill compliance under pressure
+inputs:
+  - skill idea or existing SKILL.md to edit
+  - target agent behavior to enforce
+outputs:
+  - SKILL.md with TDD methodology
+  - CREATION-LOG.md documenting process
+  - pressure scenarios and results
+constraints:
+  - never write skill content before creating pressure scenarios
+  - always run baseline test WITHOUT skill first
+  - description must start with "Use when..." and contain triggering conditions only
+  - all skill outputs follow Shared Output Contract
+related_skills:
+  - planning
+  - code-review
