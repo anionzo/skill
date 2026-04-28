@@ -36,7 +36,8 @@ Load this skill when:
 | `extract` | Extract learnings, session handoff, deep compounding, or dream consolidation | `handoff` · `extract` · `compound` · `dream` |
 | `using-anionzo` | Bootstrap anionzo ecosystem: onboarding, STATE.md, full go-mode pipeline | anionzo projects only |
 
-**Domain skills** (load only when task matches):
+**Standalone Skills**
+> Secondary — load only when the task matches (load only when task matches):
 
 | Skill | When to load |
 |---|---|

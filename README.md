@@ -21,10 +21,6 @@
 
 > 🎯 Keep repeatable AI workflows in one place. Separate skills from knowledge. Work across any agent.
 
-This repo provides a curated library of AI agent skills for software engineering. It balances portability (skills that work in any project) with ecosystem depth (anionzo workflow for structured multi-agent execution).
-
-The library follows a **consolidated design**: overlapping workflows are merged into unified skills with explicit modes, not split into many files that agents must choose between. Every skill follows the same output contract (Goal/Result → Key Details → Next Action) and the same workflow handoff pattern.
-
 ### 🏗️ Design Goals
 
 | | Goal |
@@ -35,42 +31,55 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 | 🔹 | Works without any custom plugin runtime (general skills) |
 | 🔹 | Anionzo ecosystem skills extend the core with structured workflows |
 
-### 📁 Repository Layout
-
-```
-.
-├─ 📄 docs/                 → Specs, authoring rules, design decisions
-├─ 🎯 skills/               → Reusable skill definitions (16 skills)
-├─ 📚 knowledge/            → Global, project, and working knowledge
-├─ 📋 templates/           → Starting points for new skills
-├─ 🔌 adapters/            → Platform-specific guidance
-├─ ⚙️ scripts/              → Validation and sync helpers
-├─ 🌐 i18n/                 → Vietnamese translations
-└─ 📦 generated/           → Auto-generated output (gitignored)
-```
-
 ---
 
 ## 🎯 Skill Catalog
 
-**17 skills** across three tiers: General Purpose, Anionzo Ecosystem, and Domain-Specific.
+**16 skills** in three categories: **Core Chain**, **Anionzo Chain**, and **Standalone**.
 
-### General Purpose (works in any project)
+### ═══════════════════════════════════════════════════
+###  🧩 Core Chain
+###  Primary workflow — works in any project
+### ═══════════════════════════════════════════════════
 
-| | Skill | Purpose | Key Modes |
+```
+using-skills → brainstorming → research → planning → feature-delivery
+     (router)        (if vague)    (before impl)     │
+                                                  ┌──┴──┐
+                                                  ▼     ▼
+                                            debug  docs-writer
+                                                  │
+                                             code-review
+                                                  │
+                                                commit
+                                                  │
+                                               extract
+```
+
+| | Skill | Purpose | Modes |
 |---|---|---|---|
 | 🧭 | `using-skills` | Route a request to the right skill and mode | router |
-| 💡 | `brainstorming` | Explore ideas, lock decisions, write spec or extract requirements | `quick` · `spec` · `deep-explore` |
-| 🔎 | `research` | Explore codebase, onboard to repo, deep-scout feature discovery, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
-| 📐 | `planning` | Research → plan → validation gate before any code is written | full pipeline + Phase 8 validation |
-| 🚀 | `feature-delivery` | Implement, test-first, or refactor — all in one skill | `standard` · `tdd` · `refactor` |
+| 💡 | `brainstorming` | Explore ideas, lock decisions, write spec | `quick` · `spec` · `deep-explore` |
+| 🔎 | `research` | Explore codebase, onboard repo, deep-scout feature discovery, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
+| 📐 | `planning` | Research → plan → validation gate before any code is written | full pipeline + Phase 8 validation gate |
+| 🚀 | `feature-delivery` | Implement, test-first, or refactor | `standard` · `tdd` · `refactor` |
 | 🐛 | `debug` | 4-phase systematic debugging with root cause investigation | + anionzo ecosystem extensions |
-| 📖 | `docs-writer` | Create or update any documentation from verified source behavior | `prompt-only` · `docs-execution` · `prompt+execution` |
-| 🔍 | `code-review` | Give reviews, receive reviews, verify before claiming done | verification gate · giving · receiving |
+| 📖 | `docs-writer` | Create or update documentation from verified source behavior | `prompt-only` · `docs-execution` · `prompt+execution` |
+| 🔍 | `code-review` | Give reviews, receive reviews, verify before claiming done | `verification-gate` · `giving` · `receiving` |
 | 📝 | `commit` | Create clean conventional commits with staged review | — |
-| 🧬 | `extract` | Extract durable learnings, session handoff, deep compounding, dream consolidation | `handoff` · `extract` · `compound` · `dream` |
+| 🧬 | `extract` | Extract learnings, session handoff, deep compounding, dream consolidation | `handoff` · `extract` · `compound` · `dream` |
 
-### Anionzo Ecosystem (structured multi-agent workflow)
+---
+
+### ═══════════════════════════════════════════════════
+###  ⚙️  Anionzo Chain
+###  Structured multi-agent workflow — anionzo ecosystem only
+### ═══════════════════════════════════════════════════
+
+```
+using-anionzo → brainstorming → research → planning → swarming → reviewing → extract
+   (bootstrap)      (deep-explore)   (+ validation gate)   (workers)    (5-agent verify)    (compound)
+```
 
 | | Skill | Purpose | Position |
 |---|---|---|---|
@@ -78,104 +87,38 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 | 🐝 | `swarming` | Orchestrate parallel worker agents with rescue coordination | phase 5 of 9 |
 | 📋 | `reviewing` | Post-execution verification: 5 specialist agents + artifact checks + human UAT | phase 7 of 9 |
 
-### Domain-Specific (load only when task matches)
+---
+
+### ═══════════════════════════════════════════════════
+###  🔧 Standalone Skills
+###  Secondary — load only when the task matches
+### ═══════════════════════════════════════════════════
+
+> Standalone skills remain available, but they are intentionally secondary to the Core and Anionzo chains in this repo's top-level narrative.
 
 | | Skill | Purpose |
-|---|---|
+|---|---|---|
 | 🎨 | `animated-landing-pages` | Motion-first landing page with AI-generated visuals |
 | 📚 | `book-sft-pipeline` | Fine-tune models on book style: ePub → SFT dataset → LoRA training |
 | 🛠️ | `writing-anionzo-skills` | Create or edit anionzo skills using TDD methodology |
 
 ---
 
-## 🔄 Canonical Workflows
-
-### ═══════════════════════════════════════
-###  General Purpose — Flow
-### ═══════════════════════════════════════
+### Skill Modes at a Glance
 
 ```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│ using-skills  │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
-│    (router)   │     │  (if vague)   │     │(before impl)  │     │(validate gate)│
-└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
-                                                                       │
-                              ┌──────────────────────────────────────────┤
-                              │                                          │
-                              ▼                                          ▼
-                   ┌──────────────────┐                    ┌──────────────┐
-                   │ feature-delivery  │                    │     debug     │
-                   │(standard│tdd│ref) │                    │  4-phase fix  │
-                   └────────┬─────────┘                    └──────┬───────┘
-                            │                                       │
-                            └───────────────┬───────────────────────┘
-                                            ▼
-                                 ┌──────────────────┐
-                                 │   code-review    │
-                                 │(verify│give│recv)│
-                                 └────────┬─────────┘
-                                          │
-                                          ▼
-                                 ┌──────────────────┐
-                                 │      commit      │
-                                 └────────┬─────────┘
-                                          │
-                                          ▼
-                                 ┌──────────────────┐
-                                 │     extract      │
-                                 │(handoff│extract) │
-                                 └──────────────────┘
+┌──────────────────┬──────────────────────────────────────────────────────┐
+│     SKILL         │  MODES                                                   │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ brainstorming    │ quick · spec · deep-explore                              │
+│ research         │ quick-search · repo-bootstrap · deep-scout · prompt-upgrade │
+│                  │   · codebase-intel                                        │
+│ feature-delivery │ standard · tdd · refactor                               │
+│ docs-writer      │ prompt-only · docs-execution · prompt+execution          │
+│ code-review      │ verification-gate · giving · receiving                 │
+│ extract          │ handoff · extract · compound · dream                   │
+└──────────────────┴──────────────────────────────────────────────────────┘
 ```
-
-### ═══════════════════════════════════════
-###  Anionzo Ecosystem — Flow
-### ═══════════════════════════════════════
-
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│using-anionzo │────▶│ brainstorming │────▶│  research     │────▶│   planning   │
-│  (bootstrap)  │     │(deep-explore)│     │(before impl) │     │(+ validation) │
-└──────────────┘     └──────────────┘     └──────────────┘     └───────┬──────┘
-                                                                      │
-                                                                      ▼
-                                                             ┌──────────────┐
-                                                             │   swarming   │
-                                                             │(orchestrate  │
-                                                             │  workers)    │
-                                                             └───────┬──────┘
-                                                                     │
-                                                                     ▼
-                                                             ┌──────────────┐
-                                                             │   reviewing  │
-                                                             │(5-agent verify│
-                                                             │ + human UAT)  │
-                                                             └───────┬──────┘
-                                                                     │
-                                                                     ▼
-                                                             ┌──────────────┐
-                                                             │    extract    │
-                                                             │ (compound)    │
-                                                             └──────────────┘
-```
-
-### ═══════════════════════════════════════
-###  Skills at a Glance — Mode Map
-### ═══════════════════════════════════════
-
-```
-┌──────────────────┬──────────────────────────────────────────────────────────────────────┐
-│     SKILL        │  MODES                                                               │
-├──────────────────┼──────────────────────────────────────────────────────────────────────┤
-│ brainstorming    │ quick · spec · deep-explore                                         │
-│ research         │ quick-search · repo-bootstrap · deep-scout · prompt-upgrade · codebase-intel       │
-│ feature-delivery │ standard · tdd · refactor                                           │
-│ docs-writer      │ prompt-only · docs-execution · prompt+execution                     │
-│ code-review      │ verification-gate · giving · receiving                              │
-│ extract          │ handoff · extract · compound · dream                                 │
-└──────────────────┴──────────────────────────────────────────────────────────────────────┘
-```
-
-### Mode Details
 
 | Skill | Mode | When to use |
 |---|---|---|
@@ -184,7 +127,7 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 | `brainstorming` | `deep-explore` | Socratic dialogue + locked decisions + CONTEXT.md (anionzo) |
 | `research` | `quick-search` | Targeted lookup in known repo |
 | `research` | `repo-bootstrap` | Onboard to unfamiliar repo |
-| `research` | `deep-scout` | High-risk feature: map stack + local reuse + upstream patterns + official docs (HARD-GATE: no code before brief) |
+| `research` | `deep-scout` | High-risk feature: map stack + local reuse + upstream + official docs (HARD-GATE: no code before brief) |
 | `research` | `prompt-upgrade` | Refine rough prompt into execution-ready instruction |
 | `research` | `codebase-intel` | Use gkg MCP tools for architecture snapshot |
 | `feature-delivery` | `standard` | Normal feature implementation |
@@ -248,7 +191,7 @@ npx @anionzo/skill --platform opencode,agents
 - **Windows**: Uses PowerShell automatically (`.cmd` + `.mjs` + `.ps1`)
 - **Linux/macOS**: Uses bash script
 
-> **Version 1.10.0+** required for full Windows support.
+> **Version 2.0.0** required.
 
 ```powershell
 npm cache clean --force
@@ -336,7 +279,7 @@ For anionzo ecosystem skills, also read `skills/writing-anionzo-skills/SKILL.md`
 We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 
 - ➕ How to add a new skill
-- ✏️ How to edit existing skills (follow TDD-for-skills methodology for anionzo ecosystem skills)
+- ✏️ How to edit existing skills
 - 📚 How to contribute knowledge
 - 🔄 Pull request process and conventions
 
@@ -347,6 +290,7 @@ We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 - `generated/` is gitignored — regenerate after any skill/knowledge change
 - General skills (no deps) work in any project without plugins
 - Anionzo ecosystem skills require `.anionzo/` onboarding (run `anionzo init` first)
+- Standalone skills are secondary to the Core and Anionzo chains
 - All skills follow the Shared Output Contract: `Goal/Result → Key Details → Next Action`
 
 ---
