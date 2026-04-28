@@ -61,7 +61,8 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 |---|---|---|---|
 | 🧭 | `using-skills` | Phân loại request, chọn đúng skill và mode | router |
 | 💡 | `brainstorming` | Khám phá ý tưởng, khóa quyết định, viết spec hoặc extract yêu cầu | `quick` · `spec` · `deep-explore` |
-| 🔎 | `research` | Tìm hiểu codebase, onboard repo, scout web, nâng cấp prompt, codebase intel | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
+| 🔎 | `xia` | Anti-reinvention scout — research-first feature discovery trước khi implement | `quick` · `standard` · `deep` |
+| 🔎 | `research` | Tìm hiểu codebase, onboard repo, nâng cấp prompt, codebase intel | `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel` |
 | 📐 | `planning` | Research → plan → validation gate trước khi viết bất kỳ code nào | full pipeline + Phase 8 validation gate |
 | 🚀 | `feature-delivery` | Implement, test-first, hoặc refactor — tất cả trong một skill | `standard` · `tdd` · `refactor` |
 | 🐛 | `debug` | Gỡ lỗi hệ thống 4 giai đoạn với điều tra nguyên nhân gốc | + anionzo ecosystem extensions |
@@ -93,8 +94,8 @@ Thư viện theo tư duy **consolidated**: các workflow chồng lắp được 
 ### General Purpose
 
 ```
-using-skills ──► brainstorming ──► research ──► planning
-     (router)        (nếu mơ hồ)      (nếu cần)         │
+using-skills ──► brainstorming ──► xia ──► planning
+     (router)        (nếu mơ hồ)    (before impl)         │
                                                  ┌─────┴─────┐
                                                  ▼           ▼
                                           feature-delivery    debug
@@ -118,8 +119,8 @@ using-skills ──► brainstorming ──► research ──► planning
 ### Anionzo Ecosystem
 
 ```
-using-anionzo ──► brainstorming ──► research ──► planning (+ validation gate)
-      (bootstrap)      (deep-explore)                    │
+using-anionzo ──► brainstorming ──► xia ──► planning (+ validation gate)
+      (bootstrap)      (deep-explore)        │
                                                          ▼
                                                     swarming
                                                (orchestrate workers)
@@ -142,9 +143,11 @@ using-anionzo ──► brainstorming ──► research ──► planning (+ v
 | `brainstorming` | `quick` | Chỉ khóa hướng đi, không output artifact |
 | `brainstorming` | `spec` | Viết spec đầy đủ: FR/NFR/ACs/Scenarios |
 | `brainstorming` | `deep-explore` | Socratic dialogue + xuất CONTEXT.md (anionzo) |
+| `xia` | `quick` | Nhanh: repo contract + seam search + brief |
+| `xia` | `standard` | Mặc định: repo map + local reuse + upstream + official docs + brief |
+| `xia` | `deep` | Cross-cutting, version-sensitive, hoặc kiến trúc nặng |
 | `research` | `quick-search` | Tra cứu có mục tiêu trong repo quen |
 | `research` | `repo-bootstrap` | Onboard vào repo lạ |
-| `research` | `deep-scout` | Feature rủi ro cao: local + upstream + web docs |
 | `research` | `prompt-upgrade` | Nâng cấp prompt thô thành instruction sẵn dùng |
 | `research` | `codebase-intel` | Dùng gkg MCP tools cho architecture snapshot |
 | `feature-delivery` | `standard` | Implement feature bình thường |

@@ -61,7 +61,8 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 |---|---|---|---|
 | 🧭 | `using-skills` | Route a request to the right skill and mode | router |
 | 💡 | `brainstorming` | Explore ideas, lock decisions, write spec or extract requirements | `quick` · `spec` · `deep-explore` |
-| 🔎 | `research` | Explore codebase, onboard to repo, web scout, upgrade prompts | `quick-search` · `repo-bootstrap` · `deep-scout` · `prompt-upgrade` · `codebase-intel` |
+| 🔎 | `xia` | Anti-reinvention scout — research-first feature discovery before implementation | `quick` · `standard` · `deep` |
+| 🔎 | `research` | Explore codebase, onboard to repo, upgrade prompts, codebase intel | `quick-search` · `repo-bootstrap` · `prompt-upgrade` · `codebase-intel` |
 | 📐 | `planning` | Research → plan → validation gate before any code is written | full pipeline + Phase 8 validation |
 | 🚀 | `feature-delivery` | Implement, test-first, or refactor — all in one skill | `standard` · `tdd` · `refactor` |
 | 🐛 | `debug` | 4-phase systematic debugging with root cause investigation | + anionzo ecosystem extensions |
@@ -93,8 +94,8 @@ The library follows a **consolidated design**: overlapping workflows are merged 
 ### General Purpose
 
 ```
-using-skills ──► brainstorming ──► research ──► planning
-     (router)        (if vague)      (if needed)       │
+using-skills ──► brainstorming ──► xia ──► planning
+     (router)        (if vague)    (before impl)    │
                                                   ┌─────┴─────┐
                                                   ▼           ▼
                                             feature-delivery    debug
@@ -118,9 +119,9 @@ using-skills ──► brainstorming ──► research ──► planning
 ### Anionzo Ecosystem
 
 ```
-using-anionzo ──► brainstorming ──► research ──► planning (+ validation gate)
-      (bootstrap)    (deep-explore)                 │
-                                                    ▼
+using-anionzo ──► brainstorming ──► xia ──► planning (+ validation gate)
+      (bootstrap)    (deep-explore)        │
+                                           ▼
                                                swarming
                                            (orchestrate workers)
                                                     │
@@ -142,9 +143,11 @@ using-anionzo ──► brainstorming ──► research ──► planning (+ v
 | `brainstorming` | `quick` | Lock direction only, no output artifact |
 | `brainstorming` | `spec` | Write full spec: FR/NFR/ACs/Scenarios |
 | `brainstorming` | `deep-explore` | Socratic dialogue + CONTEXT.md output (anionzo) |
+| `xia` | `quick` | Fast: repo contract + seam search + brief |
+| `xia` | `standard` | Default: repo map + local reuse + upstream + official docs + brief |
+| `xia` | `deep` | Cross-cutting, version-sensitive, or architecture-heavy work |
 | `research` | `quick-search` | Targeted lookup in known repo |
 | `research` | `repo-bootstrap` | Onboard to unfamiliar repo |
-| `research` | `deep-scout` | High-risk feature: local + upstream + web docs |
 | `research` | `prompt-upgrade` | Refine rough prompt into execution-ready instruction |
 | `research` | `codebase-intel` | Use gkg MCP tools for architecture snapshot |
 | `feature-delivery` | `standard` | Normal feature implementation |
