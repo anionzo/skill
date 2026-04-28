@@ -49,11 +49,20 @@ jobs:
 
       - name: Check GitHub Packages version
         id: ghpkg
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          if npm view @anionzo/skill@"$VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
-            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          # Check if already on npmjs first (published successfully in previous step)
+          if npm view @anionzo/skill@"$VERSION" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            # Already on npmjs, check if also on GitHub Packages
+            if npm view @anionzo/skill@"$VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+              echo "already_published=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "already_published=false" >> "$GITHUB_OUTPUT"
+            fi
           else
+            # Not on npmjs yet, GitHub Packages check likely wrong - assume false and let npmjs publish first
             echo "already_published=false" >> "$GITHUB_OUTPUT"
           fi
 
