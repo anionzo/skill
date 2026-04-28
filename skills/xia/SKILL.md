@@ -293,6 +293,8 @@ Stop and correct course immediately if you catch yourself doing any of these:
 
 If the brief does not clearly answer "what exists, what is reusable, what the docs say, and what path to take," it is not done yet.
 
+
 ## References
 
+- `references/research-brief-template.md` — required brief structure before implementation
 - `references/pressure-scenarios.md` — pressure tests for future RED/GREEN validation of this skill
