@@ -1,7 +1,7 @@
 {
   "name": "@anionzo/skill",
-  "version": "1.10.0",
-  "description": "Personal AI Skill Library — vendor-neutral, multi-agent skill library for AI-powered software engineering",
+  "version": "2.0.0",
+  "description": "Personal AI Skill Library — 17 vendor-neutral skills for AI-powered software engineering. Consolidated design with explicit modes, canonical workflows, and anionzo ecosystem support.",
   "bin": {
     "skill": "scripts/anionzo.mjs",
     "anionzo": "scripts/anionzo.mjs",
