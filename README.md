@@ -35,6 +35,17 @@
 
 ## 🎯 Skill Catalog
 
+### 🔧 Tool Dependencies
+
+| Tool | Type | Purpose |
+|---|---|---|
+| `br` / `bv` | Core | Beads planning and visualization |
+| Agent Mail MCP | Core | Inter-agent messaging for swarming |
+| `gkg` | Optional | Codebase intelligence |
+| `CASS` / `CM` | Optional | Session search and context |
+
+> See `tools/` for full tool documentation.
+
 **16 skills** in three categories: **Core Chain**, **Anionzo Chain**, and **Standalone**.
 
 ### ═══════════════════════════════════════════════════

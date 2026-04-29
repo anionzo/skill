@@ -6,6 +6,8 @@ The actual generated files are written to `generated/` by `bash scripts/sync-pla
 
 Generated files now reference `.anionzo/...` paths. If you use the manual source-repo flow, copy the shared library content into `.anionzo/` in the target repo too, or use `npx @anionzo/skill` for the self-contained installer flow.
 
+**Tools:** External tool documentation is in `tools/` (br/bv, Agent Mail MCP, gkg, CASS/CM).
+
 Current targets:
 
 - `claude-code/` -> `CLAUDE.md`
