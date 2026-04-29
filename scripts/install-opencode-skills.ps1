@@ -370,9 +370,10 @@ if (-not [string]::IsNullOrWhiteSpace($Platform)) {
     }
 
     Invoke-SelectedInstall $selected
-} else {
+}
+else {
     # Silent mode (postinstall)
-    Write-Host "`n  @anionzo/skill — AI Skill Library" -ForegroundColor Cyan
+    Write-Host "`n  @anionzo/skill - AI Skill Library" -ForegroundColor Cyan
     Write-Host "  ==================================`n" -ForegroundColor Cyan
     Write-Host "  Installing skills (postinstall)...`n" -ForegroundColor Green
 
